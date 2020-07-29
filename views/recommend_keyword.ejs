@@ -1,0 +1,21 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>[유저 
+        <%= keyword[0].usn %> 
+    의 추천 키워드 정보]</h1>
+    
+    <h2>
+    <% for(var key of keyword){ %>
+        <%= key.keyword_name %>
+        <br>
+    <% } %>
+    </h2>
+</body>
+
+</html> 

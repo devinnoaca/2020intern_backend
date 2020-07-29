@@ -1,0 +1,25 @@
+<!-- 
+    data print
+
+    디버깅 할 때 효율적으로 
+    로그 체크 
+    
+-->
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>[유저 
+        <%= user.usn %>     
+    의 정보]</h1>
+    <h2>유저의 ID: <%= user.usn %></h2>
+    <h2>유저의 email: <%= user.email %></h2>
+    <h2>유저의 name: <%= user.name %></h2>
+    <h2>유저의 description: <%= user.description %></h2>
+    <h2>유저의 company: <%= user.company %></h2>
+    <h2>유저의 확인 하지 않은 알림 수: <%= user.notiCount %></h2>
+</body>
+</html>
