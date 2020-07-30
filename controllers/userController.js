@@ -10,7 +10,8 @@ exports.getUsers = async (req, res, next) => {
         let users = await user.getUser(usn);
 
         // return res.send({user: users[0], career: [...careers]});
-        return res.render('user', {user: users[0]});
+        // return res.render('user', {user: users[0]});
+        res.json(users[0][0]);
     } catch (err) {
         return res.status(500).json(err)
     }

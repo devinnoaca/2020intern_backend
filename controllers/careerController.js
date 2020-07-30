@@ -11,7 +11,8 @@ exports.getUserCareer = async (req, res, next) => {
     for (let i = 0; i < career[0].length; i++) {
       careers.add(career[0][i].career);
     }
-    return res.render('career', {usn: usn, career: [...careers]});
+    return res.send([...career[0]]);
+    //return res.render('career', {usn: usn, career: [...careers]});
   } catch (err) {
     return res.status(500).json(err);
   }
