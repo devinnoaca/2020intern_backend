@@ -4,7 +4,6 @@ const userQuery = require('../queries/userQuery')
 exports.getUser = async (usn) => {
     try {
         let data = await pool.query(userQuery.getUser, [usn]);
-        console.log(data);
         return data;
     } catch (err) {
         console.log(err)
