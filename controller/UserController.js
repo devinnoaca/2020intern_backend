@@ -14,6 +14,7 @@ module.exports = {
   doGetTotalKeyword: (req, res, next) => {
     let id = req.params.usn;
     Keyword.total_get(id, (err, Keyword) => {
+      console.log(Keyword);
       res.render('total_keyword', { 
         keyword: Keyword
       });

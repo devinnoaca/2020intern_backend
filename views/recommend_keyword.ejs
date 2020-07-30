@@ -7,12 +7,12 @@
 
 <body>
     <h1>[유저 
-        <%= keyword[0].usn %> 
+        <%= keyword[0].userName %> 
     의 추천 키워드 정보]</h1>
     
     <h2>
     <% for(var key of keyword){ %>
-        <%= key.recommend_keyword_name %>
+        <%= key.keyword_name %>
         <br>
     <% } %>
     </h2>

@@ -1,5 +1,5 @@
 let mysql = require('mysql');
-let config = require('./db_info').inpyeong;
+let config = require('./db_info').innoacca;
 
 module.exports = () => {
   return {

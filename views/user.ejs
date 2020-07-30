@@ -13,11 +13,12 @@
 </head>
 <body>
     <h1>[유저 
-        <%= user.usn %>     
+        <%= user.USN %>
+        (<%= user.userName %>)   
     의 정보]</h1>
-    <h2>유저의 ID: <%= user.usn %></h2>
+    <h2>유저의 ID: <%= user.ID %></h2>
     <h2>유저의 email: <%= user.email %></h2>
-    <h2>유저의 name: <%= user.name %></h2>
+    <h2>유저의 name: <%= user.userName %></h2>
     <h2>유저의 description: <%= user.description %></h2>
     <h2>유저의 company: <%= user.company %></h2>
     <h2>유저의 확인 하지 않은 알림 수: <%= user.notiCount %></h2>

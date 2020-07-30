@@ -8,12 +8,12 @@ module.exports = (() => {
       database: 'service',
       multipleStatements: true,
     },
-    inpyeong: {
+    innoacca: {
       host: 'localhost',
       port: '3306',
       user: 'root',
-      password: '0824',
-      database: 'innovation',
+      password: 'enffl95',
+      database: 'innoacca',
       multipleStatements: true,
     },
   }

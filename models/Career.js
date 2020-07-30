@@ -4,7 +4,11 @@ mysql_abc.connect(connection);
 
 module.exports = {
   get: (usn, callback) => {
-    let query = `SELECT * FROM CAREER WHERE usn = ?`
+    let query = 
+    `SELECT * FROM Career 
+    JOIN User 
+    ON career_usn = USN 
+    WHERE career_usn = ?`
     let params = [];
     if(usn != null) {
       params = [usn];
