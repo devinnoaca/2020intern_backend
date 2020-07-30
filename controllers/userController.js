@@ -9,7 +9,7 @@ exports.getUsers = async (req, res, next) => {
     try {
         let users = await user.getUser(usn);
         let career = await user.getCareer(usn);
-        //console.log(users[0]);
+        console.log(users[0][0]);
         //console.log(career[0].length);
 
         for(i=0; i<career[0].length; i++) {
@@ -19,7 +19,7 @@ exports.getUsers = async (req, res, next) => {
         // return res.send({user: users[0], career: [...careers]});
         return res.render('user', {user: users[0], career: [...careers]});
     } catch (err) {
-        return res.status(500).json(err) 
+        return res.status(500).json(err)
     }
 }
 
