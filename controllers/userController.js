@@ -17,8 +17,8 @@ exports.getUsers = async (req, res, next) => {
             careers.add(career[0][i].career);
         }
 
-        // return res.send({user: users[0], career: [...careers]});
-        return res.render('user', {user: users[0], career: [...careers]});
+        return res.send({user: users[0], career: [...careers]});
+        //return res.render('user', {user: users[0], career: [...careers]});
     } catch (err) {
         return res.status(500).json(err) 
     }
