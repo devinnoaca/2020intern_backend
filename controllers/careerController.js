@@ -1,4 +1,4 @@
-const user = require('../models/userDAO');
+const user = require('../models/careerDAO');
 
 exports.getUserCareer = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);

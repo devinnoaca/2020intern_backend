@@ -16,5 +16,4 @@ router.delete('/:usn/keyword');
 
 // CAREER
 router.get('/:usn/career', careerController.getUserCareer);
-
 module.exports = router
