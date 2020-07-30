@@ -1,5 +1,6 @@
-const user = require('../models/userDAO');
-
+const userDAO = require('../models/userDAO');
+const careerDAO = require('../models/careerDAO');
+ 
 exports.getUsers = async (req, res, next) => {
     let usn  = parseInt(req.params.usn, 10);
     if (Number.isNaN(usn)) return res.status(400).end();
@@ -7,8 +8,8 @@ exports.getUsers = async (req, res, next) => {
     let careers = new Set();
 
     try {
-        let users = await user.getUser(usn);
-        let career = await user.getCareer(usn);
+        let users = await userDAO.getUser(usn);
+        let career = await careerDAO.getCareer(usn);
         //console.log(users[0]);
         //console.log(career[0].length);
 
