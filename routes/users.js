@@ -14,5 +14,8 @@ router.get('/:usn/keyword', keywordController.getKeywords);
 router.put('/:usn/keyword');
 router.delete('/:usn/keyword');
 
+// CAREER
+router.get('/:usn/carrer',);
+
 
 module.exports = router
