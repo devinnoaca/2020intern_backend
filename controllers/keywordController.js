@@ -12,7 +12,7 @@ exports.getKeywords = async (req, res, next) => {
 
         for(i=0; i<total[0].length; i++) {
           _total.push({
-            "keywordId" : total[0][i].utk_USN,
+            "keywordId" : total[0][i].keyword_ID,
             "categoryName" : total[0][i].category_name,
             "keywordName" : total[0][i].keyword_name
           });
@@ -20,7 +20,7 @@ exports.getKeywords = async (req, res, next) => {
 
         for(i=0; i<recommend[0].length; i++) {
           _recommend.push({
-            "keywordId" : recommend[0][i].rk_USN,
+            "keywordId" : recommend[0][i].keyword_ID,
             "categoryName" : recommend[0][i].category_name,
             "keywordName" : recommend[0][i].keyword_name
           });
