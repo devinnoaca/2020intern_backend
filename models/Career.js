@@ -5,7 +5,8 @@ mysql_abc.connect(connection);
 module.exports = {
   get: (usn, callback) => {
     let query = 
-    `SELECT * FROM Career 
+    `SELECT USN, career, userName
+    FROM Career 
     JOIN User 
     ON career_usn = USN 
     WHERE career_usn = ?`
