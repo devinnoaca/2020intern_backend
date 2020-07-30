@@ -4,6 +4,21 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+let envPath = '';
+process.env.NODE_ENV = ( process.env.NODE_ENV && ( process.env.NODE_ENV ).trim().toLowerCase() == 'production' ) ? 'production' : 'development';
+
+if (process.env.NODE_ENV === 'development') {
+  envPath = '.env.development';
+  console.log('develop mode');
+} else {
+  envPath = '.env.production';
+  console.log('production mode');
+}
+
+require('dotenv').config({
+  path: path.join(__dirname, envPath)
+})
+
 var usersRouter = require('./routes/users');
 
 var app = express();
