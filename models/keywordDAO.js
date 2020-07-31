@@ -20,3 +20,14 @@ exports.getRecommendKeyword = async (usn) => {
       throw Error(err)
   }
 }
+
+exports.getAllKeywords = async () => {
+	try {
+		let data = await pool.query(keywordQuery.getAllKeyword)
+		return data;
+	} catch (err) {
+		console.log(err);
+		throw Error(err);
+	}
+}
+

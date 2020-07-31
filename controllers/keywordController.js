@@ -38,3 +38,13 @@ exports.getKeywords = async (req, res, next) => {
         return res.status(500).json(err)
     }
 }
+
+exports.getAllKeywords = async (req, res, next) => {
+	try {
+		let allKey = await keyword.getAllKeywords();
+		console.log(allKey[0].length);	
+		return res.send(allKey[0]);
+	} catch {
+
+	}
+}

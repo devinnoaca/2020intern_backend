@@ -82,3 +82,11 @@
 
 2020-07-31T10:40:14-07:00 [info]: http - [0mGET /user/1/inform [32m200 [0m58.386 ms - 305[0m
 
+2020-07-31T13:26:53-07:00 [info]: http - [0mGET /favicon.ico [33m404 [0m5.221 ms - 1083[0m
+
+2020-07-31T13:26:53-07:00 [info]: http - [0mGET /main [32m200 [0m201.829 ms - 450[0m
+
+2020-07-31T13:26:53-07:00 [info]: http - [0mGET /apple-touch-icon-precomposed.png [33m404 [0m0.613 ms - 1083[0m
+
+2020-07-31T13:26:53-07:00 [info]: http - [0mGET /apple-touch-icon.png [33m404 [0m0.417 ms - 1083[0m
+
