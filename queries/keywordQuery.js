@@ -16,3 +16,8 @@ exports.getRecommendKeyword = `SELECT * FROM get_recommend_keyword WHERE rk_USN 
 // MAINPAGE ALL KEYWORD
 exports.getAllKeyword = `SELECT category_ID, category_name, keyword_ID, keyword_name FROM Category A 
         RIGHT JOIN Keyword B ON A.category_ID WHERE A.category_ID = B.fk_category_ID;`;
+
+
+exports.getCategory = `SELECT * FROM Category;`;
+
+exports.getKeyword = `SELECT * FROM Keyword WHERE fk_category_ID = ?;`;

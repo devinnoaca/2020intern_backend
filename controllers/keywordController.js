@@ -1,4 +1,5 @@
 const keyword = require('../models/keywordDAO');
+const { all } = require('../app');
 
 exports.getKeywords = async (req, res, next) => {
     let usn  = parseInt(req.params.usn, 10);
@@ -41,10 +42,42 @@ exports.getKeywords = async (req, res, next) => {
 
 exports.getAllKeywords = async (req, res, next) => {
 	try {
-		let allKey = await keyword.getAllKeywords();
-		console.log(allKey[0].length);	
-		return res.send(allKey[0]);
-	} catch {
+    //let allKey = await keyword.getAllKeywords();
+    let category = await keyword.getCategory();
+    let _keyword = await keyword.getKeyword(1);
 
+    let _data = new Array();
+
+    for(i=0; i<category[0].length; i++) {
+      _data.push({
+        "categoryId:" : category[0][i].category_ID,
+        "categoryName" : category[0][i].category_name,
+        "keywordList"  : []
+      })
+      _keyword = await keyword.getKeyword(category[0][i].category_ID);
+      console.log(_keyword[0]);
+      for(j=0; j<_keyword[0].length; j++) {
+        _data[i].keywordList.push({
+          "keywordID": _keyword[0][j].keyword_ID,
+          "keywordName": _keyword[0][j].keyword_name,
+          "categoryName": category[0][i].category_name,
+        })
+      }
+    }
+
+    let postData = new Array();
+    postData.push({
+      "allCategory": _data
+    })
+
+
+    
+    //console.log(_keyword);
+    return res.send(postData);
+
+	} catch (err) {
+    return res.status(500).json(err)
 	}
 }
+
+

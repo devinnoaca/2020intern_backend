@@ -31,3 +31,24 @@ exports.getAllKeywords = async () => {
 	}
 }
 
+
+
+exports.getCategory = async () => {
+	try {
+		let data = await pool.query(keywordQuery.getCategory)
+		return data;
+	} catch (err) {
+		console.log(err);
+		throw Error(err);
+	}
+}
+
+exports.getKeyword = async (category_ID) => {
+	try {
+		let data = await pool.query(keywordQuery.getKeyword, [category_ID])
+		return data;
+	} catch (err) {
+		console.log(err);
+		throw Error(err);
+	}
+}
