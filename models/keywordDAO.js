@@ -31,8 +31,6 @@ exports.getAllKeywords = async () => {
 	}
 }
 
-
-
 exports.getCategory = async () => {
 	try {
 		let data = await pool.query(keywordQuery.getCategory)
