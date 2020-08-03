@@ -4,9 +4,9 @@
  * Module dependencies.
  */
 
-let app = require('../app');
-let debug = require('debug')('2020intern-backend:server');
-let http = require('http');
+const app = require('../app');
+const debug = require('debug')('2020intern-backend:server');
+const http = require('http');
 
 /**
  * Normalize a port into a number, string, or false.
