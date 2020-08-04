@@ -17,6 +17,7 @@ router.delete('/:usn/keyword');
 // CAREER
 router.get('/:usn/career', careerController.getUserCareer);
 
+
 // Matching
 router.get('/:usn/matching/:state', matchingController.getMatchingLists);
 
