@@ -12,26 +12,25 @@ exports.getKeywordList = async (req, res, next) => {
 
       for(i=0; i<keyword[0].length; i++) {
         if(start === keyword[0][i].category_ID) {
-          _keyword[0].keyword.push({
+          _keyword[start].keyword.push({
             "keywordID": keyword[0][i].keyword_ID,
             "keyword_name": keyword[0][i].keyword_name,
             "categoryName": keyword[0][i].category_name
           });
         } else {
           start = keyword[0][i].category_ID;
-          _keyword.push({
+          _keyword[start] = {
             category_ID: start,
             keyword: [{
               "keywordID": keyword[0][i].keyword_ID,
               "keyword_name": keyword[0][i].keyword_name,
               "categoryName": keyword[0][i].category_name
             }]
-          })
+          };
         }
       }
 
       console.log(_keyword);
-      console.log(_keyword[0]);
 
       result.push({
         allCategory: [],
@@ -44,15 +43,15 @@ exports.getKeywordList = async (req, res, next) => {
           result[0].allCategory.push({
             "categoryID": category[0][j].category_ID,
             "categoryName": category[0][j].category_name,
-            "keywordList": []         
+            "keywordList": []
           })
         } else {
           result[0].allCategory.push({
             "categoryID": category[0][j].category_ID,
             "categoryName": category[0][j].category_name,
-            "keywordList": _keyword[key].keyword        
+            "keywordList": _keyword[key].keyword
           })
-          key = key - 1; 
+          key = key - 1;
         }
       }
 
@@ -63,4 +62,4 @@ exports.getKeywordList = async (req, res, next) => {
       return res.status(500).json(err);
     }
   }
-  
+

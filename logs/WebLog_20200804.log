@@ -80,3 +80,4 @@
 {"message":"::1 - - [04/Aug/2020:18:56:54 +0000] \"GET /user/3/inform HTTP/1.1\" 200 162 \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Safari/605.1.15\"\n","level":"info"}
 {"message":"::1 - - [04/Aug/2020:18:59:30 +0000] \"PUT /user/3/inform HTTP/1.1\" 201 147 \"-\" \"PostmanRuntime/7.26.1\"\n","level":"info"}
 {"message":"::1 - - [04/Aug/2020:18:59:43 +0000] \"GET /user/3/inform HTTP/1.1\" 200 207 \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Safari/605.1.15\"\n","level":"info"}
+{"message":"::1 - - [04/Aug/2020:04:27:48 +0000] \"GET /main/keyword HTTP/1.1\" 200 636 \"-\" \"PostmanRuntime/7.26.2\"\n","level":"info"}
