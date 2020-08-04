@@ -1,7 +1,7 @@
 const pool = require('../../database/pool');
 const userQuery = require('../../queries/user/matchingQuery');
 
-exports.getMathcingList = async (usn, state) => {
+exports.getMatchingList = async (usn, state) => {
     let param = [usn, usn, state];
     try {
         let data = await pool.query(userQuery.getMatchingList, param);
