@@ -30,6 +30,9 @@ exports.getKeywordList = async (req, res, next) => {
         }
       }
 
+      console.log(_keyword);
+      console.log(_keyword[0]);
+
       result.push({
         allCategory: [],
       })

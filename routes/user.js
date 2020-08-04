@@ -6,7 +6,7 @@ const careerController = require('../controllers/user/careerController');
 
 // USER
 router.get('/:usn/inform', userController.getUsers);
-router.put('/:usn/inform');
+router.put('/:usn/inform', userController.getUpdateUser);
 
 // KEYWORD
 router.get('/:usn/keyword', keywordController.getKeywords);

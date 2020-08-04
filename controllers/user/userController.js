@@ -17,6 +17,25 @@ exports.getUsers = async (req, res, next) => {
     }
 }
 
+exports.getUpdateUser = async (req, res, next) => {
+
+    let usn  = parseInt(req.params.usn, 10);
+    let email = req.body.email;
+    let userName = req.body.userName;
+    let image_url = req.body.image_url;
+    let description = req.body.description;
+    let company = req.body.company;
+
+    let modefied = [userName, email, image_url, description, company, usn];
+    try {
+        let users = await user.getUpdateUser(modefied);
+        return res.status(201).send(users);
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+    
+}
+
 
 // exports.deleteUser = async (req, res, next) => {
 //     let { boardId, commentId } = req.params

@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 var {stream} = require('./logger');
+var bodyParser = require('body-parser');
 //var logger = require('./logger');
 //const morganFormat = process.env.NODE_ENV !== "production" ? "dev" : "combined"; // NOTE: morgan 출력 형태
 
@@ -34,6 +35,8 @@ app.set('view engine', 'ejs');
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //app.use(morgan(morganFormat, { stream: logger.httpLogStream })); // NOTE: http request 로그 남기기

@@ -1,7 +1,7 @@
 const pool = require('../../database/pool');
 const mentorListQuery = require('../../queries/main/mentorListQuery');
 
-// 나중에 qeury를 params으로 바꿔야 하는데 어떻게 바꿀 수 있을까 
+// 나중에 qeury를 params를 쓸껀지 정해야 한다.  
 exports.getMentorList = async (keyword) => {
     try {
         let query = mentorListQuery.getMentorList

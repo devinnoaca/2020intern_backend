@@ -11,7 +11,22 @@ exports.getUser = async (usn) => {
     }
 }
 
-
+exports.getUpdateUser = async (user) => {
+    console.log(user);
+    let conn = await pool.getConnection();
+    try {
+        await conn.beginTransaction();
+        let update = await conn.query(userQuery.updateUser, user);
+        await conn.commit();
+        return update[0];
+    } catch (err) {
+        conn.rollback()
+        console.log(err)
+        throw Error(err)
+    } finally {
+        conn.release();
+    }
+}
 
 
 // exports.deleteComment = async (boardId, commentId) => {
