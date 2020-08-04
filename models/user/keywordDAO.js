@@ -1,5 +1,5 @@
-const pool = require('../database/pool')
-const keywordQuery = require('../queries/keywordQuery')
+const pool = require('../../database/pool');
+const keywordQuery = require('../../queries/user/keywordQuery')
 
 exports.getTotalKeyword = async (usn) => {
     try {

@@ -1,5 +1,5 @@
-const pool = require('../database/pool')
-const userQuery = require('../queries/userQuery')
+const pool = require('../../database/pool');
+const userQuery = require('../../queries/user/userQuery');
 
 exports.getUser = async (usn) => {
     try {

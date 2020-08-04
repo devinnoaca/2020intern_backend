@@ -1,5 +1,5 @@
-const pool = require('../database/pool')
-const careerQuery = require('../queries/CareerQuery');
+const pool = require('../../database/pool');
+const careerQuery = require('../../queries/user/careerQuery');
 
 exports.getCareer = async (usn) => {
     try {

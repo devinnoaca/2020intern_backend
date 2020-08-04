@@ -22,8 +22,8 @@ require('dotenv').config({
   path: path.join(__dirname, envPath)
 })
 
-var usersRouter = require('./routes/users');
-var mainRouter = require('./routes/mainpage');
+var usersRouter = require('./routes/user');
+var mainRouter = require('./routes/main');
 
 var app = express();
 
