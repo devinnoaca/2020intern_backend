@@ -26,6 +26,7 @@ require('dotenv').config({
 var usersRouter = require('./routes/user');
 var mainRouter = require('./routes/main');
 var matchingRouter = require('./routes/matching');
+var notificationRouter = require('./routes/notification');
 
 var app = express();
 
@@ -46,6 +47,7 @@ app.use(morgan('combined', {stream}));
 app.use('/user', usersRouter);
 app.use('/main', mainRouter);
 app.use('/matching', matchingRouter);
+app.use('/notification', notificationRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
