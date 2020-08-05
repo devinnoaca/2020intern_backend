@@ -20,6 +20,36 @@ exports.createMatching = async (req, res, next) => {
     } catch (err) {
         return res.status(500).json(err);
     }
-    
+}
+
+exports.updateMatching = async (req, res, next) => {
+    let matching_state = req.body.matching_state;
+    let is_checked  = req.body.is_checked;
+    let metching_ID = parseInt(req.params.matching_id, 10);
+    console.log(metching_ID);
+    let update = [matching_state, is_checked, metching_ID];
+
+    try {
+        let result = await matchingDAO.updateMatching(update);
+        return res.status(200).send(result);
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
+exports.createMatchingKeyword = async (req, res, next) => {
+    let matching_keyword_ID = req.body.matching_keyword_ID;
+    let matching_keyword_name  = req.body.matching_keyword_name;
+    let mk_matching_ID = req.body.mk_matching_ID;
+    let matching_category_name = req.body.matching_category_name;
+
+    let create = [matching_keyword_ID, matching_keyword_name, mk_matching_ID, matching_category_name];
+    console.log(create);
+    try {
+        let result = await matchingDAO.createMatchingKeyword(create);
+        return res.status(200).send(result);
+    } catch (err) {
+        return res.status(500).json(err);
+    }
 }
 

@@ -1,0 +1,1 @@
+exports.insertMatching = `INSERT INTO Notification(noti_ID, type, ischecked, message) VALUES (?, ?, ?, ?);`;
