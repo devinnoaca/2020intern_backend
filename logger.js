@@ -66,28 +66,28 @@ const { combine, timestamp, printf } = format;
 //     return `${info.timestamp}, ${info.message}`;
 // });
 const logger = winston.createLogger({
-    format: combine(
-        winston.format.json()
-        // timestamp({
-        //     format: 'YYYY-MM-DD HH:mm:ss',
-        // }),
-        // customFormat
-    ),
-    transports: [
-        new winston.transports.Console(),
-        new winstonDaily({
-            level: 'info',
-            datePattern: 'YYYYMMDD',
-            dirname: './logs',
-            filename: `WebLog_%DATE%.log`,
-            maxSize: null,
-            maxFiles: 14  //14개 저장-> 즉, 14일
-        }),
-    ],
+  format: combine(
+    winston.format.json()
+    // timestamp({
+    //     format: 'YYYY-MM-DD HH:mm:ss',
+    // }),
+    // customFormat
+  ),
+  transports: [
+    new winston.transports.Console(),
+    new winstonDaily({
+      level: 'info',
+      datePattern: 'YYYYMMDD',
+      dirname: './logs',
+      filename: `WebLog_%DATE%.log`,
+      maxSize: null,
+      maxFiles: 14  //14개 저장-> 즉, 14일
+    }),
+  ],
 });
 const stream = {
-    write: message => {
-      logger.info(message);
-    }
+  write: message => {
+    logger.info(message);
+  }
 };
-module.exports = {logger, stream};
+module.exports = { logger, stream };

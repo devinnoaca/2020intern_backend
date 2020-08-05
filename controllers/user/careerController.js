@@ -1,8 +1,8 @@
 const user = require('../../models/user/careerDAO');
 
-exports.getUserCareer = async (req, res, next) => {
+const getUserCareer = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
-  if(Number.isNaN(usn)){
+  if (Number.isNaN(usn)) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
   let careers = new Set();
@@ -17,4 +17,8 @@ exports.getUserCareer = async (req, res, next) => {
   } catch (err) {
     return res.status(500).json(err);
   }
+}
+
+module.exports = {
+  getUserCareer,
 }

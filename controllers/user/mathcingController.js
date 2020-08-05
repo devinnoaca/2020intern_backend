@@ -2,7 +2,7 @@ const matching = require('../../models/user/mathcingDAO');
 const lib = require('../../lib/lib');
 const logger = require('../../logger');
 
-exports.getMatchingLists = async (req, res, next) => {
+const getMatchingLists = async (req, res, next) => {
   let usn  = parseInt(req.params.usn, 10);
   let userType = parseInt(req.params.userType, 10);
   let state = parseInt(req.params.state, 10);
@@ -18,4 +18,8 @@ exports.getMatchingLists = async (req, res, next) => {
   } catch (err) {
       return res.status(500).json(err)
   }
+}
+
+module.exports = {
+  getMatchingLists,
 }
