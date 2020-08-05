@@ -10,7 +10,7 @@ const getUserCareer = async (req, res, next) => {
     let career = await user.getCareer(usn);
 
     for (let i = 0; i < career[0].length; i++) {
-      careers.add(career[0][i].career);
+      careers.add(career[0][i].name);
     }
     return res.status(200).send([...careers]);
     //return res.render('career', {usn: usn, career: [...careers]});

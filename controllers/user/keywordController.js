@@ -10,7 +10,8 @@ const getKeywords = async (req, res, next) => {
     let recommend = await keyword.getRecommendKeyword(usn);
     let _total = new Array();
     let _recommend = new Array();
-
+    console.log(total);
+    console.log(recommend);
     for (i = 0; i < total[0].length; i++) {
       _total.push({
         "keywordId": total[0][i].keyword_ID,
