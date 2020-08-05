@@ -1,31 +1,29 @@
 exports.insertMatching = `
 INSERT 
 INTO Matching(
-  matching_ID, 
   mentor_USN, 
   mentee_USN, 
-  matching_request_time, 
-  matching_response_time, 
-  matching_state, 
-  request_reason, 
+  request_time, 
+  response_time, 
+  state, 
+  request_message, 
   is_checked, 
-  result_message
+  response_message
   )
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
 
 exports.updateMatching = `
 UPDATE Matching 
 SET 
-  matching_state = ?, 
+  state = ?, 
   is_checked = ?
-WHERE matching_ID = ?;`;
+WHERE ID = ?;`;
 
 exports.insertMatchingKeyword = `
 INSERT 
 INTO Matching_keyword(
-  matching_keyword_ID, 
-  matching_keyword_name, 
-  mk_matching_ID, 
-  matching_category_name
+  keyword_name, 
+  matching_ID, 
+  category_name
   ) 
-VALUES (?, ?, ?, ?);`;
+VALUES (?, ?, ?);`;

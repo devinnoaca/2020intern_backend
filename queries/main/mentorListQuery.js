@@ -1,6 +1,6 @@
 exports.getMentorList = `
 SELECT DISTINCT 
-	USN, 
+	mentor_USN, 
 	user_name, 
 	email, 
 	image_url, 
@@ -10,7 +10,7 @@ FROM get_mentor_list`;
 
 exports.getAllCareer = `
 SELECT 
-	career, 
-	career_USN 
+	content, 
+	user_USN 
 FROM Career 
-ORDER BY career_USN;`;
+ORDER BY user_USN;`;

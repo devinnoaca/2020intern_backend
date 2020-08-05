@@ -1,7 +1,7 @@
 exports.getAllCategory = `
 SELECT * 
 FROM Category 
-ORDER BY category_ID;`;
+ORDER BY ID;`;
 
 exports.getAllKeyword = `
 SELECT * 

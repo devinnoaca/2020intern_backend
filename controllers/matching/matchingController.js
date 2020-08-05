@@ -1,7 +1,6 @@
 const matchingDAO = require('../../models/mathcing/mathcingDAO');
 
 const createMatching = async (req, res, next) => {
-  let matching_ID = req.body.matching_ID;
   let mentor_usn = parseInt(req.body.mentor_usn, 10);
   let mentee_usn = req.body.mentee_usn;
   let matching_request_time = req.body.matching_request_time;
@@ -11,7 +10,7 @@ const createMatching = async (req, res, next) => {
   let isChecked = req.body.isChecked;
   let reject_reason = req.body.reject_reason;
 
-  let create = [matching_ID, mentor_usn, mentee_usn, matching_request_time, mathcing_response_time, mathcing_state,
+  let create = [mentor_usn, mentee_usn, matching_request_time, mathcing_response_time, mathcing_state,
     request_reason, isChecked, reject_reason];
 
   try {
@@ -38,12 +37,11 @@ const updateMatching = async (req, res, next) => {
 }
 
 const createMatchingKeyword = async (req, res, next) => {
-  let matching_keyword_ID = req.body.matching_keyword_ID;
   let matching_keyword_name = req.body.matching_keyword_name;
   let mk_matching_ID = req.body.mk_matching_ID;
   let matching_category_name = req.body.matching_category_name;
 
-  let create = [matching_keyword_ID, matching_keyword_name, mk_matching_ID, matching_category_name];
+  let create = [matching_keyword_name, mk_matching_ID, matching_category_name];
   console.log(create);
   try {
     let result = await matchingDAO.createMatchingKeyword(create);

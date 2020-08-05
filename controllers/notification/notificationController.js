@@ -1,7 +1,6 @@
 const notificationDAO = require('../../models/notification/notificationDAO');
 
 const createNotification = async (req, res, next) => {
-  //let noti_ID = req.body.noti_ID;
   let noti_type = req.body.noti_type;
   let ischecked = req.body.ischecked;
   let message = req.body.message;

@@ -1,7 +1,7 @@
 exports.insertNotification = `
 INSERT 
 INTO Notification(
- noti_type, 
+ type, 
  is_checked, 
  message) 
 VALUES (?, ?, ?);`;

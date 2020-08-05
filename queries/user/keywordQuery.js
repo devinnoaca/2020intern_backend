@@ -2,22 +2,21 @@
 exports.gettotalkeyword = `
 SELECT * 
 FROM get_total_keyword 
-WHERE utk_USN = ?;`;
+WHERE user_USN = ?;`;
 
-exports.updateUser = `
-UPDATE User 
+exports.insertTotalKeyword = `
+INSERT User_total_keyword 
 SET 
   email = ?, 
   password = ?, 
   user_name = ?, 
   image_url = ?, 
   description = ? 
-WHERE USN = ?;`;
-
+WHERE user_USN = ?;`;
 
 // RECOMMEND KEYWORD
 exports.getRecommendKeyword = `
 SELECT * 
 FROM get_recommend_keyword 
-WHERE rk_USN = ?;`;
+WHERE mentee_USN = ?;`;
 

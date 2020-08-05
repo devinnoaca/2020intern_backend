@@ -11,7 +11,7 @@ exports.getMentorMatchingList =
 WHERE (
 	mentor_USN = ? 
 	AND 
-	matching_state = ?)
+	state = ?)
 ORDER BY matching_ID ASC
 ;`
 
@@ -20,6 +20,6 @@ exports.getMenteeMatchingList =
 WHERE (
 	mentee_USN = ? 
 	AND 
-	matching_state = ?)
+	state = ?)
 ORDER BY matching_ID ASC
 ;`
