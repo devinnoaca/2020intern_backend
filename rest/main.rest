@@ -1,0 +1,7 @@
+### 키워드 정보 접근
+GET http://localhost:3001/main/keyword
+
+
+### 멘토 리스트 정보 접근 
+GET http://localhost:3001/main/list?keyword0=React.js&keyword1=ELK
+

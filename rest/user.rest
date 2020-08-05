@@ -1,0 +1,26 @@
+### 유저 정보 접근(GET), 수정(PUT)
+GET http://localhost:3001/user/1/inform
+
+###
+PUT http://localhost:3001/user/1/inform
+Content-Type: application/json
+
+{
+    "email": "jeongsik@kookmin.ac.kr",
+    "userName": "김정식",
+    "image_url": "image3",
+    "description": "테스트",
+    "company": "국민대"  
+}
+
+### 유저 정보 접근
+GET http://localhost:3001/user/1/career
+
+### 유저 정보 접근
+GET http://localhost:3001/user/1/keyword
+
+### 멘티 매칭 정보 접근
+GET http://localhost:3001/user/4/0/matching/1
+
+### 멘토 매칭 정보 접근 
+GET http://localhost:3001/user/1/1/matching/1
