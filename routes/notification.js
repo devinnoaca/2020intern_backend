@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const matchingController = require('../controllers/matching/matchingController');
+const notificationController = require('../controllers/notification/notificationController');
 
-router.post('/');
+router.post('/', notificationController.createNotification);
 
 module.exports = router;
