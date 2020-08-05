@@ -1,1 +1,4 @@
-exports.getCareer = `SELECT * FROM Career WHERE career_USN = ?;`
+exports.getCareer = `
+SELECT * 
+FROM Career 
+WHERE career_USN = ?;`

@@ -6,7 +6,12 @@ WHERE utk_USN = ?;`;
 
 exports.updateUser = `
 UPDATE User 
-SET email = ?, password = ?, userName = ?, image_url = ?, description = ? 
+SET 
+  email = ?, 
+  password = ?, 
+  userName = ?, 
+  image_url = ?, 
+  description = ? 
 WHERE USN = ?;`;
 
 
