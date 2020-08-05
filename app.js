@@ -1,11 +1,11 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var morgan = require('morgan');
-var {stream} = require('./logger');
-var bodyParser = require('body-parser');
-//var logger = require('./logger');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const morgan = require('morgan');
+const {stream} = require('./logger');
+const bodyParser = require('body-parser');
+//const logger = require('./logger');
 //const morganFormat = process.env.NODE_ENV !== "production" ? "dev" : "combined"; // NOTE: morgan 출력 형태
 
 let envPath = '';
@@ -23,12 +23,12 @@ require('dotenv').config({
   path: path.join(__dirname, envPath)
 })
 
-var usersRouter = require('./routes/user');
-var mainRouter = require('./routes/main');
-var matchingRouter = require('./routes/matching');
-var notificationRouter = require('./routes/notification');
+const usersRouter = require('./routes/user');
+const mainRouter = require('./routes/main');
+const matchingRouter = require('./routes/matching');
+const notificationRouter = require('./routes/notification');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

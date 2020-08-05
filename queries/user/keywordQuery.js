@@ -1,8 +1,10 @@
 // total keyword
-exports.gettotalkeyword = `select * from get_total_keyword where utk_USN = ?;`;
+exports.gettotalkeyword = `SELECT * from get_total_keyword where utk_USN = ?;`;
 
-exports.updateUser = `UPDATE User SET
-        email = ?, password = ?, userName = ?, image_url = ?, description = ? WHERE USN = ?;`;
+exports.updateUser = 
+        `UPDATE User 
+        SET email = ?, password = ?, userName = ?, image_url = ?, description = ? 
+        WHERE USN = ?;`;
 
 
 // RECOMMEND KEYWORD
