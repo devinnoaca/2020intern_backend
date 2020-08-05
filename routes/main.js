@@ -1,5 +1,5 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 const keywordController = require('../controllers/main/keywordController');
 const mentorListController = require('../controllers/main/mentorListController');
 
