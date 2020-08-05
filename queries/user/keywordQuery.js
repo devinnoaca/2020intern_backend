@@ -9,7 +9,7 @@ UPDATE User
 SET 
   email = ?, 
   password = ?, 
-  userName = ?, 
+  user_name = ?, 
   image_url = ?, 
   description = ? 
 WHERE USN = ?;`;

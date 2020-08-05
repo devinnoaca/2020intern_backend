@@ -8,7 +8,7 @@ WHERE USN = ?;
 exports.updateUser = `
 UPDATE User
 SET 
-  userName = ?, 
+  user_name = ?, 
   email = ?, 
   image_url = ?, 
   description = ?, 

@@ -9,7 +9,7 @@ INTO Matching(
   matching_state, 
   request_reason, 
   is_checked, 
-  reject_message
+  result_message
   )
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`;
 

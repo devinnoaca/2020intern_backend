@@ -1,7 +1,7 @@
 exports.getMentorList = `
 SELECT DISTINCT 
 	USN, 
-	userName, 
+	user_name, 
 	email, 
 	image_url, 
 	description, 
