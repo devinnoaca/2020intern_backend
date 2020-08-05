@@ -4,7 +4,7 @@ const userQuery = require('../../queries/user/matchingQuery');
 const getMentorMatchingList = async (usn, state) => {
   let param = [usn, state];
   try {
-    let data = await pool.query(userQuery.getMenteeMatchingList, param);
+    let data = await pool.query(userQuery.getMentorMatchingList, param);
     return data;
   } catch (err) {
     console.log(err);
@@ -15,7 +15,7 @@ const getMentorMatchingList = async (usn, state) => {
 const getMenteeMatchingList = async (usn, state) => {
   let param = [usn, state];
   try {
-    let data = await pool.query(userQuery.getMentorMatchingList, param);
+    let data = await pool.query(userQuery.getMenteeMatchingList, param);
     return data;
   } catch (err) {
     console.log(err);

@@ -6,20 +6,20 @@
 //    ORDER BY A.matching_ID ASC
 //    ;`;
 
-exports.getMentorMatchingList = 
+exports.getMenteeMatchingList =
 `SELECT * FROM get_matching_mentee
 WHERE (
-	mentor_USN = ? 
-	AND 
-	state = ?)
+	mentor_USN = ?
+	AND
+	matching_state = ?)
 ORDER BY matching_ID ASC
 ;`
 
-exports.getMenteeMatchingList = 
+exports.getMentorMatchingList =
 `SELECT * FROM get_matching_mentor
 WHERE (
-	mentee_USN = ? 
-	AND 
-	state = ?)
+	mentee_USN = ?
+	AND
+	matching_state = ?)
 ORDER BY matching_ID ASC
 ;`

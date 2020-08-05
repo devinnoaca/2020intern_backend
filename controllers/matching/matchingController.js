@@ -25,7 +25,6 @@ const updateMatching = async (req, res, next) => {
   let matching_state = req.body.matching_state;
   let is_checked = req.body.is_checked;
   let metching_ID = parseInt(req.params.matching_id, 10);
-  console.log(metching_ID);
   let update = [matching_state, is_checked, metching_ID];
 
   try {

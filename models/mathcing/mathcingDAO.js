@@ -2,7 +2,6 @@ const pool = require('../../database/pool');
 const matchingQuery = require('../../queries/matching/matchingQuery');
 
 const createMatching = async (create_data) => {
-  console.log(create_data);
   let conn = await pool.getConnection();
   try {
     await conn.beginTransaction();
@@ -19,7 +18,6 @@ const createMatching = async (create_data) => {
 }
 
 const updateMatching = async (update_data) => {
-  console.log(update_data);
   let conn = await pool.getConnection();
   try {
     await conn.beginTransaction();
