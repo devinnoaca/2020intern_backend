@@ -14,13 +14,15 @@ const getMentorList = async (req, res, next) => {
     let result = new Array();
     let start = 0;
 
+    console.log(_mentorList[0]);
+
     for (i = 0; i < _careerList[0].length; i++) {
-      if (_careerList[0][i].career_USN === start) {
-        _career[start - 1].career.push(_careerList[0][i].career);
+      if (_careerList[0][i].user_USN === start) {
+        _career[start - 1].career.push(_careerList[0][i].content);
       } else {
         _career.push({
           "usn": start + 1,
-          "career": [_careerList[0][i].career],
+          "career": [_careerList[0][i].content],
         })
         start = start + 1;
       }
@@ -31,10 +33,10 @@ const getMentorList = async (req, res, next) => {
     })
 
     for (j = 0; j < _mentorList[0].length; j++) {
-      if (_mentorList[0][j].USN === _career[j].usn) {
+      if (_mentorList[0][j].mentor_USN === _career[j].usn) {
         result[0].mentorList.push({
-          "usn": _mentorList[0][j].USN,
-          "name": _mentorList[0][j].userName,
+          "usn": _mentorList[0][j].mentor_USN,
+          "name": _mentorList[0][j].user_name,
           "imageUrl": _mentorList[0][j].image_url,
           "email": _mentorList[0][j].description,
           "description": _mentorList[0][j].description,

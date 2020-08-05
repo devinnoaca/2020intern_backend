@@ -13,7 +13,9 @@ const getMentorList = async (keyword) => {
         query += `keyword_name = "${keyword[i]}" `;
       }
     }
-    query += ` ORDER BY USN`;
+    query += ` ORDER BY mentor_USN`;
+
+    console.log(query);
 
     let mentorList = await pool.query(query);
     return mentorList;
@@ -26,6 +28,7 @@ const getMentorList = async (keyword) => {
 const getAllCareer = async () => {
   try {
     let carrer = await pool.query(mentorListQuery.getAllCareer);
+    console.log(carrer);
     return carrer;
   } catch (err) {
     console.log(err);
