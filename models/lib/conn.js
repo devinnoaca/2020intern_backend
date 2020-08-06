@@ -4,7 +4,6 @@ const connection = async (query_data, body_data) => {
 	let conn = await pool.getConnection();
   try {
 		await conn.beginTransaction();
-		console.log(query_data);
     let data = await pool.query(query_data, body_data);
     return data;
   } catch (err) {

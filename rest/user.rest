@@ -26,7 +26,7 @@ POST http://localhost:3001/user/1/keyword
 Content-Type: application/json
 
 {
-    "keyword": [14, 15]
+    "keyword": [18, 19]
 }
 
 ### 전체 키워드 삭제
@@ -34,7 +34,7 @@ DELETE http://localhost:3001/user/1/keyword
 Content-Type: application/json
 
 {
-    "keyword": 13
+    "keyword": 2
 }
 
 
