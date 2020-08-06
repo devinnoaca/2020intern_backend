@@ -29,10 +29,10 @@ const createMatching = async (req, res, next) => {
 
 const updateMatching = async (req, res, next) => {
   let mathcing_state = parseInt(req.body.matching_state, 10);
-  let isChecked = parseInt(req.body.isChecked, 10);
+  let isChecked = parseInt(req.body.is_checked, 10);
   let metching_ID = parseInt(req.params.matching_id, 10);
 
-  if(Number.isNaN(mathcing_state) || Number.isNaN(isChecked) || Number.isNaN(mathcing_state) ||Number.isNaN(metching_ID)) {
+  if(Number.isNaN(mathcing_state) || Number.isNaN(isChecked) || Number.isNaN(metching_ID)) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
 
@@ -51,7 +51,7 @@ const createMatchingKeyword = async (req, res, next) => {
   let mk_matching_ID = parseInt(req.body.mk_matching_ID, 10);
   let matching_category_name = req.body.matching_category_name;
 
-  if(Number.isNaN(mathcing_state)) {
+  if(Number.isNaN(mk_matching_ID)) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
 
