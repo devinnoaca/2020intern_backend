@@ -15,8 +15,6 @@ const getMentorList = async (req, res, next) => {
     console.log(_mentorList[0]);
 
     let allMentorList = mentorListLib.mentorListLogic(_mentorList, _careerList);
-
-
     //console.log(result[0].mentorList[0]);
     return res.status(200).send(allMentorList);
   } catch (err) {
