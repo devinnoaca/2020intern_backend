@@ -1,30 +1,19 @@
-const pool = require('../../database/pool');
+const conn = require('../lib/conn');
 const userQuery = require('../../queries/user/userQuery');
 
 const getUser = async (usn) => {
-  try {
-    let data = await pool.query(userQuery.getUser, [usn]);
-      return data;
-  } catch (err) {
-      console.log(err);
-      throw Error(err);
+  if (Number.isNaN(usn)) {
+    return res.status(200).json({ statusCode: 501, message: '잘못된 매개변수 타입' });
   }
+  let data = conn.connection(userQuery.getUser, [usn]);
+  return data;
 }
 
 const getUpdateUser = async (user) => {
-  let conn = await pool.getConnection();
-  try {
-    await conn.beginTransaction();
-    let update = await conn.query(userQuery.updateUser, user);
-    await conn.commit();
-    return update[0];
-  } catch (err) {
-    conn.rollback()
-    console.log(err);
-    throw Error(err);
-  } finally {
-    conn.release();
-  }
+  console.log(user);
+
+  let data = conn.connection(userQuery.updateUser, user);
+  return data;
 }
 
 module.exports = {

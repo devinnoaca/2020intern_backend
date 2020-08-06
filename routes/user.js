@@ -6,22 +6,22 @@ const careerController = require('../controllers/user/careerController');
 const matchingController = require('../controllers/user/mathcingController');
 
 // USER
-router.get('/:usn/inform', userController.getUsers);
-router.put('/:usn/inform', userController.getUpdateUser);
+router.get('/inform/:usn', userController.getUsers);
+router.put('/inform/:usn', userController.getUpdateUser);
 
 // KEYWORD
-router.get('/:usn/keyword', keywordController.getKeywords);
+router.get('/keyword/:usn', keywordController.getKeywords);
 
 // TOTAL_KEYWORD
-router.post('/:usn/keyword', keywordController.updateTotalKeywordController);
-router.delete('/:usn/keyword', keywordController.deleteTotalKeywordController);
+router.post('/keyword/:usn', keywordController.updateTotalKeywordController);
+router.delete('/keyword/:usn', keywordController.deleteTotalKeywordController);
 
 // RECOMMEND_KEYWORD
 
 // CAREER
-router.get('/:usn/career', careerController.getUserCareer);
+router.get('/career/:usn', careerController.getUserCareer);
 
 // Matching
-router.get('/:usn/:userType/matching/:state', matchingController.getMatchingLists);
+router.get('/:userType/matching/:state/:usn', matchingController.getMatchingLists);
 
 module.exports = router;

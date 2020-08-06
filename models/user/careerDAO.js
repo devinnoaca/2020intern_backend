@@ -1,14 +1,9 @@
-const pool = require('../../database/pool');
+const conn = require('../lib/conn');
 const careerQuery = require('../../queries/user/careerQuery');
 
 const getCareer = async (usn) => {
-  try {
-    let career = await pool.query(careerQuery.getCareer, [usn]);
-    return career;
-  } catch (err) {
-    console.log(err);
-    throw Error(err);
-  }
+	let data = conn.connection(careerQuery.getCareer, [usn]);
+  return data;
 }
 
 module.exports = {

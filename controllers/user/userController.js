@@ -1,5 +1,4 @@
 const user = require('../../models/user/userDAO');
-const logger = require('../../logger');
 
 const getUsers = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
@@ -18,7 +17,6 @@ const getUsers = async (req, res, next) => {
 }
 
 const getUpdateUser = async (req, res, next) => {
-
   let usn = parseInt(req.params.usn, 10);
   let email = req.body.email;
   let userName = req.body.name;
@@ -27,13 +25,13 @@ const getUpdateUser = async (req, res, next) => {
   let company = req.body.company;
 
   let modefied = [userName, email, image_url, description, company, usn];
+  
   try {
     let users = await user.getUpdateUser(modefied);
     return res.status(201).send(users);
   } catch (err) {
     return res.status(500).json(err);
   }
-
 }
 
 

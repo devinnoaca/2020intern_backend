@@ -23,10 +23,6 @@ require('dotenv').config({
   path: path.join(__dirname, envPath)
 })
 
-const usersRouter = require('./routes/user');
-const mainRouter = require('./routes/main');
-const matchingRouter = require('./routes/matching');
-const notificationRouter = require('./routes/notification');
 
 const app = express();
 
@@ -43,6 +39,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //app.use(morgan(morganFormat, { stream: logger.httpLogStream })); // NOTE: http request 로그 남기기
 app.use(morgan('combined', {stream}));
+
+const usersRouter = require('./routes/user');
+const mainRouter = require('./routes/main');
+const matchingRouter = require('./routes/matching');
+const notificationRouter = require('./routes/notification');
 
 app.use('/user', usersRouter);
 app.use('/main', mainRouter);
