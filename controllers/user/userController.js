@@ -21,7 +21,7 @@ const getUpdateUser = async (req, res, next) => {
 
   let usn = parseInt(req.params.usn, 10);
   let email = req.body.email;
-  let userName = req.body.userName;
+  let userName = req.body.name;
   let image_url = req.body.image_url;
   let description = req.body.description;
   let company = req.body.company;
