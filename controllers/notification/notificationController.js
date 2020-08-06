@@ -4,8 +4,12 @@ const createNotificationController = async (req, res, next) => {
   let noti_type = parseInt(req.body.type, 10);
   let message = req.body.message;
 
-  if(Number.isNaN(noti_type)) {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
+  if(Number.isNaN(noti_type) || (noti_type === "undefined") || (noti_type === "")) {
+    return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 타입' });
+  }
+
+  if((message === "undefined") || (noti_type === "")) {
+    return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 타입' });
   }
 
   let create = [noti_type, message];
@@ -27,6 +31,14 @@ const createUserNotificationController = async (req, res, next) => {
 
   if(Number.isNaN(noti_ID) || Number.isNaN(sender_USN) || Number.isNaN(receiver_USN) || Number.isNaN(is_checked) ) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
+  }
+
+  if((time === "undefined") || (noti_ID === "undefined") || (sender_USN === "undefined") || (receiver_USN === "undefined") || (is_checked === "undefined")) {
+    return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 타입' });
+  }
+
+  if((time === "") || (noti_ID === "") || (sender_USN === "") || (receiver_USN === "") || (is_checked === "")) {
+    return res.status(200).json({ statusCode: 500, message: '값이 없음' });
   }
 
   let create = [time, noti_ID, sender_USN, receiver_USN, is_checked];

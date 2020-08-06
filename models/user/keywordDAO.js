@@ -2,27 +2,27 @@ const conn = require('../lib/conn');
 const keywordQuery = require('../../queries/user/keywordQuery')
 
 const getTotalKeyword = async (usn) => {	
-	let data = conn.connection(keywordQuery.gettotalkeyword, [usn]);
+	let data = await conn.connection(keywordQuery.gettotalkeyword, [usn]);
   return data;
 }
 
 const getRecommendKeyword = async (usn) => {	
-	let data = conn.connection(keywordQuery.getRecommendKeyword, [usn]);
+	let data = await conn.connection(keywordQuery.getRecommendKeyword, [usn]);
   return data;
 }
 
 const getAllKeywords = async () => {	
-	let data = conn.connection(keywordQuery.getAllKeyword, []);
+	let data = await conn.connection(keywordQuery.getAllKeyword, []);
   return data;
 }
 
 const getCategory = async () => {
-	let data = conn.connection(keywordQuery.getCategory, []);
+	let data = await conn.connection(keywordQuery.getCategory, []);
   return data;
 }
 
 const getKeyword = async (category_ID) => {	
-	let data = conn.connection(keywordQuery.getKeyword, [category_ID]);
+	let data = await conn.connection(keywordQuery.getKeyword, [category_ID]);
   return data;
 }
 
@@ -38,12 +38,12 @@ const updateTotalKeyword = async (data_array) => {
 		form_data.push(data_array[0], data_array[1][i]);
 	}
 
-	let data = conn.connection(query, form_data);
+	let data = await conn.connection(query, form_data);
   return data;
 }
 
 const deleteTotalKeyword = async (data_array) => {
-	let data = conn.connection(keywordQuery.deleteTotalKeyword, data_array);
+	let data = await conn.connection(keywordQuery.deleteTotalKeyword, data_array);
   return data;
 }
 

@@ -19,22 +19,22 @@ GET http://localhost:3001/user/career/1
 ### 유저 키워드 접근(GET), 생성(POST), 삭제(DELETE)
 
 ### 전체, 추천 모두
-GET http://localhost:3001/user/keyword/1
+GET http://localhost:3001/user/keyword/2
 
 ### 전체 키워드 추가
-POST http://localhost:3001/user/keyword/1
+POST http://localhost:3001/user/keyword/4
 Content-Type: application/json
 
 {
-    "keyword": [18, 19]
+    "keyword": [1, 2, 3]
 }
 
 ### 전체 키워드 삭제
-DELETE http://localhost:3001/user/keyword/1
+DELETE http://localhost:3001/user/keyword/3
 Content-Type: application/json
 
 {
-    "keyword": 2
+    "keyword": 3
 }
 
 

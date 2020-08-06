@@ -3,6 +3,14 @@ const mentorListLib = require('../lib/mentorList');
 
 const getMentorList = async (req, res, next) => {
   let keyword = req.body.keyword;
+  if(keyword === "undefined") {
+    return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
+  }
+
+  if(keyword === "") {
+    return res.status(200).json({ statusCode: 500, message: '값이 없음' });
+  }
+
   try {
     let _mentorList = await mentorListDAO.getMentorList(keyword);
     let _careerList = await mentorListDAO.getAllCareer();

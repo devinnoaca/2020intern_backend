@@ -9,6 +9,14 @@ const getMatchingLists = async (req, res, next) => {
       return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
 
+  if ((usn === "undefined") || (userType === "undefined") || (state === "undefined")) {
+    return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
+  }
+
+  if ((usn === "") || (userType === "=") || (state === "")) {
+    return res.status(200).json({ statusCode: 500, message: '값이 없음' });
+  }
+
   try {
     let matching_data = userType ? await matching.getMenteeMatchingList(usn, state) : await matching.getMentorMatchingList(usn, state);
     return res.status(200).json(lib.createMatchingList(userType, state, matching_data[0]));
