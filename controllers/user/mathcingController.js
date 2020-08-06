@@ -1,5 +1,5 @@
 const matching = require('../../models/user/mathcingDAO');
-const lib = require('../../lib/lib');
+const lib = require('../../lib/matchingList');
 const logger = require('../../logger');
 
 const getMatchingLists = async (req, res, next) => {
