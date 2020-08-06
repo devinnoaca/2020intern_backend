@@ -35,19 +35,7 @@ const createMatchingList = (userType, state, matchingData) => {
       matchingList.push(matchingListElement);
     }
   }
-  switch (state) {
-    case 0:
-      result.waitMatchingList = matchingList;
-      break;
-    case 1:
-      result.acceptMatchingList = matchingList;
-      break;
-    case 2:
-      result.refuseMatchingList = matchingList;
-      break;
-    default:
-      throw error;
-  }
+  result.matchingList = matchingList;
   return result;
 }
 
