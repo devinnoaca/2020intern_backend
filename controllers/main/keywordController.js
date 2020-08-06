@@ -1,5 +1,5 @@
 const keywordListDAO = require('../../models/main/keywordListDAO');
-const keywordLogicLib = require('../../lib/keyword');
+const keywordLogicLib = require('../lib/keyword');
 
 const getKeywordList = async (req, res, next) => {
   try {

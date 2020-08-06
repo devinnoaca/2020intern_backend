@@ -1,5 +1,5 @@
 const mentorListDAO = require('../../models/main/mentorListDAO');
-const mentorListLib = require('../../lib/mentorList');
+const mentorListLib = require('../lib/mentorList');
 
 const getMentorList = async (req, res, next) => {
   let keyword = req.body.keyword;

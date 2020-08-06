@@ -1,5 +1,5 @@
 const keyword = require('../../models/user/keywordDAO');
-const user_keyword = require('../../lib/user_keyword');
+const user_keyword = require('../lib/user_keyword');
 
 const getKeywords = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);

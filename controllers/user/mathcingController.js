@@ -1,5 +1,5 @@
 const matching = require('../../models/user/mathcingDAO');
-const lib = require('../../lib/matchingList');
+const lib = require('../lib/matchingList');
 
 const getMatchingLists = async (req, res, next) => {
   let usn  = parseInt(req.params.usn, 10);
