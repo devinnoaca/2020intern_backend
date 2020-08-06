@@ -9,7 +9,6 @@ const createNotification = async (req, res, next) => {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
 
-
   let create = [noti_type, ischecked, message];
 
   try {
