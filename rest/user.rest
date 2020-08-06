@@ -7,7 +7,7 @@ Content-Type: application/json
 
 {
     "email": "jeongsik@kookmin.ac.kr",
-    "userName": "이인평",
+    "name": "이인평",
     "image_url": "image3",
     "description": "테스트",
     "company": "국민대"  
@@ -26,7 +26,7 @@ POST http://localhost:3001/user/1/keyword
 Content-Type: application/json
 
 {
-    "keyword": [12, 13]
+    "keyword": [14, 15]
 }
 
 ### 전체 키워드 삭제
@@ -38,8 +38,8 @@ Content-Type: application/json
 }
 
 
-### 멘티 매칭 정보 접근
+### 멘토 매칭 정보 접근
 GET http://localhost:3001/user/4/0/matching/1
 
-### 멘토 매칭 정보 접근 
+### 멘티 매칭 정보 접근 
 GET http://localhost:3001/user/1/1/matching/2

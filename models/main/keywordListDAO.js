@@ -1,24 +1,14 @@
-const pool = require('../../database/pool');
+const conn = require('../lib/conn');
 const keywordListQuery = require('../../queries/main/keywordListQuery');
 
 const getCategory = async () => {
-  try {
-    let category = await pool.query(keywordListQuery.getAllCategory);
-    return category;
-  } catch (err) {
-    console.log(err);
-    throw Error(err);
-  }
+  let data = conn.connection(keywordListQuery.getAllCategory, []);
+  return data;
 }
 
 const getKeyword = async () => {
-  try {
-    let keyword = await pool.query(keywordListQuery.getAllKeyword);
-    return keyword;
-  } catch (err) {
-    console.log(err);
-    throw Error(err);
-  }
+  let data = conn.connection(keywordListQuery.getAllKeyword, []);
+  return data;
 }
 
 module.exports = {
