@@ -57,7 +57,24 @@ const updateTotalKeywordController = async (req, res, next) => {
   }
 }
 
+const deleteTotalKeywordController = async (req, res, next) => {
+  let usn = parseInt(req.params.usn, 10);
+  let keyword_data = req.body.keyword;
+  if (Number.isNaN(usn)) {
+    return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
+  }
+  let data = [usn, keyword_data];
+  try {
+    let _keyword = await keyword.deleteTotalKeyword(data);
+    return res.status(200).send(_keyword);
+    //return res.render('career', {usn: usn, career: [...careers]});
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+}
+
 module.exports = {
   getKeywords,
   updateTotalKeywordController,
+  deleteTotalKeywordController,
 }

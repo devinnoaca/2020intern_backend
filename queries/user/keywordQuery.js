@@ -11,6 +11,11 @@ INSERT INTO User_total_keyword (
   )
 VALUES`;
 
+exports.deleteTotalKeyword = `
+DELETE
+FROM User_total_keyword
+WHERE user_USN = ? AND keyword_ID = ?`;
+
 // RECOMMEND KEYWORD
 exports.getRecommendKeyword = `
 SELECT *

@@ -63,10 +63,18 @@ const updateTotalKeyword = async (data_array) => {
 		}
 		form_data.push(data_array[0], data_array[1][i]);
 	}
-	console.log(query);
-	console.log(form_data);
 	try {
 		let data = await pool.query(query, form_data);
+		return data;
+	} catch (err) {
+		console.log(err);
+		throw Error(err);
+	}
+}
+
+const deleteTotalKeyword = async (data_array) => {
+	try {
+		let data = await pool.query(keywordQuery.deleteTotalKeyword, data_array);
 		return data;
 	} catch (err) {
 		console.log(err);
@@ -81,4 +89,5 @@ module.exports = {
 	getCategory,
 	getKeyword,
 	updateTotalKeyword,
+	deleteTotalKeyword,
 }
