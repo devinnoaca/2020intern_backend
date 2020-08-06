@@ -23,4 +23,4 @@ GET http://localhost:3001/user/1/keyword
 GET http://localhost:3001/user/4/0/matching/1
 
 ### 멘토 매칭 정보 접근 
-GET http://localhost:3001/user/1/1/matching/1
+GET http://localhost:3001/user/1/1/matching/2

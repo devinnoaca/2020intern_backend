@@ -5,14 +5,11 @@ FROM get_total_keyword
 WHERE utk_USN = ?;`;
 
 exports.insertTotalKeyword = `
-INSERT User_total_keyword
-SET
-  email = ?,
-  password = ?,
-  user_name = ?,
-  image_url = ?,
-  description = ?
-WHERE user_USN = ?;`;
+INSERT INTO User_total_keyword (
+  user_USN, 
+  keyword_ID
+  )
+VALUES`;
 
 // RECOMMEND KEYWORD
 exports.getRecommendKeyword = `

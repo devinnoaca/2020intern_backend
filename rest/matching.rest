@@ -21,7 +21,7 @@ PUT http://localhost:3001/matching/7
 Content-Type: application/json
 
 {
-    "matching_state": 3,
+    "matching_state": 2,
     "is_checked": 1
 }
 

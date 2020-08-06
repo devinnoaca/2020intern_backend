@@ -51,10 +51,34 @@ const getKeyword = async (category_ID) => {
 	}
 }
 
+const updateTotalKeyword = async (data_array) => {
+	let query = keywordQuery.insertTotalKeyword;
+	let real_data = [];
+	console.log(data_array[1].length);
+	for(i=0; i<data_array[1].length; i++) {
+		if(i==data_array[1].length -1){
+			query += `(?, ?)`
+		} else {
+			query += `(?, ?),`
+		}
+		real_data.push(data_array[0], data_array[1][i]);
+	}
+	console.log(query);
+	console.log(real_data);
+	try {
+		let data = await pool.query(query, real_data);
+		return data;
+	} catch (err) {
+		console.log(err);
+		throw Error(err);
+	}
+}
+
 module.exports = {
 	getTotalKeyword,
 	getRecommendKeyword,
 	getAllKeywords,
 	getCategory,
 	getKeyword,
+	updateTotalKeyword,
 }
