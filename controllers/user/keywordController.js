@@ -1,4 +1,5 @@
 const keyword = require('../../models/user/keywordDAO');
+const user_keyword = require('../../lib/user_keyword');
 
 const getKeywords = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
@@ -8,33 +9,9 @@ const getKeywords = async (req, res, next) => {
   try {
     let total = await keyword.getTotalKeyword(usn);
     let recommend = await keyword.getRecommendKeyword(usn);
-    let _total = new Array();
-    let _recommend = new Array();
-    console.log(total);
-    console.log(recommend);
-    for (i = 0; i < total[0].length; i++) {
-      _total.push({
-        "keywordId": total[0][i].keyword_ID,
-        "categoryName": total[0][i].category_name,
-        "keywordName": total[0][i].keyword_name
-      });
-    }
-
-    for (i = 0; i < recommend[0].length; i++) {
-      _recommend.push({
-        "keywordId": recommend[0][i].keyword_ID,
-        "categoryName": recommend[0][i].category_name,
-        "keywordName": recommend[0][i].keyword_name
-      });
-    }
-
-    let _keyword = {
-      "usn": usn,
-      "allKeyword": _total,
-      "recommendKeyword": _recommend
-    }
-
-    return res.status(200).send(_keyword);
+    let result = user_keyword.userKewordLogic(usn, total, recommend);
+    console.log(result);
+    return res.status(200).send(result);
     //return res.render('keyword', {total: [...total_keywords], recommend: [...recommend_keywords]});
   } catch (err) {
     return res.status(500).json(err);
@@ -45,7 +22,7 @@ const updateTotalKeywordController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
   let keyword_data = req.body.keyword;
   if (Number.isNaN(usn)) {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
+    return res.statss(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
   let data = [usn, keyword_data];
   try {

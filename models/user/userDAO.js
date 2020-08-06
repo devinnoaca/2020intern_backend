@@ -12,7 +12,6 @@ const getUser = async (usn) => {
 }
 
 const getUpdateUser = async (user) => {
-  console.log(user);
   let conn = await pool.getConnection();
   try {
     await conn.beginTransaction();
