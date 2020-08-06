@@ -5,6 +5,7 @@ const getMentorMatchingList = async (usn, state) => {
   let param = [usn, state];
   try {
     let data = await pool.query(userQuery.getMentorMatchingList, param);
+    console.log(data[0]);
     return data;
   } catch (err) {
     console.log(err);
