@@ -5,7 +5,6 @@ const getKeywordList = async (req, res, next) => {
   try {
     let category = await keywordListDAO.getCategory();
     let keyword = await keywordListDAO.getKeyword();
-
     let allKeyword = keywordLogicLib.keywordLogic(category, keyword);
     return res.status(200).send(allKeyword);
     //return res.render('career', {usn: usn, career: [...careers]});

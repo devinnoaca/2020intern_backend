@@ -10,7 +10,6 @@ const getKeywords = async (req, res, next) => {
     let total = await keyword.getTotalKeyword(usn);
     let recommend = await keyword.getRecommendKeyword(usn);
     let result = user_keyword.userKewordLogic(usn, total, recommend);
-    console.log(result);
     return res.status(200).send(result);
     //return res.render('keyword', {total: [...total_keywords], recommend: [...recommend_keywords]});
   } catch (err) {
@@ -22,7 +21,7 @@ const updateTotalKeywordController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
   let keyword_data = req.body.keyword;
   if (Number.isNaN(usn)) {
-    return res.statss(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
+    return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
   let data = [usn, keyword_data];
   try {

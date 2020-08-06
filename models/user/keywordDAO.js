@@ -54,7 +54,6 @@ const getKeyword = async (category_ID) => {
 const updateTotalKeyword = async (data_array) => {
 	let query = keywordQuery.insertTotalKeyword;
 	let form_data = [];
-	console.log(data_array[1].length);
 	for(i=0; i<data_array[1].length; i++) {
 		if(i==data_array[1].length -1){
 			query += `(?, ?)`
