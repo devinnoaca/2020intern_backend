@@ -8,12 +8,8 @@ Content-Type: application/json
 {
     "keyword": [
     {
-        "keywordName": "XD", 
-        "categoryName": "디자인"   
-    },
-    {
-        "keywordName": "DOM", 
-        "categoryName": "디자인"   
+        "keywordName": "React.js", 
+        "categoryName": "개발/프로그래밍"   
     }
-        ]
+    ]
 }

@@ -11,7 +11,7 @@ const insertKeyword = (model) => {
 	return array;
 }
 
-const userKewordLogic = (usn, total, recommend) => {
+const userKeywordLogic = (usn, total, recommend) => {
 	let total_result = insertKeyword(total);
 	let recommend_result = insertKeyword(recommend);
 
@@ -24,5 +24,5 @@ const userKewordLogic = (usn, total, recommend) => {
 }
 
 module.exports = {
-	userKewordLogic,
+	userKeywordLogic,
 }
