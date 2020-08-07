@@ -1,5 +1,5 @@
 const conn = require('../lib/conn');
-const keywordQuery = require('../../queries/user/keywordQuery')
+const keywordQuery = require('../../queries/user/keywordQuery');
 
 const getTotalKeyword = async (usn) => {
 	if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
@@ -40,41 +40,29 @@ const updateTotalKeyword = async (data_array) => {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
 	}
 
-	console.log(data_array);
 	let query = keywordQuery.insertTotalKeyword;
 	let form_data = [];
-	for(i=0; i<data_array[1].length; i++) {
-		if(i==data_array[1].length -1){
+	for(i=0; i<data_array[1].insert_keywords.length; i++) {
+		if(i==data_array[1].insert_keywords.length - 1) {
 			query += `(?, ?);`;
-		} else {
-			query += `(?, ?);,`;
-		}
-		form_data.push(data_array[0], data_array[1][i]);
-	}
-
-	let data = await conn.connection(query, form_data);
-  return data;
-}
-
-const deleteTotalKeyword = async (data_array) => {
-	if ((data_array === "undefined") || (data_array === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	}
-
-	// if(data_array[1].length = 0) return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
-
-	let form_data = [];
-	let query = keywordQuery.deleteTotalKeyword;
-	for(i=0; i<data_array[1].length; i++){
-		if(i==data_array[1].length -1) {
-			query += `(?, ?));`;
 		} else {
 			query += `(?, ?), `;
 		}
-		form_data.push(data_array[0], data_array[1][i]);
+		form_data.push(data_array[0], data_array[1].insert_keywords[i]);
 	}
 
-	let data = await conn.connection(query, form_data);
+	let query2 = keywordQuery.deleteTotalKeyword;
+	console.log(query2);
+	for(i=0; i<data_array[1].delete_keywords.length; i++) {
+		if(i==data_array[1].delete_keywords.length - 1) {
+			query2 += `(?, ?));`;
+		} else {
+			query2 += `(?, ?), `;
+		}
+		form_data.push(data_array[0], data_array[1].delete_keywords[i]);
+	}
+
+	let data = await conn.connection(query + query2, form_data);
   return data;
 }
 
@@ -82,40 +70,30 @@ const updateRecommendKeyword = async (data_array) => {
 	if ((data_array === "undefined") || (data_array === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
 	}
+
 	let query = keywordQuery.insertRecommendKeyword;
 	let form_data = [];
-	for(i=0; i<data_array[1].length; i++) {
-		if(i==data_array[1].length -1){
+	for(i=0; i<data_array[1].insert_keywords.length; i++) {
+		if(i==data_array[1].insert_keywords.length - 1) {
 			query += `(?, ?);`;
-		} else {
-			query += `(?, ?),`;
-		}
-		form_data.push(data_array[0], data_array[1][i]);
-	}
-
-	let data = await conn.connection(query, form_data);
-  return data;
-}
-
-const deleteRecommendKeyword = async (data_array) => {
-	if ((data_array === "undefined") || (data_array === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	}
-
-	// if(data_array[1].length = 0) return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
-
-	let form_data = [];
-	let query = keywordQuery.deleteRecommendKeyword;
-	for(i=0; i<data_array[1].length; i++){
-		if(i==data_array[1].length -1) {
-			query += `(?, ?));`;
 		} else {
 			query += `(?, ?), `;
 		}
-		form_data.push(data_array[0], data_array[1][i]);
+		form_data.push(data_array[0], data_array[1].insert_keywords[i]);
 	}
 
-	let data = await conn.connection(query, form_data);
+	let query2 = keywordQuery.deleteRecommendKeyword;
+	console.log(query2);
+	for(i=0; i<data_array[1].delete_keywords.length; i++) {
+		if(i==data_array[1].delete_keywords.length - 1) {
+			query2 += `(?, ?));`;
+		} else {
+			query2 += `(?, ?), `;
+		}
+		form_data.push(data_array[0], data_array[1].delete_keywords[i]);
+	}
+
+	let data = await conn.connection(query + query2, form_data);
   return data;
 }
 
@@ -127,7 +105,5 @@ module.exports = {
 	getCategory,
 	getKeyword,
 	updateTotalKeyword,
-	deleteTotalKeyword,
   updateRecommendKeyword,
-  deleteRecommendKeyword,
 }

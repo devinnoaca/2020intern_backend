@@ -14,11 +14,10 @@ router.get('/keyword/:usn', keywordController.getKeywords);
 
 // TOTAL_KEYWORD
 router.post('/keyword/total/:usn', keywordController.updateTotalKeywordController);
-router.delete('/keyword/total/:usn', keywordController.deleteTotalKeywordController);
 
 // RECOMMEND_KEYWORD
 router.post('/keyword/recommend/:usn', keywordController.updateRecommendKeywordController);
-router.delete('/keyword/recommend/:usn', keywordController.deleteRecommendKeywordController);
+
 
 // CAREER
 router.get('/career/:usn', careerController.getUserCareer);
