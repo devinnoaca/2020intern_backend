@@ -2,12 +2,12 @@ const conn = require('../lib/conn');
 const keywordListQuery = require('../../queries/main/keywordListQuery');
 
 const getCategory = async () => {
-  let data = conn.connection(keywordListQuery.getAllCategory, []);
+  let data = await conn.connection(keywordListQuery.getAllCategory, []);
   return data;
 }
 
 const getKeyword = async () => {
-  let data = conn.connection(keywordListQuery.getAllKeyword, []);
+  let data = await conn.connection(keywordListQuery.getAllKeyword, []);
   return data;
 }
 

@@ -14,11 +14,11 @@ VALUES`;
 exports.deleteTotalKeyword = `
 DELETE
 FROM User_total_keyword
-WHERE user_USN = ? AND keyword_ID = ?`;
+WHERE (user_USN, keyword_ID) IN (`;
+
 
 // RECOMMEND KEYWORD
 exports.getRecommendKeyword = `
 SELECT *
 FROM get_recommend_keyword
 WHERE rk_USN = ?;`;
-

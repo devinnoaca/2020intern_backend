@@ -30,11 +30,11 @@ Content-Type: application/json
 }
 
 ### 전체 키워드 삭제
-DELETE http://localhost:3001/user/keyword/3
+DELETE http://localhost:3001/user/keyword/9
 Content-Type: application/json
 
 {
-    "keyword": 3
+    "keyword": [24, 21, 19]
 }
 
 

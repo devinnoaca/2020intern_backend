@@ -2,6 +2,9 @@ const conn = require('../lib/conn');
 const mentorListQuery = require('../../queries/main/mentorListQuery');
 
 const getMentorList = async (keyword) => {
+  if ((keyword === "undefined") || (keyword === "")) {
+    return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
+	}
   let query = mentorListQuery.getMentorList;
   query += ` WHERE `
   for (i = 0; i < keyword.length; i++) {
@@ -20,7 +23,7 @@ const getMentorList = async (keyword) => {
 }
 
 const getAllCareer = async () => {
-  let data = conn.connection(mentorListQuery.getAllCareer);
+  let data = await conn.connection(mentorListQuery.getAllCareer);
   return data;
 }
 
