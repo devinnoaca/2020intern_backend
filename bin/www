@@ -5,22 +5,9 @@ const app = require('../app');
 const debug = require('debug')('2020intern-backend:server');
 const http = require('http');
 
-<<<<<<< HEAD
-let app = require('../app');
-let debug = require('debug')('2020intern-backend:server');
-let http = require('http');
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-  let port = parseInt(val, 10);
-=======
 //Normalize a port into a number, string, or false.
 const normalizePort = (val) => {
   const port = parseInt(val, 10);
->>>>>>> model
 
   if (isNaN(port)) {
     // named pipe
@@ -34,19 +21,12 @@ const normalizePort = (val) => {
   return false;
 }
 
-<<<<<<< HEAD
-
-/**
- * Event listener for HTTP server "error" event.
- */
-=======
 //Event listener for HTTP server "listening" event.
 const onListening = () => {
   const addr = server.address();
   const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
->>>>>>> model
 
 //Event listener for HTTP server "error" event.
 const onError = (error) => {
@@ -54,11 +34,7 @@ const onError = (error) => {
     throw error;
   }
 
-<<<<<<< HEAD
-  let bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
-=======
   const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
->>>>>>> model
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -76,40 +52,6 @@ const onError = (error) => {
 }
 
 
-<<<<<<< HEAD
-function onListening(){
-  let addr = server.address();
-  let bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-}
-
-
-/**
- * Get port from environment and store in Express.
- */
-
-let port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-let server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-
-
-
-
-=======
  //Get port from environment and store in Express.
 const port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
@@ -121,4 +63,3 @@ const server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
->>>>>>> model
