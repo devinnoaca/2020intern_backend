@@ -16,6 +16,5 @@ FROM Career
 ORDER BY user_USN;`;
 
 exports.orderMentor = `
-SELECT DISTINCT count(DISTINCT keyword_name) as searched, name, company, mentor_USN, email, image_url, description, company
-FROM get_mentor_list
-`
+SELECT DISTINCT count(DISTINCT keyword_ID) as searched, name, company, mentor_USN, email, image_url, description, company
+FROM get_mentor_list`
