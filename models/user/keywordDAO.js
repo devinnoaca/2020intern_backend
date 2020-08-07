@@ -40,6 +40,7 @@ const updateTotalKeyword = async (data_array) => {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
 	}
 
+	console.log(data_array);
 	let query = keywordQuery.insertTotalKeyword;
 	let form_data = [];
 	for(i=0; i<data_array[1].length; i++) {

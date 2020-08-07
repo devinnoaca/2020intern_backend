@@ -18,6 +18,7 @@ const getKeywords = async (req, res, next) => {
 }
 
 const updateTotalKeywordController = async (req, res, next) => {
+  console.log("###")
   let usn = parseInt(req.params.usn, 10);
   let keyword_data = req.body.keywords;
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
