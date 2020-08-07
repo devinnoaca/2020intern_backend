@@ -13,24 +13,59 @@ Content-Type: application/json
     "company": "국민대"  
 }
 
-### 유저 커리어 접근
+### 유저 커리어 접근(GET)
 GET http://localhost:3001/user/career/1
+
+### 유저 커리어 생성(POST)
+POST http://localhost:3001/user/career/4
+
+Content-Type: application/json
+{
+    "content": "이노베이션 아카데미"
+}
+
+### 유저 커리어 삭제(DELETE)
+DELETE http://localhost:3001/user/keyword/9
+Content-Type: application/json
+
+{
+    "keyword": [24, 21, 19]
+}
+
+
+
 
 ### 유저 키워드 접근(GET), 생성(POST), 삭제(DELETE)
 
 ### 전체, 추천 모두
-GET http://localhost:3001/user/keyword/2
+GET http://localhost:3001/user/keyword/1
+
 
 ### 전체 키워드 추가
-POST http://localhost:3001/user/keyword/4
+POST http://localhost:3001/user/keyword/total/4
 Content-Type: application/json
 
+{
+    "keywords": [6, 7, 8]
+}
+
+### 전체 키워드 삭제
+DELETE http://localhost:3001/user/keyword/total/9
+
+Content-Type: application/json
+{
+    "keyword": [24, 21, 19]
+}
+
+### 추천 키워드 추가
+POST http://localhost:3001/user/keyword/recommend/4
+Content-Type: application/json
 {
     "keyword": [1, 2, 3]
 }
 
-### 전체 키워드 삭제
-DELETE http://localhost:3001/user/keyword/9
+### 추천 키워드 삭제
+DELETE http://localhost:3001/user/keyword/recommend/9
 Content-Type: application/json
 
 {

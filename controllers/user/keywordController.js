@@ -19,31 +19,6 @@ const getKeywords = async (req, res, next) => {
 
 const updateTotalKeywordController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
-  let keyword_data = req.body.keywords;
-  if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
-  }
-
-  if(keyword_data === "undefined") {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
-  }
-
-  if(keyword_data === "") {
-    return res.status(200).json({ statusCode: 500, message: '값이 없음' });
-  }
-
-  let data = [usn, keyword_data];
-  try {
-    let _keyword = await keyword.updateTotalKeyword(data);
-    return res.status(200).send(_keyword);
-    //return res.render('career', {usn: usn, career: [...careers]});
-  } catch (err) {
-    return res.status(500).json(err);
-  }
-}
-
-const deleteTotalKeywordController = async (req, res, next) => {
-  let usn = parseInt(req.params.usn, 10);
   let keyword_data = req.body.keyword;
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
@@ -58,17 +33,15 @@ const deleteTotalKeywordController = async (req, res, next) => {
   }
 
   let data = [usn, keyword_data];
+  console.log(data);
   try {
-    let _keyword = await keyword.deleteTotalKeyword(data);
+    let _keyword = await keyword.updateTotalKeyword(data);
     return res.status(200).send(_keyword);
     //return res.render('career', {usn: usn, career: [...careers]});
   } catch (err) {
     return res.status(500).json(err);
   }
 }
-
-
-//////////////////////////////////////////////////////////////
 
 const updateRecommendKeywordController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
@@ -95,39 +68,8 @@ const updateRecommendKeywordController = async (req, res, next) => {
   }
 }
 
-const deleteRecommendKeywordController = async (req, res, next) => {
-  let usn = parseInt(req.params.usn, 10);
-  let keyword_data = req.body.keyword;
-  if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
-  }
-
-  if(keyword_data === "undefined") {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
-  }
-
-  if(keyword_data === "") {
-    return res.status(200).json({ statusCode: 500, message: '값이 없음' });
-  }
-
-  let data = [usn, keyword_data];
-  try {
-    let _keyword = await keyword.deleteRecommendKeyword(data);
-    return res.status(200).send(_keyword);
-    //return res.render('career', {usn: usn, career: [...careers]});
-  } catch (err) {
-    return res.status(500).json(err);
-  }
-}
-
-
-
-
-
 module.exports = {
   getKeywords,
   updateTotalKeywordController,
-  deleteTotalKeywordController,
   updateRecommendKeywordController,
-  deleteRecommendKeywordController,
 }

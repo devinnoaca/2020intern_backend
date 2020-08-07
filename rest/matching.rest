@@ -5,25 +5,37 @@ POST http://localhost:3001/matching
 Content-Type: application/json
 
 {
-    "matching_ID": 11,
-    "mentor_usn": 1,
-    "mentee_usn": 2,
-    "matching_request_time": "2020-01-20 13:24:30",
-    "mathcing_response_time": "2020-01-20 13:24:30",
-    "matching_state": 2,
-    "request_reason": "요청합니다.",
-    "reject_reason": "거절합니다.",
-    "isChecked": 0
+    "mentorUsn": 1,
+    "menteeUsn": 2,
+    "reqReason": "요청합니다.",
+    "matchingKeywordL" :[
+        {
+            "matching_keyword_name": "CSS",
+            "matching_category_name": "웹 프로그래밍",
+        },
+        {
+            "matching_keyword_name": "html",
+            "matching_category_name": "웹 프로그래밍",
+        }
+    ]
 }
 
 ### 매칭 수정
 PUT http://localhost:3001/matching/7
 Content-Type: application/json
-
 {
-    "matching_state": 2,
-    "is_checked": 1
+    "state" : 1,
+    "resReason": "안녕"
 }
+
+
+
+
+
+
+
+
+
 
 ### 매칭 키워드 생성(POST)
 POST http://localhost:3001/matching/keyword

@@ -28,7 +28,7 @@ INSERT INTO Recommend_keyword (
   user_USN,
   keyword_ID
   )
-VALUES`;
+VALUES `;
 
 exports.deleteRecommendKeyword = `
 DELETE

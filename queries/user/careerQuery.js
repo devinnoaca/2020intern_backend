@@ -27,4 +27,3 @@ exports.deleteCareer = `
 DELETE
 FROM Career
 WHERE (ID) IN (`;
-

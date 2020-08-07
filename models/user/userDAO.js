@@ -3,7 +3,7 @@ const userQuery = require('../../queries/user/userQuery');
 
 const getUser = async (usn) => {
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
+    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
   }
   let data = await conn.connection(userQuery.getUser, [usn]);
   return await data;
@@ -11,7 +11,7 @@ const getUser = async (usn) => {
 
 const getUpdateUser = async (user) => {
   if ((user === "undefined") || (user === "")) {
-    return res.status(200).json({ statusCode: 500, message: '데이터 없음' });
+    return res.status(200).json({ statusCode: 502, message: '데이터 없음' });
   }
 
   let data = await conn.connection(userQuery.updateUser, user);
