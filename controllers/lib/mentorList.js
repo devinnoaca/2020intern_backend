@@ -1,4 +1,6 @@
-const mentorListLogic = (_mentorList, _careerList) => {
+const { ConsoleTransportOptions } = require("winston/lib/winston/transports");
+
+const mentorListLogic = (_careerList, _order) => {
 	let _career = new Array();
 	let result = new Array();
 
@@ -15,23 +17,25 @@ const mentorListLogic = (_mentorList, _careerList) => {
 		}
 	}
 
+	console.log(_career);
+
 	result.push({
 		mentorList: []
 	})
-
-	for (j = 0; j < _mentorList[0].length; j++) {
+	console.log(_order[0].length);
+	for (j = 0; j < _order[0].length; j++) {
 		result[0].mentorList.push({
-			"usn": _mentorList[0][j].mentor_USN,
-			"name": _mentorList[0][j].name,
-			"imageUrl": _mentorList[0][j].image_url,
-			"email": _mentorList[0][j].email,
-			"description": _mentorList[0][j].description,
-			"company": _mentorList[0][j].company,
-			"career": _career[_mentorList[0][j].mentor_USN -1].career,
+			"usn": _order[0][j].mentor_USN,
+			"name": _order[0][j].name,
+			"imageUrl": _order[0][j].image_url,
+			"email": _order[0][j].email,
+			"description": _order[0][j].description,
+			"company": _order[0][j].company,
+			"career": _career[_order[0][j].mentor_USN -1].career
 		})
 	}
 
-	return result[0].mentorList;
+	return result[0];
 }
 
 module.exports = {

@@ -10,6 +10,14 @@ Content-Type: application/json
     {
         "keywordName": "React.js", 
         "categoryName": "개발/프로그래밍"   
+    }, 
+    {
+        "keywordName": "ELK", 
+        "categoryName": "개발/프로그래밍"   
+    },
+        {
+        "keywordName": "XD", 
+        "categoryName": "디자인"   
     }
     ]
 }
