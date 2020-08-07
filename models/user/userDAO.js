@@ -6,13 +6,11 @@ const getUser = async (usn) => {
     return res.status(200).json({ statusCode: 501, message: '잘못된 매개변수 타입' });
   }
   let data = conn.connection(userQuery.getUser, [usn]);
-  return data;
+  return await data;
 }
 
 const getUpdateUser = async (user) => {
-  console.log(user);
-
-  let data = conn.connection(userQuery.updateUser, user);
+  let data = await conn.connection(userQuery.updateUser, user);
   return data;
 }
 

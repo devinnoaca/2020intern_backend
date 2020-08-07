@@ -12,7 +12,7 @@ const updateMatching = async (update_data) => {
 }
 
 const createMatchingKeyword = async (create_data) => {
-  let data = conn.connection(matchingQuery.insertMatchingKeyword, create_data);
+  let data = await conn.connection(matchingQuery.insertMatchingKeyword, create_data);
   return data;
 }
 
