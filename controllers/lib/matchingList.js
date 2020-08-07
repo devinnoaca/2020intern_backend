@@ -22,7 +22,7 @@ const createMatchingList = (userType, state, matchingData) => {
       matchingListElement.timeRes = matchingData[i].matching_response_time;
       matchingListElement.state = matchingData[i].matching_state;
       matchingListElement.reqReason = matchingData[i].request_message;
-      matchingListElement.rejectMessage = matchingData[i].response_message;
+      matchingListElement.resReason = matchingData[i].response_message;
       matchingListElement.isChecked = matchingData[i].is_checked;
 
       let matchingKeywordList = [], matchingKeywordListElement = {};
