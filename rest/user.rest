@@ -13,8 +13,26 @@ Content-Type: application/json
     "company": "국민대"  
 }
 
-### 유저 커리어 접근
+### 유저 커리어 접근(GET)
 GET http://localhost:3001/user/career/1
+
+### 유저 커리어 생성(POST)
+POST http://localhost:3001/user/career/4
+Content-Type: application/json
+{
+    "content": "이노베이션 아카데미"
+}
+
+### 유저 커리어 삭제(DELETE)
+DELETE http://localhost:3001/user/keyword/9
+Content-Type: application/json
+
+{
+    "keyword": [24, 21, 19]
+}
+
+
+
 
 ### 유저 키워드 접근(GET), 생성(POST), 삭제(DELETE)
 

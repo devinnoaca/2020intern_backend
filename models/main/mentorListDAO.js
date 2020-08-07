@@ -16,6 +16,8 @@ const getMentorList = async (keyword) => {
   }
   query += ` ORDER BY mentor_USN`;
 
+  console.log(query);
+
   let data = await conn.connection(query, []);
   return data;
 

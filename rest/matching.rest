@@ -22,7 +22,8 @@ Content-Type: application/json
 
 {
     "matching_state": 2,
-    "is_checked": 1
+    "is_checked": 1,
+    "response_message": "안녕"
 }
 
 ### 매칭 키워드 생성(POST)
