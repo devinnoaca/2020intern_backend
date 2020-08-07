@@ -17,12 +17,13 @@ const mentorListLogic = (_careerList, _order) => {
 		}
 	}
 
-	console.log(_career);
+  
+  console.log("lib폴더의 mentorList.js의 _career 출력 \n",_career);
 
 	result.push({
 		mentorList: []
 	})
-	console.log(_order[0].length);
+	console.log("lib폴더의 _order[0]의 길이를 출력 \n",_order[0].length);
 	for (j = 0; j < _order[0].length; j++) {
 		result[0].mentorList.push({
 			"usn": _order[0][j].mentor_USN,
