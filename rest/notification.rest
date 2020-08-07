@@ -1,0 +1,23 @@
+### 알림 생성(POST)
+
+POST http://localhost:3001/notification
+Content-Type: application/json
+
+{
+    "noti_type": 0,
+    "ischecked": 0,
+    "message": "알림 생성"
+}
+
+### 유저 알림 생성(POST)
+
+POST http://localhost:3001/notification/user
+Content-Type: application/json
+
+{
+    "time": "2020-01-20 13:24:30",
+    "noti_ID": 11,
+    "sender_USN": 4,
+    "receiver_USN": 1,
+    "is_checked": 0
+}

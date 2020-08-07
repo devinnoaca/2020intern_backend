@@ -1,10 +1,31 @@
 const express = require('express');
-const getUsers  = require('../controller/UserController');
 const router = express.Router();
+const userController = require('../controllers/user/userController');
+const keywordController = require('../controllers/user/keywordController');
+const careerController = require('../controllers/user/careerController');
+const matchingController = require('../controllers/user/mathcingController');
 
-router.get('/:usn/inform', getUsers.doGetUser);
-router.get('/:usn/career', getUsers.doGetCareer);
-router.get('/:usn/totalkeyword', getUsers.doGetTotalKeyword);
-router.get('/:usn/recommendkeyword', getUsers.doGetRecommendKeyword);
+// USER
+router.get('/inform/:usn', userController.getUsers);
+router.put('/inform/:usn', userController.getUpdateUser);
+
+// KEYWORD
+router.get('/keyword/:usn', keywordController.getKeywords);
+
+// TOTAL_KEYWORD
+router.post('/keyword/total/:usn', keywordController.updateTotalKeywordController);
+router.delete('/keyword/total/:usn', keywordController.deleteTotalKeywordController);
+
+// RECOMMEND_KEYWORD
+router.post('/keyword/recommend/:usn', keywordController.updateRecommendKeywordController);
+router.delete('/keyword/recommend/:usn', keywordController.deleteRecommendKeywordController);
+
+// CAREER
+router.get('/career/:usn', careerController.getUserCareer);
+router.post('/career/:usn', careerController.updateCareerController);
+router.delete('/career/:usn', careerController.deleteCareerController);
+
+// Matching
+router.get('/:userType/matching/:state/:usn', matchingController.getMatchingLists);
 
 module.exports = router;

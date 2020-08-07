@@ -1,0 +1,49 @@
+### 매칭 생성(POST), 수정(PUT)
+
+### 매칭 생성(POST)
+POST http://localhost:3001/matching
+Content-Type: application/json
+
+{
+    "mentorUsn": 1,
+    "menteeUsn": 2,
+    "reqReason": "요청합니다.",
+    "matchingKeywordL" :[
+        {
+            "matching_keyword_name": "CSS",
+            "matching_category_name": "웹 프로그래밍",
+        },
+        {
+            "matching_keyword_name": "html",
+            "matching_category_name": "웹 프로그래밍",
+        }
+    ]
+}
+
+### 매칭 수정
+PUT http://localhost:3001/matching/7
+Content-Type: application/json
+{
+    "state" : 1,
+    "resReason": "안녕"
+}
+
+
+
+
+
+
+
+
+
+
+### 매칭 키워드 생성(POST)
+POST http://localhost:3001/matching/keyword
+Content-Type: application/json
+
+{
+    "matching_keyword_ID": 6,
+    "matching_keyword_name": "CSS",
+    "mk_matching_ID": 2,
+    "matching_category_name": "웹 프로그래밍"
+}
