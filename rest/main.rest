@@ -8,16 +8,13 @@ Content-Type: application/json
 {
     "keyword": [
     {
-        "keywordName": "React.js", 
-        "categoryName": "개발/프로그래밍"   
+        "keyword_ID": 1
     }, 
     {
-        "keywordName": "ELK", 
-        "categoryName": "개발/프로그래밍"   
+        "keyword_ID": 2
     },
-        {
-        "keywordName": "XD", 
-        "categoryName": "디자인"   
+    {
+        "keyword_ID": 4 
     }
     ]
 }
