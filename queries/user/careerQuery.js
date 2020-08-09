@@ -15,11 +15,11 @@ UPDATE Career
 SET content = (
   case `;
 
-exports.temp1 = `
+exports.updateCareerWhen = `
 when ID = ? then ?
 `;
 
-exports.temp2 = `
+exports.updateCareerWhere = `
 end) WHERE ID in (
 `;
 
