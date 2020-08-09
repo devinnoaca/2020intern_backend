@@ -17,12 +17,9 @@ const mentorListLogic = (_careerList, _order) => {
 		}
 	}
 
-	console.log(_career);
-
 	result.push({
 		mentorList: []
 	})
-	console.log(_order[0].length);
 	for (j = 0; j < _order[0].length; j++) {
 		result[0].mentorList.push({
 			"usn": _order[0][j].mentor_USN,
