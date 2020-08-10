@@ -43,18 +43,9 @@ const orderMentorList = async (keyword, pageNum) => {
       query += `(keyword_ID = "${keyword[i].keywordId}") `;
     }
   }
-<<<<<<< HEAD
   query += ` GROUP BY name, company, mentor_USN HAVING searched >= 1 ORDER BY searched DESC LIMIT ${starting}, 6;`;
-  // 6개씩
-  console.log("pageNum이 몇인지 볼거야", pageNum);
-  let data = await conn.connection(query, []);
-  return data;  
-  
-=======
-  query += ` GROUP BY name, company, mentor_USN HAVING searched >= 1 ORDER BY searched DESC;`;
   let data = await conn.connection(query, []);
   return data;
->>>>>>> logs
 }
 
 
