@@ -36,10 +36,11 @@ const updateTotalKeywordController = async (req, res, next) => {
   console.log(data);
   try {
     let _keyword = await keyword.updateTotalKeyword(data);
+    console.log(_keyword);
     return res.status(200).send(_keyword);
     //return res.render('career', {usn: usn, career: [...careers]});
   } catch (err) {
-    return res.status(500).json(err);
+    return res.status(501).json(err);
   }
 }
 
