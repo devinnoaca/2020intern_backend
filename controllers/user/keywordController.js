@@ -20,51 +20,114 @@ const getKeywords = async (req, res, next) => {
 const updateTotalKeywordController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
   let keyword_data = req.body.keyword;
+  let insert_data = req.body.keyword.insert_keywords;
+  let delete_data = req.body.keyword.delete_keywords;
+
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
 
-  if(keyword_data === "undefined") {
+  if (keyword_data === "undefined") {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
   }
 
-  if(keyword_data === "") {
+  if (keyword_data === "") {
     return res.status(200).json({ statusCode: 500, message: '값이 없음' });
   }
 
-  let data = [usn, keyword_data];
-  console.log(data);
+
+  if (insert_data.length === 0) {
+    console.log("insert_data 없음");
+    let data = [usn, delete_data];
+    try {
+      let _keyword = await keyword.deleteTotalKeyword(data);
+      //console.log(_keyword);
+      return res.status(200).send(_keyword);
+      //return res.render('career', {usn: usn, career: [...careers]});
+    } catch (err) {
+      return res.status(501).json(err);
+    }
+  }
+
+  if (delete_data.length === 0) {
+    console.log("delete_data 없음")
+    let data = [usn, insert_data];
+    try {
+      let _keyword = await keyword.insertTotalKeyword(data);
+      //console.log(_keyword);
+      return res.status(200).send(_keyword);
+      //return res.render('career', {usn: usn, career: [...careers]});
+    } catch (err) {
+      return res.status(501).json(err);
+    }
+  }
+
   try {
+    console.log("둘 다 길이가 1 이상");
+    let data = [usn, keyword_data];
     let _keyword = await keyword.updateTotalKeyword(data);
+    //console.log(_keyword);
     return res.status(200).send(_keyword);
     //return res.render('career', {usn: usn, career: [...careers]});
   } catch (err) {
-    return res.status(500).json(err);
+    return res.status(501).json(err);
   }
 }
 
 const updateRecommendKeywordController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
   let keyword_data = req.body.keyword;
+  let insert_data = req.body.keyword.insert_keywords;
+  let delete_data = req.body.keyword.delete_keywords;
+
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
 
-  if(keyword_data === "undefined") {
+  if (keyword_data === "undefined") {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
   }
 
-  if(keyword_data === "") {
+  if (keyword_data === "") {
     return res.status(200).json({ statusCode: 500, message: '값이 없음' });
   }
 
-  let data = [usn, keyword_data];
+
+  if (insert_data.length === 0) {
+    console.log("insert_data 없음");
+    let data = [usn, delete_data];
+    try {
+      let _keyword = await keyword.deleteRecommendKeyword(data);
+      //console.log(_keyword);
+      return res.status(200).send(_keyword);
+      //return res.render('career', {usn: usn, career: [...careers]});
+    } catch (err) {
+      return res.status(501).json(err);
+    }
+  }
+
+  if (delete_data.length === 0) {
+    console.log("delete_data 없음")
+    let data = [usn, insert_data];
+    try {
+      let _keyword = await keyword.insertRecommendKeyword(data);
+      //console.log(_keyword);
+      return res.status(200).send(_keyword);
+      //return res.render('career', {usn: usn, career: [...careers]});
+    } catch (err) {
+      return res.status(501).json(err);
+    }
+  }
+
   try {
+    console.log("둘 다 길이가 1 이상");
+    let data = [usn, keyword_data];
     let _keyword = await keyword.updateRecommendKeyword(data);
+    //console.log(_keyword);
     return res.status(200).send(_keyword);
     //return res.render('career', {usn: usn, career: [...careers]});
   } catch (err) {
-    return res.status(500).json(err);
+    return res.status(501).json(err);
   }
 }
 

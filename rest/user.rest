@@ -17,7 +17,7 @@ Content-Type: application/json
 GET http://localhost:3001/user/career/1
 
 ### 유저 커리어 생성(POST)
-POST http://localhost:3001/user/career/4
+POST http://localhost:3001/user/career/2
 
 Content-Type: application/json
 {
@@ -41,35 +41,26 @@ Content-Type: application/json
 GET http://localhost:3001/user/keyword/1
 
 
-### 전체 키워드 추가
-POST http://localhost:3001/user/keyword/total/4
+### 전체 키워드 수정
+POST http://localhost:3001/user/keyword/total/10
 Content-Type: application/json
 
 {
-    "keywords": [6, 7, 8]
+    "keyword": {
+        "insert_keywords": [14, 15, 16],
+        "delete_keywords": []
+    }
 }
 
-### 전체 키워드 삭제
-DELETE http://localhost:3001/user/keyword/total/9
-
-Content-Type: application/json
-{
-    "keyword": [24, 21, 19]
-}
-
-### 추천 키워드 추가
-POST http://localhost:3001/user/keyword/recommend/4
-Content-Type: application/json
-{
-    "keyword": [1, 2, 3]
-}
-
-### 추천 키워드 삭제
-DELETE http://localhost:3001/user/keyword/recommend/9
+### 추천 키워드 수정
+POST http://localhost:3001/user/keyword/recommend/10
 Content-Type: application/json
 
 {
-    "keyword": [24, 21, 19]
+    "keyword": {
+        "insert_keywords": [10, 11, 12],
+        "delete_keywords": []
+    }
 }
 
 
