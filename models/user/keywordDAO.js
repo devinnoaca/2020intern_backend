@@ -136,6 +136,43 @@ const updateRecommendKeyword = async (data_array) => {
   return data;
 }
 
+const insertRecommendKeyword = async (data_array) => {
+	if ((data_array === "undefined") || (data_array === "")) {
+    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+	}
+	let form_data = [];
+	let insertQuery = keywordQuery.insertRecommendKeyword;
+	for(i=0; i<data_array[1].length; i++) {
+		if(i==data_array[1].length - 1) {
+			insertQuery += `(?, ?);`;
+		} else {
+			insertQuery += `(?, ?), `;
+		}
+		form_data.push(data_array[0], data_array[1][i]);
+	}
+	let data = await conn.connection(insertQuery, form_data);
+  return data;
+}
+
+const deleteRecommendKeyword = async (data_array) => {
+	if ((data_array === "undefined") || (data_array === "")) {
+    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+	}
+	let form_data = [];
+	let deleteQuery = keywordQuery.deleteRecommendKeyword;
+	for(i=0; i<data_array[1].length; i++) {
+		if(i==data_array[1].length - 1) {
+			deleteQuery += `(?, ?));`;
+		} else {
+			deleteQuery += `(?, ?), `;
+		}
+		form_data.push(data_array[0], data_array[1][i]);
+	}
+
+	let data = await conn.connection(deleteQuery, form_data);
+  return data;
+}
+
 
 module.exports = {
 	getTotalKeyword,
@@ -146,5 +183,7 @@ module.exports = {
 	updateTotalKeyword,
 	insertTotalKeyword,
 	deleteTotalKeyword,
-  updateRecommendKeyword,
+	updateRecommendKeyword,
+	insertRecommendKeyword,
+	deleteRecommendKeyword,
 }
