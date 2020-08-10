@@ -17,7 +17,7 @@ const createMatching = async (req, res, next) => {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
 
-  if ((mentor_usn === "undefined") || (mentee_usn === "undefined") || (matching_request_time === "undefined") || (mathcing_response_time === "undefined") || 
+  if ((mentor_usn === "undefined") || (mentee_usn === "undefined") || (matching_request_time === "undefined") || (mathcing_response_time === "undefined") ||
     (request_reason === "undefined") || (reject_reason === "undefined")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
   }
@@ -81,34 +81,34 @@ const updateMatching = async (req, res, next) => {
   }
 }
 
-const createMatchingKeyword = async (req, res, next) => {
-  let matching_keyword_name = req.body.matching_keyword_name;
-  let mk_matching_ID = parseInt(req.body.mk_matching_ID, 10);
-  let matching_category_name = req.body.matching_category_name;
-
-  if (Number.isNaN(mk_matching_ID)) {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
-  }
-
-  if ((mathcing_state === "undefined") || (isChecked === "undefined") || (metching_ID === "undefined")) {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
-  }
-
-  if ((mathcing_state === "") || (isChecked === "") || (metching_ID === "")) {
-    return res.status(200).json({ statusCode: 500, message: '값이 없음' });
-  }
-
-  let create = [matching_keyword_name, mk_matching_ID, matching_category_name];
-  try {
-    let result = await matchingDAO.createMatchingKeyword(create);
-    return res.status(200).send(result);
-  } catch (err) {
-    return res.status(500).json(err);
-  }
-}
+// const createMatchingKeyword = async (req, res, next) => {
+//   let matching_keyword_name = req.body.matchingKeywordName;
+//   let mk_matching_ID = parseInt(req.body.mk_matching_ID, 10);
+//   let matching_category_name = req.body.matching_category_name;
+//
+//   if (Number.isNaN(mk_matching_ID)) {
+//     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
+//   }
+//
+//   if ((mathcing_state === "undefined") || (isChecked === "undefined") || (metching_ID === "undefined")) {
+//     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
+//   }
+//
+//   if ((mathcing_state === "") || (isChecked === "") || (metching_ID === "")) {
+//     return res.status(200).json({ statusCode: 500, message: '값이 없음' });
+//   }
+//
+//   let create = [matching_keyword_name, mk_matching_ID, matching_category_name];
+//   try {
+//     let result = await matchingDAO.createMatchingKeyword(create);
+//     return res.status(200).send(result);
+//   } catch (err) {
+//     return res.status(500).json(err);
+//   }
+// }
 
 module.exports = {
   createMatching,
   updateMatching,
-  createMatchingKeyword,
+  // createMatchingKeyword,
 }
