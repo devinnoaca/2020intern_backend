@@ -32,9 +32,9 @@ const orderMentorList = async (keyword) => {
   query += ` WHERE `
   for (i = 0; i < keyword.length; i++) {
     if (i != keyword.length - 1) {
-      query += `(keyword_ID = "${keyword[i].keywordID}") OR `;
+      query += `(keyword_ID = "${keyword[i].keywordId}") OR `;
     } else {
-      query += `(keyword_ID = "${keyword[i].keywordID}") `;
+      query += `(keyword_ID = "${keyword[i].keywordId}") `;
     }
   }
   query += ` GROUP BY name, company, mentor_USN HAVING searched >= 1 ORDER BY searched DESC;`;
