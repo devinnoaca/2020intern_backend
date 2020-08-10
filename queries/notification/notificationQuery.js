@@ -8,9 +8,9 @@ VALUES (?, ?);`;
 exports.insertUserNotification = `
 INSERT
 INTO User_notification(
-	time,
 	noti_ID,
+	time,
 	sender_USN,
 	receiver_USN,
-	is_checked)
+	matching_ID)
 VALUES (?, ?, ?, ?, ?);`;

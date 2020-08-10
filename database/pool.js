@@ -6,7 +6,9 @@ const pool = mysql.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  connectionLimit: 10
+  connectionLimit: 50,
+  multipleStatements: true,
+  dateStrings: 'date',
 })
 
 module.exports = pool;

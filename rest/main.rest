@@ -9,6 +9,7 @@ Content-Type: application/json
     "keyword": [
     {
         "keyword_ID": 1
+<<<<<<< HEAD
     }, 
     {
         "keyword_ID": 4 
@@ -28,3 +29,36 @@ Content-Type: application/json
     ],
     "pageNum" : 2
 }
+=======
+    },
+        {
+        "keyword_ID": 2
+    }
+    ]
+}
+
+# {
+#     "keyword": [
+#     {
+#         "keyword_ID": 1
+#     },
+#     {
+#         "keyword_ID": 2
+#     }
+#     ]
+# }
+
+# {
+#     "keyword": [
+#     {
+#         "keyword_ID": 1
+#     },
+#     {
+#         "keyword_ID": 2
+#     },
+#     {
+#         "keyword_ID": 4 
+#     }
+#     ]
+# }
+>>>>>>> logs

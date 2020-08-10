@@ -16,6 +16,7 @@ const mentorListLogic = (_careerList, _order) => {
 		}
 	}
 
+<<<<<<< HEAD
   
   console.log("lib폴더의 mentorList.js의 _career 출력 \n",_career);
 
@@ -24,6 +25,11 @@ const mentorListLogic = (_careerList, _order) => {
 		mentorList: []
 	})
   console.log("lib폴더의 _order[0]의 길이를 출력 \n",_order[0].length);
+=======
+	result.push({
+		mentorList: []
+	})
+>>>>>>> logs
 	for (j = 0; j < _order[0].length; j++) {
 		result[0].mentorList.push({
       "total_page":_order[0][j].total_List,

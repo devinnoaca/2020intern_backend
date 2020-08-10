@@ -22,7 +22,7 @@ const getMentorList = async (keyword) => {
   ORDER BY searched DESC;`;
 
   let data = await conn.connection(query, []);
-  return data;  
+  return data;
 }
 */
 
@@ -38,17 +38,23 @@ const orderMentorList = async (keyword, pageNum) => {
   query += ` WHERE `
   for (i = 0; i < keyword.length; i++) {
     if (i != keyword.length - 1) {
-      query += `(keyword_ID = "${keyword[i].keyword_ID}") OR `;
+      query += `(keyword_ID = "${keyword[i].keywordId}") OR `;
     } else {
-      query += `(keyword_ID = "${keyword[i].keyword_ID}") `;
+      query += `(keyword_ID = "${keyword[i].keywordId}") `;
     }
   }
+<<<<<<< HEAD
   query += ` GROUP BY name, company, mentor_USN HAVING searched >= 1 ORDER BY searched DESC LIMIT ${starting}, 6;`;
   // 6개씩
   console.log("pageNum이 몇인지 볼거야", pageNum);
   let data = await conn.connection(query, []);
   return data;  
   
+=======
+  query += ` GROUP BY name, company, mentor_USN HAVING searched >= 1 ORDER BY searched DESC;`;
+  let data = await conn.connection(query, []);
+  return data;
+>>>>>>> logs
 }
 
 
@@ -57,3 +63,4 @@ module.exports = {
   getAllCareer,
   orderMentorList,
 }
+

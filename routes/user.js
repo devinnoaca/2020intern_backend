@@ -14,18 +14,18 @@ router.get('/keyword/:usn', keywordController.getKeywords);
 
 // TOTAL_KEYWORD
 router.post('/keyword/total/:usn', keywordController.updateTotalKeywordController);
-router.delete('/keyword/total/:usn', keywordController.deleteTotalKeywordController);
+
 
 // RECOMMEND_KEYWORD
 router.post('/keyword/recommend/:usn', keywordController.updateRecommendKeywordController);
-router.delete('/keyword/recommend/:usn', keywordController.deleteRecommendKeywordController);
+
 
 // CAREER
 router.get('/career/:usn', careerController.getUserCareer);
-router.post('/career/:usn', careerController.updateCareerController);
-router.delete('/career/:usn', careerController.deleteCareerController);
+router.post('/career/:usn', careerController.handleUserCareer);
 
 // Matching
 router.get('/:userType/matching/:state/:usn', matchingController.getMatchingLists);
+router.put('/matching/:matchingId', matchingController.updateMatching);
 
 module.exports = router;
