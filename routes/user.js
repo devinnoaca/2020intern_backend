@@ -15,6 +15,7 @@ router.get('/keyword/:usn', keywordController.getKeywords);
 // TOTAL_KEYWORD
 router.post('/keyword/total/:usn', keywordController.updateTotalKeywordController);
 
+
 // RECOMMEND_KEYWORD
 router.post('/keyword/recommend/:usn', keywordController.updateRecommendKeywordController);
 
@@ -25,5 +26,6 @@ router.post('/career/:usn', careerController.handleUserCareer);
 
 // Matching
 router.get('/:userType/matching/:state/:usn', matchingController.getMatchingLists);
+router.put('/matching/:matchingId', matchingController.updateMatching);
 
 module.exports = router;

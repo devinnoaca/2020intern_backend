@@ -15,3 +15,7 @@ WHERE (
 	matching_state = ?)
 ORDER BY matching_ID ASC
 ;`
+
+exports.updateMatching = `
+
+;`
