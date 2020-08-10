@@ -11,10 +11,20 @@ Content-Type: application/json
         "keyword_ID": 1
     }, 
     {
-        "keyword_ID": 2
+        "keyword_ID": 4 
     },
     {
-        "keyword_ID": 4 
+        "keyword_ID": 5 
+    },
+    {
+        "keyword_ID": 6 
+    },
+    {
+        "keyword_ID": 3 
+    },
+    {
+        "keyword_ID": 2 
     }
-    ]
+    ],
+    "pageNum" : 2
 }
