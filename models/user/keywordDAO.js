@@ -44,22 +44,22 @@ const updateTotalKeyword = async (data_array) => {
 	let deleteQuery = keywordQuery.deleteTotalKeyword;
 
 	let form_data = [];
-	for(i=0; i<data_array[1].insert_keywords.length; i++) {
-		if(i==data_array[1].insert_keywords.length - 1) {
+	for(i=0; i<data_array[1].insertKeywords.length; i++) {
+		if(i==data_array[1].insertKeywords.length - 1) {
 			insertQuery += `(?, ?);`;
 		} else {
 			insertQuery += `(?, ?), `;
 		}
-		form_data.push(data_array[0], data_array[1].insert_keywords[i]);
+		form_data.push(data_array[0], data_array[1].insertKeywords[i]);
 	}
 
-	for(i=0; i<data_array[1].delete_keywords.length; i++) {
-		if(i==data_array[1].delete_keywords.length - 1) {
+	for(i=0; i<data_array[1].deleteKeywords.length; i++) {
+		if(i==data_array[1].deleteKeywords.length - 1) {
 			deleteQuery += `(?, ?));`;
 		} else {
 			deleteQuery += `(?, ?), `;
 		}
-		form_data.push(data_array[0], data_array[1].delete_keywords[i]);
+		form_data.push(data_array[0], data_array[1].deleteKeywords[i]);
 	}
 
 	let data = await conn.connection(insertQuery + deleteQuery, form_data);

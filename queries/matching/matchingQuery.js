@@ -5,12 +5,10 @@ INTO Matching(
   mentee_USN, 
   request_time, 
   response_time, 
-  state, 
   request_message, 
-  is_checked, 
   response_message
   )
-VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
+VALUES (?, ?, ?, ?, ?, ?);`;
 
 exports.updateMatching = `
 UPDATE Matching 
@@ -21,9 +19,8 @@ WHERE ID = ?;`;
 
 exports.insertMatchingKeyword = `
 INSERT 
-INTO Matching_keyword(
+INTO matching_keyword(
   keyword_name, 
-  matching_ID, 
-  category_name
-  ) 
-VALUES (?, ?, ?);`;
+  category_name, 
+  matching_ID) 
+VALUES `;

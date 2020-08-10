@@ -1,37 +1,54 @@
-const matchingDAO = require('../../models/mathcing/mathcingDAO');
+const matchingDAO = require('../../models/mathcing/matchingDAO');
+const notificationDAO = require('../../models/notification/notificationDAO');
+const dataLib = require('../lib/date');
+//const { getFormatDate } = require('../lib/date');
 
 const createMatching = async (req, res, next) => {
-  let mentor_usn = parseInt(req.body.mentor_usn, 10);
-  let mentee_usn = parseInt(req.body.mentee_usn, 10);
-  let matching_request_time = req.body.matching_request_time;
-  let mathcing_response_time = req.body.mathcing_response_time;
-  let mathcing_state = parseInt(req.body.matching_state, 10);
-  let request_reason = req.body.request_reason;
-  let isChecked = parseInt(req.body.isChecked, 10);
-  let reject_reason = req.body.reject_reason;
+  let date = new Date();
+  let mentor_usn = parseInt(req.body.mentorUsn, 10);
+  let mentee_usn = parseInt(req.body.menteeUsn, 10);
+  let matching_request_time = dataLib.getFormatDate(date);
+  let mathcing_response_time = null;
+  let request_reason = req.body.reqReason;
+  let reject_reason = "";
+  let keywordlist = req.body.keywordList;
 
-  if (Number.isNaN(mentor_usn) || Number.isNaN(mentee_usn) || Number.isNaN(mathcing_state) || Number.isNaN(isChecked)) {
+  if (Number.isNaN(mentor_usn) || Number.isNaN(mentee_usn)) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
 
-  if ((mentor_usn === "undefined") || (mentee_usn === "undefined") || (matching_request_time === "undefined") || (mathcing_response_time === "undefined") || (mathcing_state === "undefined") ||
-    (request_reason === "undefined") || (isChecked === "undefined") || (reject_reason === "undefined")) {
+  if ((mentor_usn === "undefined") || (mentee_usn === "undefined") || (matching_request_time === "undefined") || (mathcing_response_time === "undefined") || 
+    (request_reason === "undefined") || (reject_reason === "undefined")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
   }
 
-  if ((mentor_usn === "") || (mentee_usn === "") || (matching_request_time === "") || (mathcing_response_time === "") || (mathcing_state === "") ||
-    (request_reason === "") || (isChecked === "") || (reject_reason === "")) {
+  if ((mentor_usn === "") || (mentee_usn === "") || (matching_request_time === "") || (mathcing_response_time === "") ||
+    (request_reason === "")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
   }
 
-  let create = [
-    mentor_usn, mentee_usn, matching_request_time, mathcing_response_time, mathcing_state,
-    request_reason, isChecked, reject_reason
+  let matchingCreate = [
+    mentor_usn, mentee_usn, matching_request_time, mathcing_response_time,
+    request_reason, reject_reason
   ];
 
+  let matchingKeywordCreate = [
+    keywordlist[0].keywordName, keywordlist[0].categoryName
+  ];
+
+  let notificationCreate = [
+    null, matching_request_time, mentor_usn, mentee_usn
+  ]
+
   try {
-    let result = await matchingDAO.createMatching(create);
-    return res.status(200).send(result);
+    let MatchingResult = await matchingDAO.createMatching(matchingCreate);
+    matchingKeywordCreate.push(MatchingResult[0].insertId);
+    notificationCreate.push(MatchingResult[0].insertId);
+    let MatchingKeywordResult = await matchingDAO.createMatchingKeyword(matchingKeywordCreate);
+    let NotificationResul = await notificationDAO.createUserNotification(notificationCreate);
+    return res.status(200).send({
+      MatchingResult, MatchingKeywordResult, NotificationResul
+    });
   } catch (err) {
     return res.status(500).json(err);
   }

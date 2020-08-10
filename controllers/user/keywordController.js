@@ -20,8 +20,8 @@ const getKeywords = async (req, res, next) => {
 const updateTotalKeywordController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
   let keyword_data = req.body.keyword;
-  let insert_data = req.body.keyword.insert_keywords;
-  let delete_data = req.body.keyword.delete_keywords;
+  let insert_data = req.body.keyword.insertKeywords;
+  let delete_data = req.body.keyword.deleteKeywords;
 
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
@@ -35,13 +35,11 @@ const updateTotalKeywordController = async (req, res, next) => {
     return res.status(200).json({ statusCode: 500, message: '값이 없음' });
   }
 
-
   if (insert_data.length === 0) {
     console.log("insert_data 없음");
     let data = [usn, delete_data];
     try {
       let _keyword = await keyword.deleteTotalKeyword(data);
-      //console.log(_keyword);
       return res.status(200).send(_keyword);
       //return res.render('career', {usn: usn, career: [...careers]});
     } catch (err) {
@@ -54,7 +52,6 @@ const updateTotalKeywordController = async (req, res, next) => {
     let data = [usn, insert_data];
     try {
       let _keyword = await keyword.insertTotalKeyword(data);
-      //console.log(_keyword);
       return res.status(200).send(_keyword);
       //return res.render('career', {usn: usn, career: [...careers]});
     } catch (err) {
@@ -77,8 +74,8 @@ const updateTotalKeywordController = async (req, res, next) => {
 const updateRecommendKeywordController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
   let keyword_data = req.body.keyword;
-  let insert_data = req.body.keyword.insert_keywords;
-  let delete_data = req.body.keyword.delete_keywords;
+  let insert_data = req.body.keyword.insertKeywords;
+  let delete_data = req.body.keyword.deleteKeywords;
 
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });

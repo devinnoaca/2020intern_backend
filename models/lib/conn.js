@@ -6,6 +6,7 @@ const connection = async (query_data, body_data) => {
     await conn.beginTransaction();
     // console.log(query_data, body_data);
     let data = await pool.query(query_data, body_data);
+    await conn.commit();
     return data;
   } catch (err) {
     conn.rollback()
