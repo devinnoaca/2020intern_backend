@@ -35,8 +35,6 @@ const updateMatching = async (bindValue) => {
   if ((bindValue === "undefined") || (bindValue === "")) {
     return res.status(200).json({ statusCode: 502, message: '데이터 없음' });
   }
-  console.log(bindValue);
-  console.log(matchingQuery.updateMatching);
   let data = await conn.connection(matchingQuery.updateMatching, bindValue);
   return data;
 }
