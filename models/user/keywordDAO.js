@@ -40,31 +40,70 @@ const updateTotalKeyword = async (data_array) => {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
 	}
 
-	let query = keywordQuery.insertTotalKeyword;
+	let insertQuery = keywordQuery.insertTotalKeyword;
+	let deleteQuery = keywordQuery.deleteTotalKeyword;
+
 	let form_data = [];
 	for(i=0; i<data_array[1].insert_keywords.length; i++) {
 		if(i==data_array[1].insert_keywords.length - 1) {
-			query += `(?, ?);`;
+			insertQuery += `(?, ?);`;
 		} else {
-			query += `(?, ?), `;
+			insertQuery += `(?, ?), `;
 		}
 		form_data.push(data_array[0], data_array[1].insert_keywords[i]);
 	}
 
-	let query2 = keywordQuery.deleteTotalKeyword;
-	console.log(query2);
 	for(i=0; i<data_array[1].delete_keywords.length; i++) {
 		if(i==data_array[1].delete_keywords.length - 1) {
-			query2 += `(?, ?));`;
+			deleteQuery += `(?, ?));`;
 		} else {
-			query2 += `(?, ?), `;
+			deleteQuery += `(?, ?), `;
 		}
 		form_data.push(data_array[0], data_array[1].delete_keywords[i]);
 	}
 
-	let data = await conn.connection(query + query2, form_data);
+	let data = await conn.connection(insertQuery + deleteQuery, form_data);
   return data;
 }
+
+
+const insertTotalKeyword = async (data_array) => {
+	if ((data_array === "undefined") || (data_array === "")) {
+    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+	}
+	let form_data = [];
+	let insertQuery = keywordQuery.insertTotalKeyword;
+	for(i=0; i<data_array[1].length; i++) {
+		if(i==data_array[1].length - 1) {
+			insertQuery += `(?, ?);`;
+		} else {
+			insertQuery += `(?, ?), `;
+		}
+		form_data.push(data_array[0], data_array[1][i]);
+	}
+	let data = await conn.connection(insertQuery, form_data);
+  return data;
+}
+
+const deleteTotalKeyword = async (data_array) => {
+	if ((data_array === "undefined") || (data_array === "")) {
+    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+	}
+	let form_data = [];
+	let deleteQuery = keywordQuery.deleteTotalKeyword;
+	for(i=0; i<data_array[1].length; i++) {
+		if(i==data_array[1].length - 1) {
+			deleteQuery += `(?, ?));`;
+		} else {
+			deleteQuery += `(?, ?), `;
+		}
+		form_data.push(data_array[0], data_array[1][i]);
+	}
+
+	let data = await conn.connection(deleteQuery, form_data);
+  return data;
+}
+
 
 const updateRecommendKeyword = async (data_array) => {
 	if ((data_array === "undefined") || (data_array === "")) {
@@ -105,5 +144,7 @@ module.exports = {
 	getCategory,
 	getKeyword,
 	updateTotalKeyword,
+	insertTotalKeyword,
+	deleteTotalKeyword,
   updateRecommendKeyword,
 }
