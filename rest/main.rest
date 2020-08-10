@@ -8,12 +8,14 @@ Content-Type: application/json
 {
     "keyword": [
     {
-        "keyword_ID": 1
+        "keywordId": 1
     },
     {
-        "keyword_ID": 2
+        "keywordId": 2
     },
-
+    {
+        "keywordId" : 4
+    }
     ],
     "pageNum" : 1
 }
