@@ -17,7 +17,7 @@ const mentorListLogic = (_careerList, _order) => {
 	}
 
   
-  console.log("lib폴더의 mentorList.js의 _career 출력 \n",_career);
+  //console.log("lib폴더의 mentorList.js의 _career 출력 \n",_career);
 
 
 	result.push({
@@ -25,7 +25,7 @@ const mentorListLogic = (_careerList, _order) => {
 	})
 	for (j = 0; j < _order[0].length; j++) {
 		result[0].mentorList.push({
-      "total_page":_order[0][j].total_List,
+      "totalPage":_order[0][j].total_List,
 			"usn": _order[0][j].mentor_USN,
 			"name": _order[0][j].name,
 			"imageUrl": _order[0][j].image_url,
