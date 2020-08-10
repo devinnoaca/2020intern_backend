@@ -55,28 +55,37 @@ const createMatching = async (req, res, next) => {
 }
 
 const updateMatching = async (req, res, next) => {
-  let mathcing_state = parseInt(req.body.matching_state, 10);
-  let isChecked = parseInt(req.body.is_checked, 10);
-  let metching_ID = parseInt(req.params.matching_id, 10);
+  let matchingId = parseInt(req.params.matchingId, 10);
+  let responseMessage = req.body.responseMessage;
+  let state = req.body.state;
+  let mentorUSN = parseInt(req.body.mentorUSN, 10);
+  let menteeUSN = parseInt(req.body.menteeUSN, 10);
 
-  if (Number.isNaN(mathcing_state) || Number.isNaN(isChecked) || Number.isNaN(metching_ID)) {
+  if ((Number.isNaN(matchingId)) || (Number.isNaN(state))) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
 
-  if ((mathcing_state === "undefined") || (isChecked === "undefined") || (metching_ID === "undefined")) {
+  if ((matchingId === "undefined") || (responseMessage === "undefined") || (state === "undefined")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
   }
 
-  if ((mathcing_state === "") || (isChecked === "") || (metching_ID === "")) {
+  if ((matchingId === "") || (responseMessage === "") || (state === "")) {
     return res.status(200).json({ statusCode: 500, message: '값이 없음' });
   }
 
-  let update = [mathcing_state, isChecked, metching_ID];
+  let date = new Date();
+  let matchingResponseTime = dataLib.getFormatDate(date);
+  let bindValue = [ responseMessage, state, matchingResponseTime, matchingId ];
+
+  let notificationCreate = [
+    null, matchingResponseTime, menteeUSN, mentorUSN, matchingId
+  ];
 
   try {
-    let result = await matchingDAO.updateMatching(update);
-    return res.status(200).send(result);
-  } catch (err) {
+    let result = await matchingDAO.updateMatching(bindValue);
+    let NotificationResul = await notificationDAO.createUserNotification(notificationCreate);
+    return res.status(200).json(result)
+  } catch(err) {
     return res.status(500).json(err);
   }
 }

@@ -31,13 +31,16 @@ const createMatchingKeyword = async (create_data) => {
   return data;
 }
 
-const updateMatching = async (update_data) => {
-  if ((update_data === "undefined") || (update_data === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	}
-  let data = await conn.connection(matchingQuery.updateMatching, update_data);
+const updateMatching = async (bindValue) => {
+  if ((bindValue === "undefined") || (bindValue === "")) {
+    return res.status(200).json({ statusCode: 502, message: '데이터 없음' });
+  }
+  console.log(bindValue);
+  console.log(matchingQuery.updateMatching);
+  let data = await conn.connection(matchingQuery.updateMatching, bindValue);
   return data;
 }
+
 
 module.exports = {
   createMatching,
