@@ -41,7 +41,6 @@ const updateTotalKeywordController = async (req, res, next) => {
     let data = [usn, deleteData];
     try {
       let _keyword = await keyword.deleteTotalKeyword(data);
-      //console.log(_keyword);
       return res.status(200).send(_keyword);
       //return res.render('career', {usn: usn, career: [...careers]});
     } catch (err) {
@@ -54,7 +53,6 @@ const updateTotalKeywordController = async (req, res, next) => {
     let data = [usn, insertData];
     try {
       let _keyword = await keyword.insertTotalKeyword(data);
-      //console.log(_keyword);
       return res.status(200).send(_keyword);
       //return res.render('career', {usn: usn, career: [...careers]});
     } catch (err) {
