@@ -21,8 +21,7 @@ router.post('/keyword/recommend/:usn', keywordController.updateRecommendKeywordC
 
 // CAREER
 router.get('/career/:usn', careerController.getUserCareer);
-router.post('/career/:usn', careerController.updateCareerController);
-router.delete('/career/:usn', careerController.deleteCareerController);
+router.post('/career/:usn', careerController.handleUserCareer);
 
 // Matching
 router.get('/:userType/matching/:state/:usn', matchingController.getMatchingLists);

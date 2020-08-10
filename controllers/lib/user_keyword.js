@@ -4,10 +4,10 @@ const insertKeyword = (model) => {
 	for (i = 0; i < model[0].length; i++) {
 		array.push({
 			"keywordId": model[0][i].keyword_ID,
+			"keywordName": model[0][i].keyword_name,
 			"categoryName": model[0][i].category_name,
-			"keywordName": model[0][i].keyword_name
 		});
-	}	
+	}
 	return array;
 }
 
