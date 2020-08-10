@@ -34,6 +34,7 @@ const getAllCareer = async () => {
 const orderMentorList = async (keyword, pageNum) => {
   let query = mentorListQuery.orderMentor;
   let starting = pageNum*6 -5;
+  
   query += ` WHERE `
   for (i = 0; i < keyword.length; i++) {
     if (i != keyword.length - 1) {
@@ -45,7 +46,6 @@ const orderMentorList = async (keyword, pageNum) => {
   query += ` GROUP BY name, company, mentor_USN HAVING searched >= 1 ORDER BY searched DESC LIMIT ${starting}, 6;`;
   console.log("pageNum이 몇인지 볼거야", pageNum);
   let data = await conn.connection(query, []);
-  
   return data;  
 }
 
