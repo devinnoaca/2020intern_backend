@@ -27,16 +27,16 @@ const updateTotalKeywordController = async (req, res, next) => {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
 
-  if (keyword_data === "undefined") {
+  if (keywordData === "undefined") {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
   }
 
-  if (keyword_data === "") {
+  if (keywordData === "") {
     return res.status(200).json({ statusCode: 500, message: '값이 없음' });
   }
 
 
-  if (insert_data.length === 0) {
+  if (insertData.length === 0) {
     console.log("insert_data 없음");
     let data = [usn, deleteData];
     try {
@@ -49,7 +49,7 @@ const updateTotalKeywordController = async (req, res, next) => {
     }
   }
 
-  if (delete_data.length === 0) {
+  if (deleteData.length === 0) {
     console.log("delete_data 없음")
     let data = [usn, insertData];
     try {
@@ -77,8 +77,8 @@ const updateTotalKeywordController = async (req, res, next) => {
 const updateRecommendKeywordController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
   let keyword_data = req.body.keyword;
-  let insert_data = req.body.keyword.insert_keywords;
-  let delete_data = req.body.keyword.delete_keywords;
+  let insert_data = req.body.keyword.insertKeywords;
+  let delete_data = req.body.keyword.deleteKeywords;
 
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
