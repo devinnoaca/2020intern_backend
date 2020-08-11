@@ -13,6 +13,9 @@ const getUserCareerController = async (req, res, next) => {
       careers.add(career[0][i].content);
     }
     let data = {};
+    for (let i = 0; i < career[0].length; i++) {
+      career[0][i].type = null;
+    }
     data.career = [...career[0]]
     return res.status(200).send(data);
     //return res.render('career', {usn: usn, career: [...careers]});

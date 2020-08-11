@@ -30,7 +30,7 @@ const handleCareerDAO = async (career) => {
   let query = ``, bindValue = [];
 
   for (let i = 0; i < career.length; i++) {
-    if (career[i].content === "") continue;
+    if (career[i].content === "" || career[i].type === null) continue;
     // career 배열에 담긴 객체의 타입 별로 삽입, 수정, 삭제의 질의문과 바인드 값 추가
     switch (career[i].type) {
       case 0:
@@ -71,6 +71,7 @@ const handleCareerDAO = async (career) => {
     query += deleteCareerQuery;
     bindValue = bindValue.concat(deleteCareerQueryBindValue);
   }
+  if (query.length === 0) return;
   let data = await conn.connection(query, bindValue);
   return data;
 }
