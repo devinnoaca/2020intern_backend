@@ -27,29 +27,6 @@ const getMatchingLists = async (req, res, next) => {
   }
 }
 
-const updateMatching = async (req, res, next) => {
-  let matchingId = parseInt(req.params.matchingId, 10);
-  if (Number.isNaN(matchingId)) {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
-  }
-
-  if (matchingId === "undefined") {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
-  }
-
-  if (matchingId === "") {
-    return res.status(200).json({ statusCode: 500, message: '값이 없음' });
-  }
-
-  try {
-    let result = await matching.updateMatching(matchingId);
-    return res.status(200).json(result)
-  } catch(err) {
-    return res.status(500).json(err);
-  }
-}
-
 module.exports = {
   getMatchingLists,
-  updateMatching,
 }

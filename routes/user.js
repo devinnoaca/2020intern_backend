@@ -26,6 +26,5 @@ router.post('/career/:usn', careerController.handleUserCareer);
 
 // Matching
 router.get('/:userType/matching/:state/:usn', matchingController.getMatchingLists);
-router.put('/matching/:matchingId', matchingController.updateMatching);
 
 module.exports = router;
