@@ -8,27 +8,22 @@ Content-Type: application/json
     "mentorUsn": 1,
     "menteeUsn": 2,
     "reqReason": "요청합니다.",
-    "matchingKeywordL" :[
-        {
-            "matching_keyword_name": "CSS",
-            "matching_category_name": "웹 프로그래밍",
-        },
-        {
-            "matching_keyword_name": "html",
-            "matching_category_name": "웹 프로그래밍",
-        }
-    ]
+    "keywordList": [{
+        "keywordName": ["CSS", "HTML"],
+        "categoryName": ["디자인", "디자인"]
+    }]
 }
 
 ### 매칭 수정
-PUT http://localhost:3001/matching/7
+PUT http://localhost:3001/matching/1
 Content-Type: application/json
+
 {
-    "state" : 1,
-    "resReason": "안녕"
+    "responseMessage": "수락합니다.",
+    "state": 1,
+    "menteeUSN": 4,
+    "mentorUSN": 1
 }
-
-
 
 
 

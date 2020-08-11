@@ -16,22 +16,28 @@ Content-Type: application/json
 ### 유저 커리어 접근(GET)
 GET http://localhost:3001/user/career/1
 
-### 유저 커리어 생성(POST)
+### 유저 커리어 생성, 수정, 삭제 (POST)
+### type 0: 생성, 1: 수정. 2: 삭제
+
 POST http://localhost:3001/user/career/2
-
-Content-Type: application/json
-{
-    "content": "이노베이션 아카데미"
-}
-
-### 유저 커리어 삭제(DELETE)
-DELETE http://localhost:3001/user/keyword/9
 Content-Type: application/json
 
 {
-    "keyword": [24, 21, 19]
+    "career": [
+        {
+            "ID": 2,
+            "content": "국민머학교 학생",
+            "user_USN": 2,
+            "type": 0
+        },
+        {
+            "ID": 5,
+            "content": "Naver : CTO",
+            "user_USN": 2,
+            "type": 0
+        }
+    ]
 }
-
 
 
 
@@ -47,8 +53,8 @@ Content-Type: application/json
 
 {
     "keyword": {
-        "insert_keywords": [14, 15, 16],
-        "delete_keywords": []
+        "insertKeywords": [14, 15, 16],
+        "deleteKeywords": []
     }
 }
 
@@ -58,8 +64,8 @@ Content-Type: application/json
 
 {
     "keyword": {
-        "insert_keywords": [10, 11, 12],
-        "delete_keywords": []
+        "insertKeywords": [13, 14],
+        "deleteKeywords": [1, 2, 3]
     }
 }
 

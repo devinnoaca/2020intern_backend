@@ -23,6 +23,8 @@ const updateTotalKeywordController = async (req, res, next) => {
   let insertData = req.body.keyword.insertKeywords;
   let deleteData = req.body.keyword.deleteKeywords;
 
+  console.log(insertData, deleteData);
+
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
