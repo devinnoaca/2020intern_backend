@@ -1,14 +1,14 @@
 const keyword = require('../../models/user/keywordDAO');
 const user_keyword = require('../lib/user_keyword');
 
-const getKeywords = async (req, res, next) => {
+const getKeywordController= async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
   try {
-    let total = await keyword.getTotalKeyword(usn);
-    let recommend = await keyword.getRecommendKeyword(usn);
+    let total = await keyword.getTotalKeywordDAO(usn);
+    let recommend = await keyword.getRecommendKeywordDAO(usn);
     let result = user_keyword.userKeywordLogic(usn, total, recommend);
     return res.status(200).send(result);
     //return res.render('keyword', {total: [...total_keywords], recommend: [...recommend_keywords]});
@@ -42,7 +42,7 @@ const updateTotalKeywordController = async (req, res, next) => {
     console.log("insert_data 없음");
     let data = [usn, deleteData];
     try {
-      let _keyword = await keyword.deleteTotalKeyword(data);
+      let _keyword = await keyword.deleteTotalKeywordDAO(data);
       return res.status(200).send(_keyword);
       //return res.render('career', {usn: usn, career: [...careers]});
     } catch (err) {
@@ -54,7 +54,7 @@ const updateTotalKeywordController = async (req, res, next) => {
     console.log("delete_data 없음")
     let data = [usn, insertData];
     try {
-      let _keyword = await keyword.insertTotalKeyword(data);
+      let _keyword = await keyword.insertTotalKeywordDAO(data);
       return res.status(200).send(_keyword);
       //return res.render('career', {usn: usn, career: [...careers]});
     } catch (err) {
@@ -65,7 +65,7 @@ const updateTotalKeywordController = async (req, res, next) => {
   try {
     console.log("둘 다 길이가 1 이상");
     let data = [usn, keywordData];
-    let _keyword = await keyword.updateTotalKeyword(data);
+    let _keyword = await keyword.updateTotalKeywordDAO(data);
     //console.log(_keyword);
     return res.status(200).send(_keyword);
     //return res.render('career', {usn: usn, career: [...careers]});
@@ -97,7 +97,7 @@ const updateRecommendKeywordController = async (req, res, next) => {
     console.log("insert_data 없음");
     let data = [usn, delete_data];
     try {
-      let _keyword = await keyword.deleteRecommendKeyword(data);
+      let _keyword = await keyword.deleteRecommendKeywordDAO(data);
       //console.log(_keyword);
       return res.status(200).send(_keyword);
       //return res.render('career', {usn: usn, career: [...careers]});
@@ -110,7 +110,7 @@ const updateRecommendKeywordController = async (req, res, next) => {
     console.log("delete_data 없음")
     let data = [usn, insert_data];
     try {
-      let _keyword = await keyword.insertRecommendKeyword(data);
+      let _keyword = await keyword.insertRecommendKeywordDAO(data);
       //console.log(_keyword);
       return res.status(200).send(_keyword);
       //return res.render('career', {usn: usn, career: [...careers]});
@@ -122,7 +122,7 @@ const updateRecommendKeywordController = async (req, res, next) => {
   try {
     console.log("둘 다 길이가 1 이상");
     let data = [usn, keyword_data];
-    let _keyword = await keyword.updateRecommendKeyword(data);
+    let _keyword = await keyword.updateRecommendKeywordDAO(data);
     //console.log(_keyword);
     return res.status(200).send(_keyword);
     //return res.render('career', {usn: usn, career: [...careers]});
@@ -132,7 +132,7 @@ const updateRecommendKeywordController = async (req, res, next) => {
 }
 
 module.exports = {
-  getKeywords,
+  getKeywordController,
   updateTotalKeywordController,
   updateRecommendKeywordController,
 }

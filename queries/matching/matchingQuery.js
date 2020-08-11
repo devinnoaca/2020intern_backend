@@ -1,4 +1,4 @@
-exports.insertMatching = `
+exports.insertMatchingQuery = `
 INSERT
 INTO Matching(
   mentor_USN,
@@ -10,7 +10,7 @@ INTO Matching(
   )
 VALUES (?, ?, ?, ?, ?, ?);`;
 
-exports.updateMatching = `
+exports.updateMatchingQuery = `
 UPDATE Matching
 SET
   response_message = ?,
@@ -18,7 +18,7 @@ SET
   response_time = ?
 WHERE ID = ?;`;
 
-exports.insertMatchingKeyword = `
+exports.insertMatchingKeywordQuery = `
 INSERT
 INTO matching_keyword(
   keyword_name,

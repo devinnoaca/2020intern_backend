@@ -1,36 +1,36 @@
 // total keyword
-exports.gettotalkeyword = `
+exports.gettotalkeywordQuery = `
 SELECT *
 FROM get_total_keyword
 WHERE utk_USN = ?;`;
 
-exports.insertTotalKeyword = `
+exports.insertTotalKeywordQuery = `
 INSERT INTO User_total_keyword (
   user_USN,
   keyword_ID
   )
 VALUES`;
 
-exports.deleteTotalKeyword = `
+exports.deleteTotalKeywordQuery = `
 DELETE
 FROM User_total_keyword
 WHERE (user_USN, keyword_ID) IN (`;
 
 
 // RECOMMEND KEYWORD
-exports.getRecommendKeyword = `
+exports.getRecommendKeywordQuery = `
 SELECT *
 FROM get_recommend_keyword
 WHERE rk_USN = ?;`;
 
-exports.insertRecommendKeyword = `
+exports.insertRecommendKeywordQuery = `
 INSERT INTO Recommend_keyword (
   user_USN,
   keyword_ID
   )
 VALUES `;
 
-exports.deleteRecommendKeyword = `
+exports.deleteRecommendKeywordQuery = `
 DELETE
 FROM Recommend_keyword
 WHERE (user_USN, keyword_ID) IN (`;

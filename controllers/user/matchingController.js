@@ -1,7 +1,7 @@
-const matching = require('../../models/user/mathcingDAO');
+const matchingDAO = require('../../models/user/matchingDAO');
 const lib = require('../lib/matchingList');
 
-const getMatchingLists = async (req, res, next) => {
+const getMatchingListsController = async (req, res, next) => {
   let usn  = parseInt(req.params.usn, 10);
   let userType = parseInt(req.params.userType, 10);
   let state = parseInt(req.params.state, 10);
@@ -18,7 +18,7 @@ const getMatchingLists = async (req, res, next) => {
   }
 
   try {
-    let matching_data = userType ? await matching.getMenteeMatchingList(usn, state) : await matching.getMentorMatchingList(usn, state);
+    let matching_data = userType ? await matchingDAO.getMenteeMatchingListDAO(usn, state) : await matchingDAO.getMentorMatchingListDAO(usn, state);
     return res.status(200).json(lib.createMatchingList(userType, state, matching_data[0]));
       // return res.render('user', {user: users[0]});
       // res.json(users[0][0]);
@@ -28,5 +28,5 @@ const getMatchingLists = async (req, res, next) => {
 }
 
 module.exports = {
-  getMatchingLists,
+  getMatchingListsController,
 }

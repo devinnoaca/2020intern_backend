@@ -1,15 +1,15 @@
 const conn = require('../lib/conn');
 const careerQuery = require('../../queries/user/careerQuery');
 
-const getCareer = async (usn) => {
+const getCareerDAO = async (usn) => {
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
   }
-	let data = await conn.connection(careerQuery.getCareer, [usn]);
+	let data = await conn.connection(careerQuery.getCareerQuery, [usn]);
   return data;
 }
 
-const handleCareer = async (career) => {
+const handleCareerDAO = async (career) => {
   if(career === "undefined") {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
   }
@@ -18,13 +18,13 @@ const handleCareer = async (career) => {
   }
 
   // 삽입, 수정, 삭제마다 질의문을 담는 스트링 변수와 바인드 값을 담는 배열 선언
-  let insertCareerQuery = careerQuery.createCareer, insertCareerQueryBindValue = [];
+  let insertCareerQuery = careerQuery.createCareerQuery, insertCareerQueryBindValue = [];
 
-  let updateCareerQuery = careerQuery.updateCareer;
+  let updateCareerQuery = careerQuery.updateCareerQuery;
   let updateCareerQueryBindValueCase = [], updateCareerQueryBindValueWhere = [];
-  let updateCareerQueryEnd = careerQuery.updateCareerWhere;
+  let updateCareerQueryEnd = careerQuery.updateCareerWhereQuery;
 
-  let deleteCareerQuery = careerQuery.deleteCareer, deleteCareerQueryBindValue = [];
+  let deleteCareerQuery = careerQuery.deleteCareerQuery, deleteCareerQueryBindValue = [];
 
   // 다중 질의문을 위한 query 변수와 bindValue 배열 선언
   let query = ``, bindValue = [];
@@ -38,7 +38,7 @@ const handleCareer = async (career) => {
         insertCareerQueryBindValue.push(career[i].content, career[i].user_USN);
         break;
       case 1:
-        updateCareerQuery += careerQuery.updateCareerWhen;
+        updateCareerQuery += careerQuery.updateCareerWhenQuery;
         updateCareerQueryBindValueCase.push(career[i].ID, career[i].content);
         updateCareerQueryEnd += `?,`;
         updateCareerQueryBindValueWhere.push(career[i].ID);
@@ -76,6 +76,6 @@ const handleCareer = async (career) => {
 }
 
 module.exports = {
-  getCareer,
-  handleCareer,
+  getCareerDAO,
+  handleCareerDAO,
 }

@@ -1,13 +1,13 @@
-const user = require('../../models/user/careerDAO');
+const careerDAO = require('../../models/user/careerDAO');
 
-const getUserCareer = async (req, res, next) => {
+const getUserCareerController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
   let careers = new Set();
   try {
-    let career = await user.getCareer(usn);
+    let career = await careerDAO.getCareerDAO(usn);
 
     for (let i = 0; i < career[0].length; i++) {
       careers.add(career[0][i].content);
@@ -21,7 +21,7 @@ const getUserCareer = async (req, res, next) => {
   }
 }
 
-const handleUserCareer = async (req, res, next) => {
+const handleUserCareerController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
   let career = req.body.career;
 
@@ -36,7 +36,7 @@ const handleUserCareer = async (req, res, next) => {
   }
 
   try {
-    let _career = await user.handleCareer(career);
+    let _career = await careerDAO.handleCareerDAO(career);
     return res.status(200).send(_career);
   } catch (err) {
     return res.status(500).json(err);
@@ -44,6 +44,6 @@ const handleUserCareer = async (req, res, next) => {
 }
 
 module.exports = {
-  getUserCareer,
-  handleUserCareer,
+  getUserCareerController,
+  handleUserCareerController,
 }
