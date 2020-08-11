@@ -30,7 +30,7 @@ const handleCareer = async (career) => {
   let query = ``, bindValue = [];
 
   for (let i = 0; i < career.length; i++) {
-
+    if (career[i].content === "") continue;
     // career 배열에 담긴 객체의 타입 별로 삽입, 수정, 삭제의 질의문과 바인드 값 추가
     switch (career[i].type) {
       case 0:
@@ -50,28 +50,26 @@ const handleCareer = async (career) => {
     }
 
     // 반복문 마지막 실행 시 삽입, 수정, 삭제할 경력의 유무에 따라 조건문 실행
-    if (i === career.length - 1) {
-      if (insertCareerQueryBindValue.length) {
-        insertCareerQuery = insertCareerQuery.slice(0, -1);
-        insertCareerQuery += `;`;
-        query += insertCareerQuery;
-        bindValue = bindValue.concat(insertCareerQueryBindValue);
-      }
-      if (updateCareerQueryBindValueCase.length) {
-        updateCareerQuery += updateCareerQueryEnd;
-        updateCareerQuery = updateCareerQuery.slice(0, -1);
-        updateCareerQuery += `);`;
-        updateCareerQueryBindValue = updateCareerQueryBindValueCase.concat(updateCareerQueryBindValueWhere);
-        query += updateCareerQuery;
-        bindValue = bindValue.concat(updateCareerQueryBindValue);
-      }
-      if (deleteCareerQueryBindValue.length) {
-        deleteCareerQuery = deleteCareerQuery.slice(0, -1);
-        deleteCareerQuery += `);`;
-        query += deleteCareerQuery;
-        bindValue = bindValue.concat(deleteCareerQueryBindValue);
-      }
-    }
+  }
+  if (insertCareerQueryBindValue.length) {
+    insertCareerQuery = insertCareerQuery.slice(0, -1);
+    insertCareerQuery += `;`;
+    query += insertCareerQuery;
+    bindValue = bindValue.concat(insertCareerQueryBindValue);
+  }
+  if (updateCareerQueryBindValueCase.length) {
+    updateCareerQuery += updateCareerQueryEnd;
+    updateCareerQuery = updateCareerQuery.slice(0, -1);
+    updateCareerQuery += `);`;
+    updateCareerQueryBindValue = updateCareerQueryBindValueCase.concat(updateCareerQueryBindValueWhere);
+    query += updateCareerQuery;
+    bindValue = bindValue.concat(updateCareerQueryBindValue);
+  }
+  if (deleteCareerQueryBindValue.length) {
+    deleteCareerQuery = deleteCareerQuery.slice(0, -1);
+    deleteCareerQuery += `);`;
+    query += deleteCareerQuery;
+    bindValue = bindValue.concat(deleteCareerQueryBindValue);
   }
   let data = await conn.connection(query, bindValue);
   return data;
