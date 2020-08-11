@@ -1,10 +1,10 @@
 const keywordListDAO = require('../../models/main/keywordListDAO');
 const keywordLogicLib = require('../lib/keyword');
 
-const getKeywordList = async (req, res, next) => {
+const getKeywordListController = async (req, res, next) => {
   try {
-    let category = await keywordListDAO.getCategory();
-    let keyword = await keywordListDAO.getKeyword();
+    let category = await keywordListDAO.getCategoryDAO();
+    let keyword = await keywordListDAO.getKeywordDAO();
     let allKeyword = keywordLogicLib.keywordLogic(category, keyword);
     let data = {
       "allCategory": allKeyword,
@@ -17,5 +17,5 @@ const getKeywordList = async (req, res, next) => {
 }
 
 module.exports = {
-  getKeywordList,
+  getKeywordListController,
 }

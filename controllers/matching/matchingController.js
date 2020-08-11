@@ -3,7 +3,7 @@ const notificationDAO = require('../../models/notification/notificationDAO');
 const dataLib = require('../lib/date');
 //const { getFormatDate } = require('../lib/date');
 
-const createMatching = async (req, res, next) => {
+const createMatchingController = async (req, res, next) => {
   let date = new Date();
   let mentor_usn = parseInt(req.body.mentorUsn, 10);
   let mentee_usn = parseInt(req.body.menteeUsn, 10);
@@ -41,11 +41,11 @@ const createMatching = async (req, res, next) => {
   ]
 
   try {
-    let MatchingResult = await matchingDAO.createMatching(matchingCreate);
+    let MatchingResult = await matchingDAO.createMatchingDAO(matchingCreate);
     matchingKeywordCreate.push(MatchingResult[0].insertId);
     notificationCreate.push(MatchingResult[0].insertId);
-    let MatchingKeywordResult = await matchingDAO.createMatchingKeyword(matchingKeywordCreate);
-    let NotificationResul = await notificationDAO.createUserNotification(notificationCreate);
+    let MatchingKeywordResult = await matchingDAO.createMatchingKeywordDAO(matchingKeywordCreate);
+    let NotificationResul = await notificationDAO.createUserNotificationDAO(notificationCreate);
     return res.status(200).send({
       MatchingResult, MatchingKeywordResult, NotificationResul
     });
@@ -54,7 +54,7 @@ const createMatching = async (req, res, next) => {
   }
 }
 
-const updateMatching = async (req, res, next) => {
+const updateMatchingController = async (req, res, next) => {
   console.log(req.body);
   let matchingId = parseInt(req.params.matchingId, 10);
   let responseMessage = req.body.responseMessage;
@@ -83,42 +83,15 @@ const updateMatching = async (req, res, next) => {
   ];
 
   try {
-    let result = await matchingDAO.updateMatching(bindValue);
-    let NotificationResul = await notificationDAO.createUserNotification(notificationCreate);
+    let result = await matchingDAO.updateMatchingDAO(bindValue);
+    let NotificationResul = await notificationDAO.createUserNotificationDAO(notificationCreate);
     return res.status(200).json(result)
   } catch(err) {
     return res.status(500).json(err);
   }
 }
 
-// const createMatchingKeyword = async (req, res, next) => {
-//   let matching_keyword_name = req.body.matchingKeywordName;
-//   let mk_matching_ID = parseInt(req.body.mk_matching_ID, 10);
-//   let matching_category_name = req.body.matching_category_name;
-//
-//   if (Number.isNaN(mk_matching_ID)) {
-//     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
-//   }
-//
-//   if ((mathcing_state === "undefined") || (isChecked === "undefined") || (metching_ID === "undefined")) {
-//     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
-//   }
-//
-//   if ((mathcing_state === "") || (isChecked === "") || (metching_ID === "")) {
-//     return res.status(200).json({ statusCode: 500, message: '값이 없음' });
-//   }
-//
-//   let create = [matching_keyword_name, mk_matching_ID, matching_category_name];
-//   try {
-//     let result = await matchingDAO.createMatchingKeyword(create);
-//     return res.status(200).send(result);
-//   } catch (err) {
-//     return res.status(500).json(err);
-//   }
-// }
-
 module.exports = {
-  createMatching,
-  updateMatching,
-  // createMatchingKeyword,
+  createMatchingController,
+  updateMatchingController,
 }

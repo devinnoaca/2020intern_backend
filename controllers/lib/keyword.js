@@ -1,4 +1,3 @@
-
 const keywordLogic = (category, keyword) => {
 	let start = 0;
 	let _keyword = new Array();

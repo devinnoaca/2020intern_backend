@@ -1,5 +1,3 @@
-const { ConsoleTransportOptions } = require("winston/lib/winston/transports");
-
 const mentorListLogic = (_careerList, _order) => {
 	let _career = new Array();
 	let result = new Array();
@@ -31,9 +29,6 @@ const mentorListLogic = (_careerList, _order) => {
 			"career": _career[_order[0][j].mentor_USN -1].career
 		})
 	}
-
-  // let total = _order[0][0].total_List;
-  // console.log("토탈 진짜 찍어 볼거다",parseInt(total/6) + 1);
 	return result[0];
 }
 

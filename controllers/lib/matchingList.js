@@ -12,19 +12,6 @@ const createMatchingList = (userType, state, matchingData) => {
 
       matchingList[matchingList.length - 1].keywordList.push(matchingKeywordListElement);
     } else {
-      // let matchingListElement = {};
-      // matchingListElement.matchingId = matchingData[i].matching_ID;
-      // matchingListElement.oppositeUSN = matchingData[i].USN;
-      // matchingListElement.USN = userType ? matchingData[i].mentor_USN : matchingData[i].mentee_USN;
-      // // userType ? matchingListElement.menteeName = matchingData[i].user_name : matchingListElement.mentorName = matchingData[i].user_name;
-      // matchingListElement.oppositeName = userType ? matchingData[i].user_name : matchingData[i].user_name;
-      // matchingListElement.timeReq = matchingData[i].matching_request_time;
-      // matchingListElement.timeRes = matchingData[i].matching_response_time;
-      // matchingListElement.state = matchingData[i].matching_state;
-      // matchingListElement.reqReason = matchingData[i].request_message;
-      // matchingListElement.resReason = matchingData[i].response_message;
-      // matchingListElement.isChecked = matchingData[i].is_checked;
-
       let matchingListElement = {
         "matchingId": matchingData[i].matching_ID,
         "oppositeUSN": matchingData[i].USN,
