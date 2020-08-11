@@ -5,49 +5,49 @@ const dataLib = require('../lib/date');
 
 const createMatchingController = async (req, res, next) => {
   let date = new Date();
-  let mentor_usn = parseInt(req.body.mentorUsn, 10);
-  let mentee_usn = parseInt(req.body.menteeUsn, 10);
-  let matching_request_time = dataLib.getFormatDate(date);
-  let mathcing_response_time = null;
-  let request_reason = req.body.reqReason;
-  let reject_reason = "";
+  let mentorUsn = parseInt(req.body.mentorUsn, 10);
+  let menteeUsn = parseInt(req.body.menteeUsn, 10);
+  let requestTime = dataLib.getFormatDate(date);
+  let responseTime = null;
+  let reqReason = req.body.reqReason;
+  let resReason = "";
   let keywordlist = req.body.keywordList;
 
-  if (Number.isNaN(mentor_usn) || Number.isNaN(mentee_usn)) {
+  if (Number.isNaN(mentorUsn) || Number.isNaN(menteeUsn)) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
 
-  if ((mentor_usn === "undefined") || (mentee_usn === "undefined") || (matching_request_time === "undefined") || (mathcing_response_time === "undefined") ||
-    (request_reason === "undefined") || (reject_reason === "undefined")) {
+  if ((mentorUsn === "undefined") || (menteeUsn === "undefined") || (requestTime === "undefined") || (responseTime === "undefined") ||
+    (reqReason === "undefined") || (resReason === "undefined")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
   }
 
-  if ((mentor_usn === "") || (mentee_usn === "") || (matching_request_time === "") || (mathcing_response_time === "") ||
-    (request_reason === "")) {
+  if ((mentorUsn === "") || (menteeUsn === "") || (requestTime === "") || (responseTime === "") ||
+    (reqReason === "")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
   }
 
-  let matchingCreate = [
-    mentor_usn, mentee_usn, matching_request_time, mathcing_response_time,
-    request_reason, reject_reason
+  let matchingCreateBindValue = [
+    mentorUsn, menteeUsn, requestTime, responseTime,
+    reqReason, resReason
   ];
 
-  let matchingKeywordCreate = [
+  let matchingKeywordCreateBindValue = [
     keywordlist[0].keywordName, keywordlist[0].categoryName
   ];
 
-  let notificationCreate = [
-    null, matching_request_time, mentor_usn, mentee_usn
+  let notificationCreateBindValue = [
+    null, requestTime, mentorUsn, menteeUsn
   ]
 
   try {
-    let MatchingResult = await matchingDAO.createMatchingDAO(matchingCreate);
-    matchingKeywordCreate.push(MatchingResult[0].insertId);
-    notificationCreate.push(MatchingResult[0].insertId);
-    let MatchingKeywordResult = await matchingDAO.createMatchingKeywordDAO(matchingKeywordCreate);
-    let NotificationResul = await notificationDAO.createUserNotificationDAO(notificationCreate);
+    let matchingResult = await matchingDAO.createMatchingDAO(matchingCreateBindValue);
+    matchingKeywordCreateBindValue.push(matchingResult[0].insertId);
+    notificationCreateBindValue.push(matchingResult[0].insertId);
+    let matchingKeywordResult = await matchingDAO.createMatchingKeywordDAO(matchingKeywordCreateBindValue);
+    let notificationResult = await notificationDAO.createUserNotificationDAO(notificationCreateBindValue);
     return res.status(200).send({
-      MatchingResult, MatchingKeywordResult, NotificationResul
+      matchingResult, matchingKeywordResult, notificationResult
     });
   } catch (err) {
     return res.status(500).json(err);
@@ -56,35 +56,36 @@ const createMatchingController = async (req, res, next) => {
 
 const updateMatchingController = async (req, res, next) => {
   console.log(req.body);
+  console.log(req.params);
   let matchingId = parseInt(req.params.matchingId, 10);
-  let responseMessage = req.body.responseMessage;
+  let resMessage = req.body.resMessage;
   let state = req.body.state;
-  let mentorUSN = parseInt(req.body.mentorUSN, 10);
-  let menteeUSN = parseInt(req.body.menteeUSN, 10);
+  let mentorUsn = parseInt(req.body.mentorUsn, 10);
+  let menteeUsn = parseInt(req.body.menteeUsn, 10);
 
   if ((Number.isNaN(matchingId)) || (Number.isNaN(state))) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
 
-  if ((matchingId === "undefined") || (responseMessage === "undefined") || (state === "undefined")) {
+  if ((matchingId === "undefined") || (resMessage === "undefined") || (state === "undefined")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
   }
 
-  if ((matchingId === "") || (responseMessage === "") || (state === "")) {
+  if ((matchingId === "") || (resMessage === "") || (state === "")) {
     return res.status(200).json({ statusCode: 500, message: '값이 없음' });
   }
 
   let date = new Date();
-  let matchingResponseTime = dataLib.getFormatDate(date);
-  let bindValue = [ responseMessage, state, matchingResponseTime, matchingId ];
+  let resTime = dataLib.getFormatDate(date);
+  let modifyMatchingBindValue = [ resMessage, state, resTime, matchingId ];
 
-  let notificationCreate = [
-    null, matchingResponseTime, menteeUSN, mentorUSN, matchingId
+  let notificationCreateBindValue = [
+    null, resTime, menteeUsn, mentorUsn, matchingId
   ];
 
   try {
-    let result = await matchingDAO.updateMatchingDAO(bindValue);
-    let NotificationResul = await notificationDAO.createUserNotificationDAO(notificationCreate);
+    let result = await matchingDAO.updateMatchingDAO(modifyMatchingBindValue);
+    let notificationResult = await notificationDAO.createUserNotificationDAO(notificationCreateBindValue);
     return res.status(200).json(result)
   } catch(err) {
     return res.status(500).json(err);

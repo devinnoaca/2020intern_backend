@@ -19,10 +19,10 @@ PUT http://localhost:3001/matching/1
 Content-Type: application/json
 
 {
-    "responseMessage": "수락합니다.",
+    "resMessage": "수락합니다.",
     "state": 1,
-    "menteeUSN": 4,
-    "mentorUSN": 1
+    "menteeUsn": 4,
+    "mentorUsn": 1
 }
 
 
