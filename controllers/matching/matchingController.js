@@ -55,6 +55,7 @@ const createMatching = async (req, res, next) => {
 }
 
 const updateMatching = async (req, res, next) => {
+  console.log(req.body);
   let matchingId = parseInt(req.params.matchingId, 10);
   let responseMessage = req.body.responseMessage;
   let state = req.body.state;

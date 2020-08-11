@@ -12,7 +12,6 @@ const createNotification = async (create_data) => {
 }
 
 const createUserNotification = async (create_data) => {
-  console.log(create_data);
   if ((create_data === "undefined") || (create_data === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
 	}

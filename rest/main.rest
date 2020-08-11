@@ -7,24 +7,11 @@ Content-Type: application/json
 
 {
     "keyword": [
-    {
-        "keyword_ID": 1
-    }, 
-    {
-        "keyword_ID": 4 
-    },
-    {
-        "keyword_ID": 5 
-    },
-    {
-        "keyword_ID": 6 
-    },
-    {
-        "keyword_ID": 3 
-    },
-    {
-        "keyword_ID": 2 
-    }
+        {
+            "keywordId": 2,
+            "keywordName": "React.js",
+            "categoryName": "개발/프로그래밍"
+        }
     ],
-    "pageNum" : 2
+    "pageNum": 1
 }
