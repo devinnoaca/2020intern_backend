@@ -5,8 +5,8 @@ const getUserDAO = async (usn) => {
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
   }
-  let data = await conn.connection(userQuery.getUserQuery, [usn]);
-  return await data;
+  let dbData = await conn.connection(userQuery.getUserQuery, [usn]);
+  return await dbData;
 }
 
 const updateUserDAO = async (user) => {
@@ -14,8 +14,8 @@ const updateUserDAO = async (user) => {
     return res.status(200).json({ statusCode: 502, message: '데이터 없음' });
   }
 
-  let data = await conn.connection(userQuery.updateUserQuery, user);
-  return data;
+  let dbData = await conn.connection(userQuery.updateUserQuery, user);
+  return dbData;
 }
 
 module.exports = {

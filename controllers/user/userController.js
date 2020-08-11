@@ -1,4 +1,4 @@
-const user = require('../../models/user/userDAO');
+const userDAO = require('../../models/user/userDAO');
 
 const getUserController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
@@ -7,7 +7,7 @@ const getUserController = async (req, res, next) => {
   }
 
   try {
-    let users = await user.getUserDAO(usn);
+    let users = await userDAO.getUserDAO(usn);
     return res.status(200).send(users[0][0]);
     // return res.render('user', {user: users[0]});
     // res.json(users[0][0]);
@@ -19,7 +19,7 @@ const getUserController = async (req, res, next) => {
 const updateUserController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
   let email = req.body.email;
-  let userName = req.body.name;
+  let name = req.body.name;
   let image_url = req.body.image_url;
   let description = req.body.description;
   let company = req.body.company;
@@ -28,24 +28,23 @@ const updateUserController = async (req, res, next) => {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
 
-  if ((usn === "undefined") || (email === "undefined") || (userName === "undefined") || (image_url === "undefined") || (description === "undefined") || (company === "undefined")) {
+  if ((usn === "undefined") || (email === "undefined") || (name === "undefined") || (image_url === "undefined") || (description === "undefined") || (company === "undefined")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
   }
 
-  if ((usn === "")  || (email === "") || (userName === "") || (image_url === "") || (description === "") || (company === "")) {
+  if ((usn === "")  || (email === "") || (name === "") || (image_url === "") || (description === "") || (company === "")) {
     return res.status(200).json({ statusCode: 500, message: '값이 없음' });
   }
 
-  let modefied = [userName, email, image_url, description, company, usn];
+  let userBindValue = [name, email, image_url, description, company, usn];
   
   try {
-    let users = await user.updateUserDAO(modefied);
-    return res.status(201).send(users);
+    let userResult = await userDAO.updateUserDAO(userBindValue);
+    return res.status(201).send(userResult);
   } catch (err) {
     return res.status(500).json(err);
   }
 }
-
 
 // exports.deleteUser = async (req, res, next) => {
 //     let { boardId, commentId } = req.params
