@@ -18,7 +18,7 @@ const orderMentorListDAO = async (keyword, pageNum) => {
       query += `(keyword_ID = "${keyword[i].keywordId}") `;
     }
   }
-  query += ` GROUP BY name, company, mentor_USN HAVING searched >= 1 ORDER BY searched DESC LIMIT ${starting}, ${starting + 6};`;
+  query += ` GROUP BY name, company, mentor_USN HAVING searched >= 1 ORDER BY searched DESC LIMIT ${starting}, 6;`;
   let data = await conn.connection(query, []);
   return data;
 
