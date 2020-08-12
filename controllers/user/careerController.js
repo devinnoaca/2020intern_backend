@@ -31,8 +31,8 @@ const handleUserCareerController = async (req, res, next) => {
   }
 
   try {
-    let _career = await careerDAO.handleCareerDAO(career);
-    return res.status(200).send(_career);
+    let careerResult = await careerDAO.handleCareerDAO(career);
+    return res.status(200).send(careerResult);
   } catch (err) {
     return res.status(500).json(err);
   }

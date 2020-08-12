@@ -53,8 +53,8 @@ Content-Type: application/json
 
 {
     "keyword": {
-        "insertKeywords": [17],
-        "deleteKeywords": [16]
+        "insertKeywords": [20],
+        "deleteKeywords": [18]
     }
 }
 
@@ -64,8 +64,8 @@ Content-Type: application/json
 
 {
     "keyword": {
-        "insertKeywords": [10],
-        "deleteKeywords": [20]
+        "insertKeywords": [11],
+        "deleteKeywords": [10]
     }
 }
 
