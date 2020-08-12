@@ -6,8 +6,8 @@ const getAllCareerDAO = async () => {
   return data;
 }
 
-const mentorListPageDAO = async (keyword) => {
-  let query = mentorListQuery.orderMentorQuery;
+const getMentorListPageDAO = async (keyword) => {
+  let query = mentorListQuery.getMentorListPageQuery;
 
   query += ` WHERE keyword_ID IN (`
   for (i = 0; i < keyword.length; i++) {
@@ -19,8 +19,8 @@ const mentorListPageDAO = async (keyword) => {
   return data[0];
 }
 
-const orderMentorListNumDAO = async (keyword, pageNum) => {
-  let query = mentorListQuery.orderMentorNumQuery;
+const getOrderedMentorListDAO = async (keyword, pageNum) => {
+  let query = mentorListQuery.getOrderedMentorListQuery;
   let starting = (pageNum-1)*6;  // 페이지마다 상위부터 6개씩 고름
 
   query += ` WHERE keyword_ID IN (`
@@ -37,7 +37,7 @@ const orderMentorListNumDAO = async (keyword, pageNum) => {
 
 module.exports = {
   getAllCareerDAO,
-  mentorListPageDAO,
-  orderMentorListNumDAO
+  getMentorListPageDAO,
+  getOrderedMentorListDAO
 }
 
