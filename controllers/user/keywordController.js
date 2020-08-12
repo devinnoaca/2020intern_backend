@@ -89,11 +89,12 @@ const updateRecommendKeywordController = async (req, res, next) => {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
   else {
+    let reqDataObject = lib.createReqDataObject(req.params, req.body);
+
     if (insertKeywords.length === 0) {
       console.log("insertKeywords 없음");
-      let deleteKeywordBindValue = [usn, deleteKeywords];
       try {
-        let deleteKeywordResult = await keywordDAO.deleteRecommendKeywordDAO(deleteKeywordBindValue);
+        let deleteKeywordResult = await keywordDAO.deleteRecommendKeywordDAO(reqDataObject);
         return res.status(200).send(deleteKeywordResult);
         //return res.render('career', {usn: usn, career: [...careers]});
       } catch (err) {
@@ -103,9 +104,8 @@ const updateRecommendKeywordController = async (req, res, next) => {
 
     else if (deleteKeywords.length === 0) {
       console.log("delete_data 없음")
-      let insertKeywordBindValue = [usn, insertKeywords];
       try {
-        let insertKeywordResult = await keywordDAO.insertRecommendKeywordDAO(insertKeywordBindValue);
+        let insertKeywordResult = await keywordDAO.insertRecommendKeywordDAO(reqDataObject);
         return res.status(200).send(insertKeywordResult);
         //return res.render('career', {usn: usn, career: [...careers]});
       } catch (err) {
@@ -114,10 +114,9 @@ const updateRecommendKeywordController = async (req, res, next) => {
     }
 
     else {
+      console.log("둘 다 길이가 1 이상");
       try {
-        console.log("둘 다 길이가 1 이상");
-        let totalKeywordBindValue = [usn, keyword];
-        let totalKeywordResult = await keywordDAO.updateRecommendKeywordDAO(totalKeywordBindValue);
+        let totalKeywordResult = await keywordDAO.updateRecommendKeywordDAO(reqDataObject);
         //console.log(_keyword);
         return res.status(200).send(totalKeywordResult);
         //return res.render('career', {usn: usn, career: [...careers]});
