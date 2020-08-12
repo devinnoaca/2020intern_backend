@@ -12,8 +12,9 @@ const getUserCareerController = async (req, res, next) => {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
   else {
+    let reqDataObject = lib.createReqDataObject(req.params, req.body);
     try {
-      let careerResult = await careerDAO.getCareerDAO(usn);
+      let careerResult = await careerDAO.getCareerDAO(reqDataObject);
       for (let i = 0; i < careerResult[0].length; i++) {
         careerResult[0][i].type = null;
       }

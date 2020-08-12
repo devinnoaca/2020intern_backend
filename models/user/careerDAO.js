@@ -1,16 +1,18 @@
 const conn = require('../lib/conn');
 const careerQuery = require('../../queries/user/careerQuery');
 
-const getCareerDAO = async (usn) => {
+const getCareerDAO = async (reqDataObject) => {
+  let usn = reqDataObject.usn;
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
   }
-	let data = await conn.connection(careerQuery.getCareerQuery, [usn]);
-  return data;
+  let getCareerBindValue = [ usn ];
+	let DBData = await conn.connection(careerQuery.getCareerQuery, getCareerBindValue);
+  return DBData;
 }
 
 const handleCareerDAO = async (reqDataObject) => {
-  let career = reqDataObject["career"];
+  let career = reqDataObject.career;
   // let career = careerBindValue[careerBindValue.length - 1];
   if(career === "undefined") {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
@@ -81,8 +83,8 @@ const handleCareerDAO = async (reqDataObject) => {
     careerBindValue = careerBindValue.concat(deleteCareerQueryBindValue);
   }
   if (query.length === 0) return;
-  let data = await conn.connection(query, careerBindValue);
-  return data;
+  let DBData = await conn.connection(query, careerBindValue);
+  return DBData;
 }
 
 module.exports = {
