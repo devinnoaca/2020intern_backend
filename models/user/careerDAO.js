@@ -9,28 +9,32 @@ const getCareerDAO = async (usn) => {
   return data;
 }
 
-const handleCareerDAO = async (careerBindValue) => {
-  let career = careerBindValue[careerBindValue.length - 1];
+const handleCareerDAO = async (reqDataObject) => {
+  let career = reqDataObject["career"];
+  // let career = careerBindValue[careerBindValue.length - 1];
   if(career === "undefined") {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
   }
   if(career === "") {
     return res.status(200).json({ statusCode: 500, message: '값이 없음' });
   }
-
   // 삽입, 수정, 삭제마다 질의문을 담는 스트링 변수와 바인드 값을 담는 배열 선언
   let insertCareerQuery = careerQuery.createCareerQuery,
+      insertCareerQueryBindValue = [],
       insertFlag = false;
 
   let updateCareerQuery = careerQuery.updateCareerQuery,
       updateCareerQueryEnd = careerQuery.updateCareerWhereQuery,
+      updateCareerQueryBindValueCase = [],
+      updateCareerQueryBindValueWhere = [],
       updateFlag = false;
 
   let deleteCareerQuery = careerQuery.deleteCareerQuery,
+      deleteCareerQueryBindValue = [],
       deleteFlag = false;
 
   // 다중 질의문을 위한 query 변수와 bindValue 배열 선언
-  let query = ``;
+  let query = ``, careerBindValue = [];
 
   for (let i = 0; i < career.length; i++) {
     if (career[i].content === "" || career[i].type === null) continue;
@@ -39,15 +43,19 @@ const handleCareerDAO = async (careerBindValue) => {
       case 0:
         if (!insertFlag) insertFlag = true;
         insertCareerQuery += `(?, ?),`;
+        insertCareerQueryBindValue.push(career[i].content, career[i].user_USN);
         break;
       case 1:
         if (!updateFlag) updateFlag = true;
         updateCareerQuery += careerQuery.updateCareerWhenQuery;
         updateCareerQueryEnd += `?,`;
+        updateCareerQueryBindValueCase.push(career[i].ID, career[i].content);
+        updateCareerQueryBindValueWhere.push(career[i].ID);
         break;
       case 2:
         if (!deleteFlag) deleteFlag = true;
         deleteCareerQuery += `(?),`;
+        deleteCareerQueryBindValue.push(career[i].ID);
         break;
     }
   }
@@ -55,6 +63,7 @@ const handleCareerDAO = async (careerBindValue) => {
     insertCareerQuery = insertCareerQuery.slice(0, -1);
     insertCareerQuery += `;`;
     query += insertCareerQuery;
+    careerBindValue = careerBindValue.concat(insertCareerQueryBindValue);
   }
 
   if (updateFlag) {
@@ -62,16 +71,16 @@ const handleCareerDAO = async (careerBindValue) => {
     updateCareerQuery = updateCareerQuery.slice(0, -1);
     updateCareerQuery += `);`;
     query += updateCareerQuery;
+    careerBindValue = careerBindValue.concat(updateCareerQueryBindValueCase, updateCareerQueryBindValueWhere);
   }
 
   if (deleteFlag) {
     deleteCareerQuery = deleteCareerQuery.slice(0, -1);
     deleteCareerQuery += `);`;
     query += deleteCareerQuery;
+    careerBindValue = careerBindValue.concat(deleteCareerQueryBindValue);
   }
-  console.log(query);
   if (query.length === 0) return;
-
   let data = await conn.connection(query, careerBindValue);
   return data;
 }

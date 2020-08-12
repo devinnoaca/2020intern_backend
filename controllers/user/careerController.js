@@ -1,4 +1,5 @@
 const careerDAO = require('../../models/user/careerDAO');
+const lib = require('../lib/createReqDataObject');
 
 const getUserCareerController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
@@ -33,42 +34,11 @@ const handleUserCareerController = async (req, res, next) => {
     return res.status(200).json({ statusCode: 500, message: '값이 없음' });
   }
 
-  let careerBindValue = [],
-      insertCareerQueryBindValue = [],
-      updateCareerQueryBindValueCase = [], updateCareerQueryBindValueWhere = [],
-      deleteCareerQueryBindValue = [];
+  let reqDataObject = lib.createReqDataObject(req.params, req.body);
 
-  for (let i = 0; i < career.length; i++) {
-    if (career[i].content === "" || career[i].type === null) continue;
-
-    switch (career[i].type) {
-      case 0:
-        insertCareerQueryBindValue.push(career[i].content, career[i].user_USN);
-        break;
-      case 1:
-        updateCareerQueryBindValueCase.push(career[i].ID, career[i].content);
-        updateCareerQueryBindValueWhere.push(career[i].ID);
-        break;
-      case 2:
-        deleteCareerQueryBindValue.push(career[i].ID);
-        break;
-    }
-  }
-
-  if (insertCareerQueryBindValue.length) {
-    careerBindValue = careerBindValue.concat(insertCareerQueryBindValue);
-  }
-
-  if (updateCareerQueryBindValueCase.length) {
-    careerBindValue = careerBindValue.concat(updateCareerQueryBindValueCase, updateCareerQueryBindValueWhere);
-  }
-
-  if (deleteCareerQueryBindValue.length) {
-    careerBindValue = careerBindValue.concat(deleteCareerQueryBindValue);
-  }
-  careerBindValue.push(career);
   try {
-    let careerResult = await careerDAO.handleCareerDAO(careerBindValue);
+    // let careerResult = await careerDAO.handleCareerDAO(careerBindValue);
+    let careerResult = await careerDAO.handleCareerDAO(reqDataObject);
     return res.status(200).send(careerResult);
   } catch (err) {
     return res.status(500).json(err);
