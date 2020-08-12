@@ -7,6 +7,9 @@ const getUserCareerController = async (req, res, next) => {
   }
   try {
     let careerResult = await careerDAO.getCareerDAO(usn);
+    for (let i = 0; i < careerResult[0].length; i++) {
+      careerResult[0][i].type = null;
+    }
     let careerDataFormat = {};
     careerDataFormat.career = [...careerResult[0]]
     return res.status(200).send(careerDataFormat);
