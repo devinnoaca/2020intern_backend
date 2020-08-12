@@ -6,12 +6,59 @@ POST http://localhost:3000/main/list
 Content-Type: application/json
 
 {
-    "keyword": [
-        {
-            "keywordId": 2,
-            "keywordName": "React.js",
-            "categoryName": "개발/프로그래밍"
-        }
-    ],
-    "pageNum": 2
+  "keyword": [
+    {   
+      "keywordId": 2
+    },
+    {   
+      "keywordId": 1
+    },
+    {   
+      "keywordId": 4
+    },
+    {   
+      "keywordId": 7
+    },
+    {   
+      "keywordId": 9
+    },
+    {   
+      "keywordId": 10
+    },
+    {   
+      "keywordId": 17
+    }
+  ]
+}
+
+
+### 멘토 리스트 정보 접근 
+POST http://localhost:3001/main/listing
+Content-Type: application/json
+
+{
+  "keyword": [
+    {   
+      "keywordId": 2
+    },
+    {   
+      "keywordId": 1
+    },
+    {   
+      "keywordId": 4
+    },
+    {   
+      "keywordId": 7
+    },
+    {   
+      "keywordId": 9
+    },
+    {   
+      "keywordId": 10
+    },
+    {   
+      "keywordId": 17
+    }
+  ],
+  "pageNum" : 1
 }

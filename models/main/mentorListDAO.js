@@ -6,27 +6,38 @@ const getAllCareerDAO = async () => {
   return data;
 }
 
-const orderMentorListDAO = async (keyword, pageNum) => {
+const mentorListPageDAO = async (keyword) => {
   let query = mentorListQuery.orderMentorQuery;
-  let starting = pageNum*6 -6;  // 페이지마다 상위부터 6개씩 고름
 
-  query += ` WHERE `
+  query += ` WHERE keyword_ID IN (`
   for (i = 0; i < keyword.length; i++) {
-    if (i != keyword.length - 1) {
-      query += `(keyword_ID = "${keyword[i].keywordId}") OR `;
-    } else {
-      query += `(keyword_ID = "${keyword[i].keywordId}") `;
-    }
+      query += `"${keyword[i].keywordId}"`;
+      if (i != keyword.length - 1){query += `,`;}
   }
-  query += ` GROUP BY name, company, mentor_USN HAVING searched >= 1 ORDER BY searched DESC LIMIT ${starting}, 6;`;
+  query += `) GROUP BY name, company HAVING searched >= 1) A ;`;
+  let data = await conn.connection(query, []);
+  return data[0];
+}
+
+const orderMentorListNumDAO = async (keyword, pageNum) => {
+  let query = mentorListQuery.orderMentorNumQuery;
+  let starting = (pageNum-1)*6;  // 페이지마다 상위부터 6개씩 고름
+
+  query += ` WHERE keyword_ID IN (`
+  for (i = 0; i < keyword.length; i++) {
+      query += `"${keyword[i].keywordId}"`;
+      if (i != keyword.length - 1){query += `,`;}
+  }
+  query += `) GROUP BY name, company, mentor_USN HAVING searched >= 1 ORDER BY searched DESC LIMIT ${starting}, 6;`;
   let data = await conn.connection(query, []);
   return data;
-
 }
+
 
 
 module.exports = {
   getAllCareerDAO,
-  orderMentorListDAO,
+  mentorListPageDAO,
+  orderMentorListNumDAO
 }
 
