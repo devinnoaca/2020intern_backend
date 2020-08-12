@@ -16,7 +16,7 @@ const mentorListPageDAO = async (keyword) => {
   }
   query += `) GROUP BY name, company HAVING searched >= 1) A ;`;
   let data = await conn.connection(query, []);
-  return data;
+  return data[0];
 }
 
 const orderMentorListNumDAO = async (keyword, pageNum) => {
