@@ -1,24 +1,25 @@
 const keywordDAO = require('../../models/user/keywordDAO');
 const userKeyword = require('../lib/user_keyword');
 const paramsCheck = require('../../lib/paramsCheck');
+const lib = require('../lib/createReqDataObject');
 
 const getKeywordController= async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
 
   if(paramsCheck.numberCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
-  } 
+  }
   else if(paramsCheck.omissionCheck([usn])){
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
   else {
     let userBindValue = [usn];
+    let reqDataObject = lib.createReqDataObject(req.params, req.body);
     try {
-      let totalResult = await keywordDAO.getTotalKeywordDAO(userBindValue);
-      let recommendResult = await keywordDAO.getRecommendKeywordDAO(userBindValue);
+      let totalResult = await keywordDAO.getTotalKeywordDAO(reqDataObject);
+      let recommendResult = await keywordDAO.getRecommendKeywordDAO(reqDataObject);
       let keywordResult = userKeyword.userKeywordLogic(usn, totalResult, recommendResult);
       return res.status(200).send(keywordResult);
-      //return res.render('keyword', {total: [...total_keywords], recommend: [...recommend_keywords]});
     } catch (err) {
       return res.status(500).json(err);
     }
@@ -33,7 +34,7 @@ const updateTotalKeywordController = async (req, res, next) => {
 
   if(paramsCheck.numberCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
-  } 
+  }
   else if(paramsCheck.omissionCheck([usn, keyword])){
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
@@ -49,7 +50,7 @@ const updateTotalKeywordController = async (req, res, next) => {
         return res.status(501).json(err);
       }
     }
-  
+
     else if (deleteKeywords.length === 0) {
       console.log("delete_data 없음")
       let insertKeywordBindValue = [usn, insertKeywords];
@@ -61,7 +62,7 @@ const updateTotalKeywordController = async (req, res, next) => {
         return res.status(501).json(err);
       }
     }
-  
+
     else {
       try {
         console.log("둘 다 길이가 1 이상");
@@ -85,7 +86,7 @@ const updateRecommendKeywordController = async (req, res, next) => {
 
   if(paramsCheck.numberCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
-  } 
+  }
   else if(paramsCheck.omissionCheck([usn, keyword])){
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
@@ -101,7 +102,7 @@ const updateRecommendKeywordController = async (req, res, next) => {
         return res.status(501).json(err);
       }
     }
-  
+
     else if (deleteKeywords.length === 0) {
       console.log("delete_data 없음")
       let insertKeywordBindValue = [usn, insertKeywords];
@@ -113,7 +114,7 @@ const updateRecommendKeywordController = async (req, res, next) => {
         return res.status(501).json(err);
       }
     }
-  
+
     else {
       try {
         console.log("둘 다 길이가 1 이상");

@@ -1,20 +1,22 @@
 const conn = require('../lib/conn');
 const keywordQuery = require('../../queries/user/keywordQuery');
 
-const getTotalKeywordDAO = async (userBindValue) => {
-	let usn = userBindValue[0];
+const getTotalKeywordDAO = async (reqDataObject) => {
+	let usn = reqDataObject['usn'];
 	if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
   }
+  let userBindValue = [ usn ];
 	let data = await conn.connection(keywordQuery.gettotalkeywordQuery, userBindValue);
   return data;
 }
 
-const getRecommendKeywordDAO = async (userBindValue) => {
-	let usn = userBindValue[0];
+const getRecommendKeywordDAO = async (reqDataObject) => {
+	let usn = reqDataObject['usn'];
 	if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
   }
+  let userBindValue = [ usn ];
 	let data = await conn.connection(keywordQuery.getRecommendKeywordQuery, userBindValue);
   return data;
 }
