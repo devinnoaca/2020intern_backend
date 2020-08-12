@@ -37,9 +37,10 @@ const updateUserController = async (req, res, next) => {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
   else {
+    let reqDataObject = lib.createReqDataObject(req.params, req.body);
     let userBindValue = [name, email, image_url, description, company, usn];
     try {
-      let userResult = await userDAO.updateUserDAO(userBindValue);
+      let userResult = await userDAO.updateUserDAO(reqDataObject);
       return res.status(201).send(userResult);
     } catch (err) {
       return res.status(500).json(err);
