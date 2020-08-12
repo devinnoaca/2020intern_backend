@@ -44,11 +44,13 @@ const usersRouter = require('./routes/user');
 const mainRouter = require('./routes/main');
 const matchingRouter = require('./routes/matching');
 const notificationRouter = require('./routes/notification');
+const authRouter = require('./routes/auth');
 
 app.use('/user', usersRouter);
 app.use('/main', mainRouter);
 app.use('/matching', matchingRouter);
 app.use('/notification', notificationRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -26,7 +26,7 @@ const updateUserController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
   let email = req.body.email;
   let name = req.body.name;
-  let image_url = req.body.image_url;
+  let imageURL = req.body.image_url;
   let description = req.body.description;
   let company = req.body.company;
 
@@ -38,7 +38,7 @@ const updateUserController = async (req, res, next) => {
   }
   else {
     let reqDataObject = lib.createReqDataObject(req.params, req.body);
-    let userBindValue = [name, email, image_url, description, company, usn];
+    let userBindValue = [name, email, imageURL, description, company, usn];
     try {
       let userResult = await userDAO.updateUserDAO(reqDataObject);
       return res.status(201).send(userResult);
