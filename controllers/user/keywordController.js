@@ -13,7 +13,6 @@ const getKeywordController= async (req, res, next) => {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
   else {
-    let userBindValue = [usn];
     let reqDataObject = lib.createReqDataObject(req.params, req.body);
     try {
       let totalResult = await keywordDAO.getTotalKeywordDAO(reqDataObject);
