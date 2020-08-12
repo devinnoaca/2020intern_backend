@@ -1,20 +1,24 @@
 const userDAO = require('../../models/user/userDAO');
+const paramsCheck = require('../../lib/paramsCheck');
 const lib = require('../lib/createReqDataObject');
 
 const getUserController = async (req, res, next) => {
-  let usn = parseInt(req.params.usn, 10);
-  if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
+  let usn = parseInt(req.params.usn);
+
+  if(paramsCheck.numberCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
-  let userBindValue = [usn];
-  let reqDataObject = lib.createReqDataObject(req.params, req.body);
-  try {
-    let users = await userDAO.getUserDAO(reqDataObject);
-    return res.status(200).send(users[0][0]);
-    // return res.render('user', {user: users[0]});
-    // res.json(users[0][0]);
-  } catch (err) {
-    return res.status(500).json(err);
+  else if(paramsCheck.omissionCheck([usn])){
+    return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
+  }
+  else {
+    let reqDataObject = lib.createReqDataObject(req.params, req.body);
+    try {
+      let users = await userDAO.getUserDAO(reqDataObject);
+      return res.status(200).send(users[0][0]);
+    } catch (err) {
+      return res.status(500).json(err);
+    }
   }
 }
 
@@ -26,25 +30,20 @@ const updateUserController = async (req, res, next) => {
   let description = req.body.description;
   let company = req.body.company;
 
-  if (Number.isNaN(usn)) {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
+  if(paramsCheck.numberCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
-
-  if ((usn === "undefined") || (email === "undefined") || (name === "undefined") || (image_url === "undefined") || (description === "undefined") || (company === "undefined")) {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
+  else if(paramsCheck.omissionCheck([usn, email, name, image_url, description]) === false) {
+    return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
-
-  if ((usn === "")  || (email === "") || (name === "") || (image_url === "") || (description === "") || (company === "")) {
-    return res.status(200).json({ statusCode: 500, message: '값이 없음' });
-  }
-
-  let userBindValue = [name, email, image_url, description, company, usn];
-
-  try {
-    let userResult = await userDAO.updateUserDAO(userBindValue);
-    return res.status(201).send(userResult);
-  } catch (err) {
-    return res.status(500).json(err);
+  else {
+    let userBindValue = [name, email, image_url, description, company, usn];
+    try {
+      let userResult = await userDAO.updateUserDAO(userBindValue);
+      return res.status(201).send(userResult);
+    } catch (err) {
+      return res.status(500).json(err);
+    }
   }
 }
 

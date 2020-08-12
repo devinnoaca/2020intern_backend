@@ -7,7 +7,6 @@ const getUserDAO = async (reqDataObject) => {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
   }
   let userBindValue = [ usn ];
-
   let dbData = await conn.connection(userQuery.getUserQuery, userBindValue);
   return await dbData;
 }
