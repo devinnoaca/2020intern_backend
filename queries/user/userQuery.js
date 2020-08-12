@@ -25,6 +25,7 @@ INTO User(
   name,
   image_url,
   description,
-  company)
+  company
+)
 VALUES (?, ?, ?, ?, ?, ?, ?);
 `
