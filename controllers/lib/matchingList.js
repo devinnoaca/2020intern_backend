@@ -14,8 +14,8 @@ const createMatchingList = (userType, state, matchingData) => {
     } else {
       let matchingListElement = {
         "matchingId": matchingData[i].matching_ID,
-        "oppositeUSN": matchingData[i].USN,
-        "USN": userType ? matchingData[i].mentor_USN : matchingData[i].mentee_USN,
+        "oppositeUsn": matchingData[i].USN,
+        "usn": userType ? matchingData[i].mentor_USN : matchingData[i].mentee_USN,
         "oppositeName": userType ? matchingData[i].user_name : matchingData[i].user_name,
         "timeReq": matchingData[i].matching_request_time,
         "timeRes": matchingData[i].matching_response_time,

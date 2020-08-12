@@ -15,10 +15,8 @@ router.get('/keyword/:usn', keywordController.getKeywordController);
 // TOTAL_KEYWORD
 router.post('/keyword/total/:usn', keywordController.updateTotalKeywordController);
 
-
 // RECOMMEND_KEYWORD
 router.post('/keyword/recommend/:usn', keywordController.updateRecommendKeywordController);
-
 
 // CAREER
 router.get('/career/:usn', careerController.getUserCareerController);

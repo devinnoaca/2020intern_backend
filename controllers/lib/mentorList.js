@@ -1,39 +1,43 @@
-const mentorListLogic = (_careerList, _order) => {
-	let _career = new Array();
-	let result = new Array();
+const mentorListLogic = (careerResult, orderMentorResult) => {
+	let careerList = new Array();
+	let libResult = new Array();
 	let start = 0;
-	for (i = 0; i < _careerList[0].length; i++) {
-		if (_careerList[0][i].user_USN === start) {
-			_career[start - 1].career.push(_careerList[0][i].content);
+	for (i = 0; i < careerResult[0].length; i++) {
+		if (careerResult[0][i].user_USN === start) {
+			careerList[start - 1].career.push(careerResult[0][i].content);
 		} else {
-			_career.push({
+			careerList.push({
 				"usn": start + 1,
-				"career": [_careerList[0][i].content],
+				"career": [careerResult[0][i].content],
 			})
 			start = start + 1;
 		}
 	}
 
+<<<<<<< HEAD
   
   //console.log("lib폴더의 mentorList.js의 _career 출력 \n",_career);
 
 
 	result.push({
+=======
+	libResult.push({
+>>>>>>> logs
 		mentorList: []
 	})
-	for (j = 0; j < _order[0].length; j++) {
-		result[0].mentorList.push({
-      "totalPage":_order[0][j].total_List,
-			"usn": _order[0][j].mentor_USN,
-			"name": _order[0][j].name,
-			"imageUrl": _order[0][j].image_url,
-			"email": _order[0][j].email,
-			"description": _order[0][j].description,
-			"company": _order[0][j].company,
-			"career": _career[_order[0][j].mentor_USN -1].career
+	for (j = 0; j < orderMentorResult[0].length; j++) {
+		libResult[0].mentorList.push({
+      "totalPage":orderMentorResult[0][j].total_List,
+			"usn": orderMentorResult[0][j].mentor_USN,
+			"name": orderMentorResult[0][j].name,
+			"imageUrl": orderMentorResult[0][j].image_url,
+			"email": orderMentorResult[0][j].email,
+			"description": orderMentorResult[0][j].description,
+			"company": orderMentorResult[0][j].company,
+			"career": careerList[orderMentorResult[0][j].mentor_USN -1].career
 		})
 	}
-	return result[0];
+	return libResult[0];
 }
 
 module.exports = {

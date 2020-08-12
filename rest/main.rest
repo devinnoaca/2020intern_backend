@@ -13,5 +13,10 @@ Content-Type: application/json
             "categoryName": "개발/프로그래밍"
         }
     ],
+<<<<<<< HEAD
     "pageNum": 1
 }
+=======
+    "pageNum": 2
+}
+>>>>>>> logs

@@ -17,9 +17,12 @@ const getMatchingListsController = async (req, res, next) => {
     return res.status(200).json({ statusCode: 500, message: '값이 없음' });
   }
 
+  let userMatchingBindValue = [usn, state];
+
   try {
-    let matching_data = userType ? await matchingDAO.getMenteeMatchingListDAO(usn, state) : await matchingDAO.getMentorMatchingListDAO(usn, state);
-    return res.status(200).json(lib.createMatchingList(userType, state, matching_data[0]));
+    let matchingResult = userType ? await matchingDAO.getMenteeMatchingListDAO(userMatchingBindValue) 
+                                  : await matchingDAO.getMentorMatchingListDAO(userMatchingBindValue);
+    return res.status(200).json(lib.createMatchingList(userType, state, matchingResult[0]));
       // return res.render('user', {user: users[0]});
       // res.json(users[0][0]);
   } catch (err) {

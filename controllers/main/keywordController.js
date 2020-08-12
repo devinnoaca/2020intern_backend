@@ -3,11 +3,12 @@ const keywordLogicLib = require('../lib/keyword');
 
 const getKeywordListController = async (req, res, next) => {
   try {
-    let category = await keywordListDAO.getCategoryDAO();
-    let keyword = await keywordListDAO.getKeywordDAO();
-    let allKeyword = keywordLogicLib.keywordLogic(category, keyword);
+    let categoryResult = await keywordListDAO.getCategoryDAO();
+    let keywordResult = await keywordListDAO.getKeywordDAO();
+    console.log(keywordResult);
+    let allKeywordLib = keywordLogicLib.keywordLogic(categoryResult, keywordResult);
     let data = {
-      "allCategory": allKeyword,
+      "allCategory": allKeywordLib,
     }
     return res.status(200).send(data);
     //return res.render('career', {usn: usn, career: [...careers]});
