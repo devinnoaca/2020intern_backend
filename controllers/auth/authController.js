@@ -32,12 +32,13 @@ const signUpController = async (req, res, next) => {
     };
     reqUserDataObject.password = hashPassword;
     try {
-      console.log(reqUserDataObject, reqAuthDataObject);
       let signUpResult = await signUpDAO.signUpDAO(reqUserDataObject);
       let authResult = await signUpDAO.authDAO(reqAuthDataObject);
-      return res.status(200).send(signUpResult, authResult);
+      console.log(signUpResult);
+      console.log(authResult);
+      return res.status(200).send({ signUpResult, authResult });
     } catch (err) {
-      return res.status(500).json(err);
+      return res.status(500).send(err);
     }
   }
 }
@@ -46,8 +47,12 @@ const signInController = async (req, res, next) => {
   let id = req.body.id;
   let password = req.body.password;
 
-  let salt = Math.round((new Date().valueOf() * Math.random())) + "";
+  let signInResult = await signUpDAO.signInDAO(id);
+  let salt = signInResult[0][0].salt;
+  let DBPassword = signInResult[0][0].password;
   let hashPassword = crypto.createHash("sha512").update(password + salt).digest("hex");
+  console.log(DBPassword);
+  console.log(hashPassword);
 
   if(paramsCheck.numberCheck([]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
@@ -59,10 +64,7 @@ const signInController = async (req, res, next) => {
     let reqDataObject = lib.createReqDataObject(req.params, req.body);
     reqDataObject.password = hashPassword;
     try {
-      let signInResult = await signUpDAO.signInDAO(reqDataObject);
-      console.log("signInResult", signInResult[0][0].password);
-      console.log("hashPassword", hashPassword);
-      if (hashPassword === signInResult[0][0].password)
+      if (hashPassword === signInResult[0].password)
         return res.status(200).send(signInResult);
       else
         return res.status(500).json({ statusCode: 502, message: `Controller: 비밀번호 틀림` });

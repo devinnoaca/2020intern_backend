@@ -1,6 +1,8 @@
 exports.signInQuery = `
-SELECT password
-FROM User
+SELECT
+  password,
+  salt
+FROM Authorization
 WHERE ID = ?;
 `;
 
