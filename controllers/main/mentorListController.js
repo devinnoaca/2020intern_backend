@@ -16,8 +16,10 @@ const getMentorListController = async (req, res, next) => {
   try {
     //let _mentorList = await mentorListDAO.getMentorList(keyword);
     let careerResult = await mentorListDAO.getAllCareerDAO();
-    let orderMentorResult = await mentorListDAO.orderMentorListDAO(keyword,pageNum);
-    let allMentorListLib = mentorListLib.mentorListLogic(careerResult, orderMentorResult);
+    //let orderMentorResult = await mentorListDAO.orderMentorListDAO(keyword,pageNum);
+    let orderMentorNumReseult = await mentorListDAO.orderMentorListNumDAO(keyword,pageNum);
+    //let allMentorListLib = mentorListLib.mentorListLogic(careerResult, orderMentorResult);
+    let allMentorListLib = mentorListLib.mentorListLogic(careerResult, orderMentorNumReseult);
     return res.status(200).send(allMentorListLib);
   } catch (err) {
     return res.status(500).json(err);

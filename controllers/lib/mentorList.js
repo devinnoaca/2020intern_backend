@@ -1,4 +1,5 @@
-const mentorListLogic = (careerResult, orderMentorResult) => {
+
+const mentorListLogic = (careerResult, orderMentorNumResult) => {
 	let careerList = new Array();
 	let libResult = new Array();
 	let start = 0;
@@ -14,29 +15,21 @@ const mentorListLogic = (careerResult, orderMentorResult) => {
 		}
 	}
 
-<<<<<<< HEAD
-  
-  //console.log("lib폴더의 mentorList.js의 _career 출력 \n",_career);
-
-
-	result.push({
-=======
 	libResult.push({
->>>>>>> logs
 		mentorList: []
-	})
-	for (j = 0; j < orderMentorResult[0].length; j++) {
+  })
+  
+	for (j = 0; j < orderMentorNumResult[0].length; j++) {
 		libResult[0].mentorList.push({
-      "totalPage":orderMentorResult[0][j].total_List,
-			"usn": orderMentorResult[0][j].mentor_USN,
-			"name": orderMentorResult[0][j].name,
-			"imageUrl": orderMentorResult[0][j].image_url,
-			"email": orderMentorResult[0][j].email,
-			"description": orderMentorResult[0][j].description,
-			"company": orderMentorResult[0][j].company,
-			"career": careerList[orderMentorResult[0][j].mentor_USN -1].career
+			"usn": orderMentorNumResult[0][j].mentor_USN,
+			"name": orderMentorNumResult[0][j].name,
+			"imageUrl": orderMentorNumResult[0][j].image_url,
+			"email": orderMentorNumResult[0][j].email,
+			"description": orderMentorNumResult[0][j].description,
+			"company": orderMentorNumResult[0][j].company,
+			"career": careerList[orderMentorNumResult[0][j].mentor_USN -1].career
 		})
-	}
+  }
 	return libResult[0];
 }
 
