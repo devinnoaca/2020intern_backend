@@ -33,6 +33,8 @@ const mentorListLogic = (careerResult, orderMentorNumResult) => {
 	return libResult[0];
 }
 
+
+
 module.exports = {
-	mentorListLogic,
+  mentorListLogic,
 }
