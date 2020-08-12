@@ -1,4 +1,5 @@
 const notificationDAO = require('../../models/notification/notificationDAO');
+const paramsCheck = require('../../lib/paramsCheck');
 
 const createNotificationController = async (req, res, next) => {
   let type = parseInt(req.body.type, 10);
