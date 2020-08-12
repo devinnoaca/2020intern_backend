@@ -6,7 +6,8 @@ const getAllCareerDAO = async () => {
   return data;
 }
 
-const getMentorListPageDAO = async (keyword) => {
+const getMentorListPageDAO = async (reqDataObject) => {
+  let keyword = reqDataObject.keyword;
   let query = mentorListQuery.getMentorListPageQuery;
 
   query += ` WHERE keyword_ID IN (`
@@ -15,13 +16,15 @@ const getMentorListPageDAO = async (keyword) => {
       if (i != keyword.length - 1){query += `,`;}
   }
   query += `) GROUP BY name, company HAVING searched >= 1) A ;`;
-  let data = await conn.connection(query, []);
-  return data[0];
+  let DBData = await conn.connection(query, []);
+  return DBData[0];
 }
 
-const getOrderedMentorListDAO = async (keyword, pageNum) => {
+const getOrderedMentorListDAO = async (reqDataObject) => {
+  let keyword = reqDataObject.keyword;
+  let pageNum = reqDataObject.pageNum;
   let query = mentorListQuery.getOrderedMentorListQuery;
-  let starting = (pageNum-1)*6;  // 페이지마다 상위부터 6개씩 고름
+  let starting = (pageNum - 1) * 6;  // 페이지마다 상위부터 6개씩 고름
 
   query += ` WHERE keyword_ID IN (`
   for (i = 0; i < keyword.length; i++) {
@@ -29,11 +32,9 @@ const getOrderedMentorListDAO = async (keyword, pageNum) => {
       if (i != keyword.length - 1){query += `,`;}
   }
   query += `) GROUP BY name, company, mentor_USN HAVING searched >= 1 ORDER BY searched DESC LIMIT ${starting}, 6;`;
-  let data = await conn.connection(query, []);
-  return data;
+  let DBData = await conn.connection(query, []);
+  return DBData;
 }
-
-
 
 module.exports = {
   getAllCareerDAO,

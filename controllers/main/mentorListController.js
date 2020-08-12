@@ -1,21 +1,23 @@
 const mentorListDAO = require('../../models/main/mentorListDAO');
 const mentorListLib = require('../lib/mentorList');
+const paramsCheck = require('../../lib/paramsCheck');
+const lib = require('../lib/createReqDataObject');
 
 const getMentorListController = async (req, res, next) => {
   let keyword = req.body.keyword;
   let pageNum = req.body.pageNum;
-  
-  if(keyword === "undefined") {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
-  }
 
-  if(keyword === "") {
-    return res.status(200).json({ statusCode: 500, message: '값이 없음' });
+  if(paramsCheck.numberCheck([]) === false) {
+    return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
-
+  else if(paramsCheck.omissionCheck([keyword, pageNum]) === false) {
+    return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
+  }
+  let reqDataObject = lib.createReqDataObject(req.params, req.body);
   try {
     let careerResult = await mentorListDAO.getAllCareerDAO();
-    let orderMentorNumReseult = await mentorListDAO.getOrderedMentorListDAO(keyword,pageNum);
+    let orderMentorNumReseult = await mentorListDAO.getOrderedMentorListDAO(reqDataObject);
+
     let allMentorListLib = mentorListLib.mentorListLogic(careerResult, orderMentorNumReseult);
     return res.status(200).send(allMentorListLib);
   } catch (err) {
@@ -23,7 +25,6 @@ const getMentorListController = async (req, res, next) => {
   }
 }
 
-// 전체 검색 결과의 수(리턴이 나타내는 것은 총 검색 결과의 정수값인 값 1개인거로)
 const getMentorListPageController = async (req, res, next) => {
   let keyword = req.body.keyword;
   if(keyword === "undefined") {
@@ -32,8 +33,9 @@ const getMentorListPageController = async (req, res, next) => {
   if(keyword === "") {
     return res.status(200).json({ statusCode: 500, message: '값이 없음' });
   }
+  let reqDataObject = lib.createReqDataObject(req.params, req.body);
   try{
-    let mentorListPageResult = await mentorListDAO.getMentorListPageDAO(keyword);
+    let mentorListPageResult = await mentorListDAO.getMentorListPageDAO(reqDataObject);
     return res.status(200).send(mentorListPageResult);
   } catch (err) {
     return res.status(500).json(err);

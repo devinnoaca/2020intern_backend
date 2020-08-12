@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const {stream} = require('./logger');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 //const logger = require('./logger');
 //const morganFormat = process.env.NODE_ENV !== "production" ? "dev" : "combined"; // NOTE: morgan 출력 형태
 
@@ -36,6 +37,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(session({
+  key: 'sid',
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 24000 * 60 * 60 // 쿠키 유효기간 24시간
+  }
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 //app.use(morgan(morganFormat, { stream: logger.httpLogStream })); // NOTE: http request 로그 남기기
 app.use(morgan('combined', {stream}));
@@ -44,11 +54,13 @@ const usersRouter = require('./routes/user');
 const mainRouter = require('./routes/main');
 const matchingRouter = require('./routes/matching');
 const notificationRouter = require('./routes/notification');
+const authRouter = require('./routes/auth');
 
 app.use('/user', usersRouter);
 app.use('/main', mainRouter);
 app.use('/matching', matchingRouter);
 app.use('/notification', notificationRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -65,5 +77,6 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
