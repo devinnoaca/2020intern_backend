@@ -11,15 +11,24 @@ const keywordLogic = (categoryResult, keywordResult) => {
 				"categoryName": keywordResult[0][i].category_name
 			});
 		} else {
-			start = keywordResult[0][i].category_ID;
-			keywordList[start] = {
-				category_ID: start,
-				keyword: [{
-					"keywordId": keywordResult[0][i].keyword_ID,
-					"keywordName": keywordResult[0][i].keyword_name,
-					"categoryName": keywordResult[0][i].category_name
-				}]
-			};
+			if(start + 1 === keywordResult[0][i].category_ID){
+				start = keywordResult[0][i].category_ID;
+				keywordList[start] = {
+					category_ID: start,
+					keyword: [{
+						"keywordId": keywordResult[0][i].keyword_ID,
+						"keywordName": keywordResult[0][i].keyword_name,
+						"categoryName": keywordResult[0][i].category_name
+					}]
+				};		
+			}
+			else {
+				start = start + 1;
+				keywordList[start] = {
+					category_ID: start,
+					keyword: []
+				};
+			}
 		}
 	}
 
