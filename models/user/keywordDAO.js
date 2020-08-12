@@ -1,47 +1,47 @@
 const conn = require('../lib/conn');
 const keywordQuery = require('../../queries/user/keywordQuery');
 
-const getTotalKeyword = async (usn) => {
+const getTotalKeywordDAO = async (usn) => {
 	if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
   }
-	let data = await conn.connection(keywordQuery.gettotalkeyword, [usn]);
+	let data = await conn.connection(keywordQuery.gettotalkeywordQuery, [usn]);
   return data;
 }
 
-const getRecommendKeyword = async (usn) => {
+const getRecommendKeywordDAO = async (usn) => {
 	if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
   }
-	let data = await conn.connection(keywordQuery.getRecommendKeyword, [usn]);
+	let data = await conn.connection(keywordQuery.getRecommendKeywordQuery, [usn]);
   return data;
 }
 
-const getAllKeywords = async () => {
-	let data = await conn.connection(keywordQuery.getAllKeyword, []);
+const getAllKeywordDAO = async () => {
+	let data = await conn.connection(keywordQuery.getAllKeywordQuery, []);
   return data;
 }
 
-const getCategory = async () => {
-	let data = await conn.connection(keywordQuery.getCategory, []);
+const getCategoryDAO = async () => {
+	let data = await conn.connection(keywordQuery.getCategoryQuery, []);
   return data;
 }
 
-const getKeyword = async (category_ID) => {
+const getKeywordDAO = async (category_ID) => {
 	if (Number.isNaN(category_ID) || (category_ID === "undefined") || (category_ID === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
   }
-	let data = await conn.connection(keywordQuery.getKeyword, [category_ID]);
+	let data = await conn.connection(keywordQuery.getKeywordQuery, [category_ID]);
   return data;
 }
 
-const updateTotalKeyword = async (data_array) => {
+const updateTotalKeywordDAO = async (data_array) => {
 	if ((data_array === "undefined") || (data_array === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
 	}
 
-	let insertQuery = keywordQuery.insertTotalKeyword;
-	let deleteQuery = keywordQuery.deleteTotalKeyword;
+	let insertQuery = keywordQuery.insertTotalKeywordQuery;
+	let deleteQuery = keywordQuery.deleteTotalKeywordQuery;
 
 	let form_data = [];
 	for(i=0; i<data_array[1].insertKeywords.length; i++) {
@@ -67,12 +67,12 @@ const updateTotalKeyword = async (data_array) => {
 }
 
 
-const insertTotalKeyword = async (data_array) => {
+const insertTotalKeywordDAO = async (data_array) => {
 	if ((data_array === "undefined") || (data_array === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
 	}
 	let form_data = [];
-	let insertQuery = keywordQuery.insertTotalKeyword;
+	let insertQuery = keywordQuery.insertTotalKeywordQuery;
 	for(i=0; i<data_array[1].length; i++) {
 		if(i==data_array[1].length - 1) {
 			insertQuery += `(?, ?);`;
@@ -85,12 +85,12 @@ const insertTotalKeyword = async (data_array) => {
   return data;
 }
 
-const deleteTotalKeyword = async (data_array) => {
+const deleteTotalKeywordDAO = async (data_array) => {
 	if ((data_array === "undefined") || (data_array === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
 	}
 	let form_data = [];
-	let deleteQuery = keywordQuery.deleteTotalKeyword;
+	let deleteQuery = keywordQuery.deleteTotalKeywordQuery;
 	for(i=0; i<data_array[1].length; i++) {
 		if(i==data_array[1].length - 1) {
 			deleteQuery += `(?, ?));`;
@@ -105,43 +105,42 @@ const deleteTotalKeyword = async (data_array) => {
 }
 
 
-const updateRecommendKeyword = async (data_array) => {
+const updateRecommendKeywordDAO = async (data_array) => {
 	if ((data_array === "undefined") || (data_array === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
 	}
 
-	let query = keywordQuery.insertRecommendKeyword;
+	let query = keywordQuery.insertRecommendKeywordQuery;
 	let form_data = [];
-	for(i=0; i<data_array[1].insert_keywords.length; i++) {
-		if(i==data_array[1].insert_keywords.length - 1) {
+	for(i=0; i<data_array[1].insertKeywords.length; i++) {
+		if(i==data_array[1].insertKeywords.length - 1) {
 			query += `(?, ?);`;
 		} else {
 			query += `(?, ?), `;
 		}
-		form_data.push(data_array[0], data_array[1].insert_keywords[i]);
+		form_data.push(data_array[0], data_array[1].insertKeywords[i]);
 	}
 
-	let query2 = keywordQuery.deleteRecommendKeyword;
+	let query2 = keywordQuery.deleteRecommendKeywordQuery;
 	console.log(query2);
-	for(i=0; i<data_array[1].delete_keywords.length; i++) {
-		if(i==data_array[1].delete_keywords.length - 1) {
+	for(i=0; i<data_array[1].deleteKeywords.length; i++) {
+		if(i==data_array[1].deleteKeywords.length - 1) {
 			query2 += `(?, ?));`;
 		} else {
 			query2 += `(?, ?), `;
 		}
-		form_data.push(data_array[0], data_array[1].delete_keywords[i]);
+		form_data.push(data_array[0], data_array[1].deleteKeywords[i]);
 	}
-
 	let data = await conn.connection(query + query2, form_data);
   return data;
 }
 
-const insertRecommendKeyword = async (data_array) => {
+const insertRecommendKeywordDAO = async (data_array) => {
 	if ((data_array === "undefined") || (data_array === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
 	}
 	let form_data = [];
-	let insertQuery = keywordQuery.insertRecommendKeyword;
+	let insertQuery = keywordQuery.insertRecommendKeywordQuery;
 	for(i=0; i<data_array[1].length; i++) {
 		if(i==data_array[1].length - 1) {
 			insertQuery += `(?, ?);`;
@@ -154,12 +153,12 @@ const insertRecommendKeyword = async (data_array) => {
   return data;
 }
 
-const deleteRecommendKeyword = async (data_array) => {
+const deleteRecommendKeywordDAO = async (data_array) => {
 	if ((data_array === "undefined") || (data_array === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
 	}
 	let form_data = [];
-	let deleteQuery = keywordQuery.deleteRecommendKeyword;
+	let deleteQuery = keywordQuery.deleteRecommendKeywordQuery;
 	for(i=0; i<data_array[1].length; i++) {
 		if(i==data_array[1].length - 1) {
 			deleteQuery += `(?, ?));`;
@@ -175,15 +174,15 @@ const deleteRecommendKeyword = async (data_array) => {
 
 
 module.exports = {
-	getTotalKeyword,
-	getRecommendKeyword,
-	getAllKeywords,
-	getCategory,
-	getKeyword,
-	updateTotalKeyword,
-	insertTotalKeyword,
-	deleteTotalKeyword,
-	updateRecommendKeyword,
-	insertRecommendKeyword,
-	deleteRecommendKeyword,
+	getTotalKeywordDAO,
+	getRecommendKeywordDAO,
+	getAllKeywordDAO,
+	getCategoryDAO,
+	getKeywordDAO,
+	updateTotalKeywordDAO,
+	insertTotalKeywordDAO,
+	deleteTotalKeywordDAO,
+	updateRecommendKeywordDAO,
+	insertRecommendKeywordDAO,
+	deleteRecommendKeywordDAO,
 }

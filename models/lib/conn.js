@@ -10,7 +10,7 @@ const connection = async (query_data, body_data) => {
     return data;
   } catch (err) {
     conn.rollback()
-    console.log(err); 
+    console.log(err);
     throw Error(err);
   } finally {
     conn.release();

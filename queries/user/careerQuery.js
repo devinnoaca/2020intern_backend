@@ -1,29 +1,29 @@
-exports.getCareer = `
+exports.getCareerQuery = `
 SELECT *
 FROM Career
 WHERE user_USN = ?;`
 
-exports.createCareer = `
+exports.createCareerQuery = `
 INSERT INTO Career (
   content,
   user_USN
   )
 VALUES`;
 
-exports.updateCareer = `
+exports.updateCareerQuery = `
 UPDATE Career
 SET content = (
   case `;
 
-exports.temp1 = `
+exports.updateCareerWhenQuery = `
 when ID = ? then ?
 `;
 
-exports.temp2 = `
+exports.updateCareerWhereQuery = `
 end) WHERE ID in (
 `;
 
-exports.deleteCareer = `
+exports.deleteCareerQuery = `
 DELETE
 FROM Career
 WHERE (ID) IN (`;

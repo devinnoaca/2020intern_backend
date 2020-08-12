@@ -1,17 +1,17 @@
 const conn = require('../lib/conn');
 const keywordListQuery = require('../../queries/main/keywordListQuery');
 
-const getCategory = async () => {
-  let data = await conn.connection(keywordListQuery.getAllCategory, []);
+const getCategoryDAO = async () => {
+  let data = await conn.connection(keywordListQuery.getAllCategoryQuery, []);
   return data;
 }
 
-const getKeyword = async () => {
-  let data = await conn.connection(keywordListQuery.getAllKeyword, []);
+const getKeywordDAO = async () => {
+  let data = await conn.connection(keywordListQuery.getAllKeywordQuery, []);
   return data;
 }
 
 module.exports = {
-  getCategory,
-  getKeyword,
+  getCategoryDAO,
+  getKeywordDAO,
 }

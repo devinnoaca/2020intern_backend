@@ -15,7 +15,7 @@ const createNotificationController = async (req, res, next) => {
   let create = [noti_type, message];
 
   try {
-    let result = await notificationDAO.createNotification(create);
+    let result = await notificationDAO.createNotificationDAO(create);
     return res.status(200).send(result);
   } catch (err) {
     return res.status(500).json(err);
@@ -44,7 +44,7 @@ const createUserNotificationController = async (req, res, next) => {
   let create = [time, noti_ID, sender_USN, receiver_USN, is_checked];
 
   try {
-    let result = await notificationDAO.createUserNotification(create);
+    let result = await notificationDAO.createUserNotificationDAO(create);
     return res.status(200).send(result);
   } catch (err) {
     return res.status(500).json(err);

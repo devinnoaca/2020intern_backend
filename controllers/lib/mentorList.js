@@ -1,9 +1,6 @@
-const { ConsoleTransportOptions } = require("winston/lib/winston/transports");
-
 const mentorListLogic = (_careerList, _order) => {
 	let _career = new Array();
 	let result = new Array();
-
 	let start = 0;
 	for (i = 0; i < _careerList[0].length; i++) {
 		if (_careerList[0][i].user_USN === start) {
@@ -17,14 +14,12 @@ const mentorListLogic = (_careerList, _order) => {
 		}
 	}
 
-	console.log(_career);
-
 	result.push({
 		mentorList: []
 	})
-	console.log(_order[0].length);
 	for (j = 0; j < _order[0].length; j++) {
 		result[0].mentorList.push({
+      "totalPage":_order[0][j].total_List,
 			"usn": _order[0][j].mentor_USN,
 			"name": _order[0][j].name,
 			"imageUrl": _order[0][j].image_url,
@@ -34,7 +29,6 @@ const mentorListLogic = (_careerList, _order) => {
 			"career": _career[_order[0][j].mentor_USN -1].career
 		})
 	}
-
 	return result[0];
 }
 

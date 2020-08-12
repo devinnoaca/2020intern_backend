@@ -1,11 +1,11 @@
 // USER QUERY
-exports.getUser = `
+exports.getUserQuery = `
 SELECT * 
 FROM User 
 WHERE USN = ?; 
 `;
 
-exports.updateUser = `
+exports.updateUserQuery = `
 UPDATE User
 SET 
   name = ?, 

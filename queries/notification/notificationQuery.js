@@ -1,11 +1,11 @@
-exports.insertNotification = `
+exports.insertNotificationQuery = `
 INSERT 
 INTO Notification(
  type, 
  message) 
 VALUES (?, ?);`;
 
-exports.insertUserNotification = `
+exports.insertUserNotificationQuery = `
 INSERT
 INTO User_notification(
 	noti_ID,
