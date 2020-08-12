@@ -1,15 +1,15 @@
 const userDAO = require('../../models/user/userDAO');
+const lib = require('../lib/createReqDataObject');
 
 const getUserController = async (req, res, next) => {
   let usn = parseInt(req.params.usn, 10);
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
-
   let userBindValue = [usn];
-
+  let reqDataObject = lib.createReqDataObject(req.params, req.body);
   try {
-    let users = await userDAO.getUserDAO(userBindValue);
+    let users = await userDAO.getUserDAO(reqDataObject);
     return res.status(200).send(users[0][0]);
     // return res.render('user', {user: users[0]});
     // res.json(users[0][0]);
@@ -39,7 +39,7 @@ const updateUserController = async (req, res, next) => {
   }
 
   let userBindValue = [name, email, image_url, description, company, usn];
-  
+
   try {
     let userResult = await userDAO.updateUserDAO(userBindValue);
     return res.status(201).send(userResult);
