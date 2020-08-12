@@ -6,9 +6,10 @@ const getKeywordController= async (req, res, next) => {
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
+  let userBindValue = [usn];
   try {
-    let totalResult = await keywordDAO.getTotalKeywordDAO(usn);
-    let recommendResult = await keywordDAO.getRecommendKeywordDAO(usn);
+    let totalResult = await keywordDAO.getTotalKeywordDAO(userBindValue);
+    let recommendResult = await keywordDAO.getRecommendKeywordDAO(userBindValue);
     let keywordResult = userKeyword.userKeywordLogic(usn, totalResult, recommendResult);
     return res.status(200).send(keywordResult);
     //return res.render('keyword', {total: [...total_keywords], recommend: [...recommend_keywords]});

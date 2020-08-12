@@ -6,8 +6,10 @@ const getUserController = async (req, res, next) => {
     return res.status(200).json({ statusCode: 500, message: '잘못된 매개변수 타입' });
   }
 
+  let userBindValue = [usn];
+
   try {
-    let users = await userDAO.getUserDAO(usn);
+    let users = await userDAO.getUserDAO(userBindValue);
     return res.status(200).send(users[0][0]);
     // return res.render('user', {user: users[0]});
     // res.json(users[0][0]);

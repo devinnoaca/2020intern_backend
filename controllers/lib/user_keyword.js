@@ -1,26 +1,26 @@
-const insertKeyword = (model) => {
-	let array = new Array();
+const insertKeyword = (result) => {
+	let keywordList = new Array();
 
-	for (i = 0; i < model[0].length; i++) {
-		array.push({
-			"keywordId": model[0][i].keyword_ID,
-			"keywordName": model[0][i].keyword_name,
-			"categoryName": model[0][i].category_name,
+	for (i = 0; i < result[0].length; i++) {
+		keywordList.push({
+			"keywordId": result[0][i].keyword_ID,
+			"keywordName": result[0][i].keyword_name,
+			"categoryName": result[0][i].category_name,
 		});
 	}
-	return array;
+	return keywordList;
 }
 
-const userKeywordLogic = (usn, total, recommend) => {
-	let total_result = insertKeyword(total);
-	let recommend_result = insertKeyword(recommend);
+const userKeywordLogic = (usn, totalResult, recommendResult) => {
+	let totalkeywordList = insertKeyword(totalResult);
+	let recommendkeywordList = insertKeyword(recommendResult);
 
-	let _keyword = {
+	let keywordResult = {
 		"usn": usn,
-		"allKeyword": total_result,
-		"recommendKeyword": recommend_result
+		"allKeyword": totalkeywordList,
+		"recommendKeyword": recommendkeywordList
 	}
-	return _keyword;
+	return keywordResult;
 }
 
 module.exports = {

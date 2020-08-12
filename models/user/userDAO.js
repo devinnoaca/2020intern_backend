@@ -1,11 +1,12 @@
 const conn = require('../lib/conn');
 const userQuery = require('../../queries/user/userQuery');
 
-const getUserDAO = async (usn) => {
+const getUserDAO = async (userBindValue) => {
+  let usn = userBindValue[0];
   if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
   }
-  let dbData = await conn.connection(userQuery.getUserQuery, [usn]);
+  let dbData = await conn.connection(userQuery.getUserQuery, userBindValue);
   return await dbData;
 }
 
