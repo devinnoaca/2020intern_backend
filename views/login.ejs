@@ -5,20 +5,20 @@
     <title>Document</title>
 </head>
 <body>
-
-<% if(session.id){ %>
+  <%= session.id %>
+<% if(session.ID){ %>
     <h3>로그인에 성공하셨습니다 ~</h3>
-    <form action="/user/logout" method="get">
+    <form action="/auth/logout" method="get">
         <input type="submit" value="로그아웃">
     </form>
 
 <% } else{ %>
     <h3>로그인</h3>
-    <form action="/login" method="post">
+    <form action="/auth/login" method="post">
         <table>
             <tr>
                 <td>id : </td>
-                <td><input type="text" name="userEmail"></td>
+                <td><input type="text" name="id"></td>
             </tr>
             <tr>
                 <td>비번 : </td>

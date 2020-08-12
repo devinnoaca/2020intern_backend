@@ -56,7 +56,6 @@ const getSignInController = async (req, res, next) => {
 const signInController = async (req, res, next) => {
   let id = req.body.id;
   let password = req.body.password;
-  console.log(id, password);
 
   let signInResult = await signUpDAO.signInDAO(id);
 
@@ -78,12 +77,9 @@ const signInController = async (req, res, next) => {
     try {
       if (reqDataObject.password === DBPassword) {
         console.log(id);
-        req.session.ID = id;
+        req.session.id = id;
         //res.redirect("/index");
-        // return res.status(200).send({statusCode: 202, message: `로그인 성공`});
-        res.render("login", {
-        session : req.session
-    });
+        return res.status(200).send({statusCode: 202, message: `로그인 성공`});
       }
       else {
         return res.status(500).json({ statusCode: 502, message: `Controller: 비밀번호 틀림` });
@@ -95,10 +91,7 @@ const signInController = async (req, res, next) => {
 }
 
 const signOutController = async (req, res, next) => {
-  req.session.destroy();
-  res.clearCookie('sid');
 
-  res.redirect("/auth/login")
 }
 
 module.exports = {
