@@ -70,13 +70,16 @@ const signInController = async (req, res, next) => {
     reqDataObject.password = hashPassword;
     try {
       if (reqDataObject.password === DBPassword) {
-        req.session.usn = userResult[0][0].USN;
+        let sessi = req.session;
+        sessi.usn = userResult[0][0].USN;
         //res.redirect("/index");
         // return res.status(200).send({statusCode: 202, message: `로그인 성공`});
-        res.render("index", {
-        title: "로그인 성공",
-        session : req.session
-    });
+        req.session.save(() => {
+          res.render("index", {
+            title: "로그인 성공",
+            session : req.session
+        });   
+        })
       }
       else {
         return res.status(500).json({ statusCode: 502, message: `Controller: 비밀번호 틀림` });
