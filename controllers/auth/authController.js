@@ -1,3 +1,6 @@
+let jwt = require("jsonwebtoken");
+let secretObj = require("../../config/jwt");
+
 const signUpDAO = require('../../models/auth/authDAO');
 const userDAO = require('../../models/user/userDAO');
 const paramsCheck = require('../../lib/paramsCheck');
@@ -35,8 +38,6 @@ const signUpController = async (req, res, next) => {
     try {
       let signUpResult = await signUpDAO.signUpDAO(reqUserDataObject);
       let authResult = await signUpDAO.authDAO(reqAuthDataObject);
-      console.log(signUpResult);
-      console.log(authResult);
       return res.status(200).send({ signUpResult, authResult });
     } catch (err) {
       return res.status(500).send(err);
@@ -51,6 +52,15 @@ const getSignInController = async (req, res, next) => {
 const signInController = async (req, res, next) => {
   let id = req.body.id;
   let password = req.body.password;
+
+  let token = jwt.sign({
+    id: id,
+    password: password, // 토큰의 내용(payload)
+  },
+  secretObj.secret ,    // 비밀 키
+  {
+    expiresIn: '5m'    // 유효 시간은 5분
+  })
 
   let signInResult = await signUpDAO.signInDAO(id);
   let userResult = await userDAO.getUserIdDAO(id);
@@ -70,15 +80,15 @@ const signInController = async (req, res, next) => {
     reqDataObject.password = hashPassword;
     try {
       if (reqDataObject.password === DBPassword) {
-        let sessi = req.session;
-        sessi.usn = userResult[0][0].USN;
+        // let sessi = req.session;
+        // sessi.usn = userResult[0][0].USN;
         //res.redirect("/index");
         // return res.status(200).send({statusCode: 202, message: `로그인 성공`});
-        req.session.save(() => {
-          res.render("index", {
-            title: "로그인 성공",
-            session : req.session
-        });   
+        // req.session.save(() => {
+        // })
+        res.cookie("token", token);
+        res.json({
+          token: token
         })
       }
       else {
@@ -91,9 +101,9 @@ const signInController = async (req, res, next) => {
 }
 
 const signOutController = async (req, res, next) => {
-  console.log(req.session.id);
-  req.session.destroy();
-  res.clearCookie('sid');
+  // console.log(req.session.id);
+  // req.session.destroy();
+  // res.clearCookie('sid');
 
   res.redirect("/auth/login")
 }
