@@ -16,7 +16,7 @@ FROM Career
 ORDER BY user_USN;`;
 
 exports.getMentorListPageQuery = `
-SELECT count(*) as total_search
+SELECT count(*) as totalSearch
 FROM(
 SELECT total, count(DISTINCT keyword_ID) as searched
 FROM get_mentor_list`;
