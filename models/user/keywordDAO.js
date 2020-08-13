@@ -1,22 +1,24 @@
 const conn = require('../lib/conn');
 const keywordQuery = require('../../queries/user/keywordQuery');
 
-const getTotalKeywordDAO = async (userBindValue) => {
-	let usn = userBindValue[0];
+const getTotalKeywordDAO = async (reqDataObject) => {
+	let usn = reqDataObject['usn'];
 	if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
   }
-	let data = await conn.connection(keywordQuery.gettotalkeywordQuery, userBindValue);
-  return data;
+  let totalKeywordBindValue = [ usn ];
+	let DBData = await conn.connection(keywordQuery.gettotalkeywordQuery, totalKeywordBindValue);
+  return DBData;
 }
 
-const getRecommendKeywordDAO = async (userBindValue) => {
-	let usn = userBindValue[0];
+const getRecommendKeywordDAO = async (reqDataObject) => {
+	let usn = reqDataObject['usn'];
 	if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
   }
-	let data = await conn.connection(keywordQuery.getRecommendKeywordQuery, userBindValue);
-  return data;
+  let recommendKeywordBindValue = [ usn ];
+	let DBData = await conn.connection(keywordQuery.getRecommendKeywordQuery, recommendKeywordBindValue);
+  return DBData;
 }
 
 const getAllKeywordDAO = async () => {
@@ -37,141 +39,154 @@ const getKeywordDAO = async (categoryID) => {
   return data;
 }
 
-const updateTotalKeywordDAO = async (dateArray) => {
-	if ((dateArray === "undefined") || (dateArray === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	}
+const updateTotalKeywordDAO = async (reqDataObject) => {
+  let usn = reqDataObject.usn;
+  let insertKeywords = reqDataObject.keyword.insertKeywords;
+  let deleteKeywords = reqDataObject.keyword.deleteKeywords;
+	// if ((dateArray === "undefined") || (dateArray === "")) {
+  //   return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+	// }
 
 	let insertQuery = keywordQuery.insertTotalKeywordQuery;
 	let deleteQuery = keywordQuery.deleteTotalKeywordQuery;
 
-	let form_data = [];
-	for(i=0; i<dateArray[1].insertKeywords.length; i++) {
-		if(i==dateArray[1].insertKeywords.length - 1) {
+	let totalKeywordBindValue = [];
+	for (let i = 0; i < insertKeywords.length; i++) {
+		if ( i == insertKeywords.length - 1) {
 			insertQuery += `(?, ?);`;
 		} else {
 			insertQuery += `(?, ?), `;
 		}
-		form_data.push(dateArray[0], dateArray[1].insertKeywords[i]);
+		totalKeywordBindValue.push(usn, insertKeywords[i]);
 	}
 
-	for(i=0; i<dateArray[1].deleteKeywords.length; i++) {
-		if(i==dateArray[1].deleteKeywords.length - 1) {
+	for (let i=0; i < deleteKeywords.length; i++) {
+		if (i == deleteKeywords.length - 1) {
 			deleteQuery += `(?, ?));`;
 		} else {
 			deleteQuery += `(?, ?), `;
 		}
-		form_data.push(dateArray[0], dateArray[1].deleteKeywords[i]);
+		totalKeywordBindValue.push(usn, deleteKeywords[i]);
 	}
 
-	let data = await conn.connection(insertQuery + deleteQuery, form_data);
-  return data;
+	let DBData = await conn.connection(insertQuery + deleteQuery, totalKeywordBindValue);
+  return DBData;
 }
 
 
-const insertTotalKeywordDAO = async (dataArray) => {
-	if ((dataArray === "undefined") || (dataArray === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	}
-	let form_data = [];
+const insertTotalKeywordDAO = async (reqDataObject) => {
+  let usn = reqDataObject.usn;
+  let insertKeywords = reqDataObject.keyword.insertKeywords;
+	// if ((dataArray === "undefined") || (dataArray === "")) {
+  //   return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+	// }
+	let insertTotalKeywordBindValue = [];
 	let insertQuery = keywordQuery.insertTotalKeywordQuery;
-	for(i=0; i<dataArray[1].length; i++) {
-		if(i==dataArray[1].length - 1) {
+	for (let i = 0; i < insertKeywords.length; i++) {
+		if (i == insertKeywords.length - 1) {
 			insertQuery += `(?, ?);`;
 		} else {
 			insertQuery += `(?, ?), `;
 		}
-		form_data.push(dataArray[0], dataArray[1][i]);
+		insertTotalKeywordBindValue.push(usn, insertKeywords[i]);
 	}
-	let data = await conn.connection(insertQuery, form_data);
-  return data;
+	let DBData = await conn.connection(insertQuery, insertTotalKeywordBindValue);
+  return DBData;
 }
 
-const deleteTotalKeywordDAO = async (dataArray) => {
-	if ((dataArray === "undefined") || (dataArray === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	}
-	let form_data = [];
+const deleteTotalKeywordDAO = async (reqDataObject) => {
+  let usn = reqDataObject.usn;
+  let deleteKeywords = reqDataObject.keyword.deleteKeywords;
+	// if ((dataArray === "undefined") || (dataArray === "")) {
+  //   return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+	// }
+	let deleteTotalKeywordBindValue = [];
 	let deleteQuery = keywordQuery.deleteTotalKeywordQuery;
-	for(i=0; i<dataArray[1].length; i++) {
-		if(i==dataArray[1].length - 1) {
+	for (let i = 0; i < deleteKeywords.length; i++) {
+		if (i == deleteKeywords.length - 1) {
 			deleteQuery += `(?, ?));`;
 		} else {
 			deleteQuery += `(?, ?), `;
 		}
-		form_data.push(dataArray[0], dataArray[1][i]);
+		deleteTotalKeywordBindValue.push(usn, deleteKeywords[i]);
 	}
 
-	let data = await conn.connection(deleteQuery, form_data);
-  return data;
+	let DBData = await conn.connection(deleteQuery, deleteTotalKeywordBindValue);
+  return DBData;
 }
 
+const updateRecommendKeywordDAO = async (reqDataObject) => {
+  let usn = reqDataObject.usn;
+  let insertKeywords = reqDataObject.keyword.insertKeywords;
+  let deleteKeywords = reqDataObject.keyword.deleteKeywords;
+	// if ((dataArray === "undefined") || (dataArray === "")) {
+  //   return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+	// }
 
-const updateRecommendKeywordDAO = async (dataArray) => {
-	if ((dataArray === "undefined") || (dataArray === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	}
-
-	let query = keywordQuery.insertRecommendKeywordQuery;
-	let form_data = [];
-	for(i=0; i<dataArray[1].insertKeywords.length; i++) {
-		if(i==dataArray[1].insertKeywords.length - 1) {
-			query += `(?, ?);`;
-		} else {
-			query += `(?, ?), `;
-		}
-		form_data.push(dataArray[0], dataArray[1].insertKeywords[i]);
-	}
-
-	let query2 = keywordQuery.deleteRecommendKeywordQuery;
-	console.log(query2);
-	for(i=0; i<dataArray[1].deleteKeywords.length; i++) {
-		if(i==dataArray[1].deleteKeywords.length - 1) {
-			query2 += `(?, ?));`;
-		} else {
-			query2 += `(?, ?), `;
-		}
-		form_data.push(dataArray[0], dataArray[1].deleteKeywords[i]);
-	}
-	let data = await conn.connection(query + query2, form_data);
-  return data;
-}
-
-const insertRecommendKeywordDAO = async (dataArray) => {
-	if ((dataArray === "undefined") || (dataArray === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	}
-	let form_data = [];
 	let insertQuery = keywordQuery.insertRecommendKeywordQuery;
-	for(i=0; i<dataArray[1].length; i++) {
-		if(i==dataArray[1].length - 1) {
+	let deleteQuery = keywordQuery.deleteRecommendKeywordQuery;
+
+	let recommendKeywordBindValue = [];
+	for (let i = 0; i < insertKeywords.length; i++) {
+		if (i == insertKeywords.length - 1) {
 			insertQuery += `(?, ?);`;
 		} else {
 			insertQuery += `(?, ?), `;
 		}
-		form_data.push(dataArray[0], dataArray[1][i]);
+		recommendKeywordBindValue.push(usn, insertKeywords[i]);
 	}
-	let data = await conn.connection(insertQuery, form_data);
-  return data;
-}
 
-const deleteRecommendKeywordDAO = async (dataArray) => {
-	if ((dataArray === "undefined") || (dataArray === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	}
-	let form_data = [];
-	let deleteQuery = keywordQuery.deleteRecommendKeywordQuery;
-	for(i=0; i<dataArray[1].length; i++) {
-		if(i==dataArray[1].length - 1) {
+	for (let i = 0; i < deleteKeywords.length; i++) {
+		if (i == deleteKeywords.length - 1) {
 			deleteQuery += `(?, ?));`;
 		} else {
 			deleteQuery += `(?, ?), `;
 		}
-		form_data.push(dataArray[0], dataArray[1][i]);
+		recommendKeywordBindValue.push(usn, deleteKeywords[i]);
+	}
+	let DBData = await conn.connection(insertQuery + deleteQuery, recommendKeywordBindValue);
+  return DBData;
+}
+
+const insertRecommendKeywordDAO = async (reqDataObject) => {
+  let usn = reqDataObject.usn;
+  let insertKeywords = reqDataObject.keyword.insertKeywords;
+	// if ((dataArray === "undefined") || (dataArray === "")) {
+  //   return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+	// }
+	let insertRecommendKeywordBindValue = [];
+	let insertQuery = keywordQuery.insertRecommendKeywordQuery;
+	for (let i = 0; i < insertKeywords.length; i++) {
+		if (i == insertKeywords.length - 1) {
+			insertQuery += `(?, ?);`;
+		} else {
+			insertQuery += `(?, ?), `;
+		}
+		insertRecommendKeywordBindValue.push(usn, insertKeywords[i]);
+	}
+	let DBData = await conn.connection(insertQuery, insertRecommendKeywordBindValue);
+  return DBData;
+}
+
+const deleteRecommendKeywordDAO = async (reqDataObject) => {
+  let usn = reqDataObject.usn;
+  let deleteKeywords = reqDataObject.keyword.deleteKeywords;
+	// if ((dataArray === "undefined") || (dataArray === "")) {
+  //   return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+	// }
+	let deleteRecommendKeywordBindValue = [];
+	let deleteQuery = keywordQuery.deleteRecommendKeywordQuery;
+	for (let i = 0; i < deleteKeywords.length; i++) {
+		if (i == deleteKeywords.length - 1) {
+			deleteQuery += `(?, ?));`;
+		} else {
+			deleteQuery += `(?, ?), `;
+		}
+		deleteRecommendKeywordBindValue.push(usn, deleteKeywords[i]);
 	}
 
-	let data = await conn.connection(deleteQuery, form_data);
-  return data;
+	let DBData = await conn.connection(deleteQuery, deleteRecommendKeywordBindValue);
+  return DBData;
 }
 
 
