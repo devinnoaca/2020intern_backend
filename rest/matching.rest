@@ -5,8 +5,8 @@ POST http://localhost:3001/matching
 Content-Type: application/json
 
 {
-    "mentorUsn": 1,
-    "menteeUsn": 2,
+    "mentorUsn": 10,
+    "menteeUsn": 4,
     "reqReason": "요청합니다.",
     "keywordList": [{
         "keywordName": ["CSS", "HTML"],

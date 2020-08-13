@@ -2,7 +2,7 @@
 GET http://localhost:3000/main/keyword
 
 ### 멘토 리스트 정보 접근 
-POST http://localhost:3000/main/list
+POST http://localhost:3000/main/page
 Content-Type: application/json
 
 {
@@ -33,7 +33,7 @@ Content-Type: application/json
 
 
 ### 멘토 리스트 정보 접근 
-POST http://localhost:3001/main/list
+POST http://localhost:3000/main/list
 Content-Type: application/json
 
 {
