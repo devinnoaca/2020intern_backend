@@ -27,7 +27,7 @@ const signUpController = async (req, res, next) => {
     let reqUserDataObject = lib.createReqDataObject(req.params, req.body);
     let reqAuthDataObject = {
       "id": id,
-      "password": password,
+      "password": hashPassword,
       "salt": salt
     };
     reqUserDataObject.password = hashPassword;
@@ -43,16 +43,23 @@ const signUpController = async (req, res, next) => {
   }
 }
 
+const getSignInController = async (req, res, next) => {
+  let session = req.session;
+
+  res.render("login", {
+      session : session
+  });
+}
+
 const signInController = async (req, res, next) => {
   let id = req.body.id;
   let password = req.body.password;
 
   let signInResult = await signUpDAO.signInDAO(id);
+
   let salt = signInResult[0][0].salt;
   let DBPassword = signInResult[0][0].password;
   let hashPassword = crypto.createHash("sha512").update(password + salt).digest("hex");
-  console.log(DBPassword);
-  console.log(hashPassword);
 
   if(paramsCheck.numberCheck([]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
@@ -63,16 +70,22 @@ const signInController = async (req, res, next) => {
   else {
     let reqDataObject = lib.createReqDataObject(req.params, req.body);
     reqDataObject.password = hashPassword;
+    //console.log(reqDataObject)
+    //console.log(DBPassword);
     try {
-      if (hashPassword === signInResult[0].password)
-        return res.status(200).send(signInResult);
-      else
+      if (reqDataObject.password === DBPassword) {
+        console.log(id);
+        req.session.id = id;
+        //res.redirect("/index");
+        return res.status(200).send({statusCode: 202, message: `로그인 성공`});
+      }
+      else {
         return res.status(500).json({ statusCode: 502, message: `Controller: 비밀번호 틀림` });
+      }
     } catch (err) {
       return res.status(500).json({ statusCode: 502, message: `Model: 데이터값 없음` })
     }
   }
-
 }
 
 const signOutController = async (req, res, next) => {
@@ -83,5 +96,6 @@ module.exports = {
   signUpController,
   signInController,
   signOutController,
+  getSignInController,
 }
 

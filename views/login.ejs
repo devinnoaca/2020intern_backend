@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+<% if(session.id){ %>
+    <h3>로그인에 성공하셨습니다 ~</h3>
+    <form action="/user/logout" method="get">
+        <input type="submit" value="로그아웃">
+    </form>
+
+<% } else{ %>
+    <h3>로그인</h3>
+    <form action="/login" method="post">
+        <table>
+            <tr>
+                <td>id : </td>
+                <td><input type="text" name="userEmail"></td>
+            </tr>
+            <tr>
+                <td>비번 : </td>
+                <td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="로그인"></td>
+            </tr>
+        </table>
+    </form>
+<% } %>
+
+</body>
+</html>
