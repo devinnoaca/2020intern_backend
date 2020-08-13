@@ -4,6 +4,7 @@ const keywordLogic = (categoryResult, keywordResult) => {
 	let libResult = new Array();
 
 	for (i = 0; i < keywordResult[0].length; i++) {
+		console.log("start: " + start + " category: " + keywordResult[0][i].category_ID);
 		if (start === keywordResult[0][i].category_ID) {
 			keywordList[start].keyword.push({
 				"keywordId": keywordResult[0][i].keyword_ID,
@@ -28,9 +29,12 @@ const keywordLogic = (categoryResult, keywordResult) => {
 					category_ID: start,
 					keyword: []
 				};
+				i = i - 1;
 			}
 		}
 	}
+
+	console.log(keywordList);
 
 	libResult.push({
 		allCategory: [],

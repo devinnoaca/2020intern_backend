@@ -13,7 +13,6 @@ const getKeywordListController = async (req, res, next) => {
     try {
       let categoryResult = await keywordListDAO.getCategoryDAO();
       let keywordResult = await keywordListDAO.getKeywordDAO();
-      console.log(keywordResult);
       let allKeywordLib = keywordLogicLib.keywordLogic(categoryResult, keywordResult);
       let data = {
         "allCategory": allKeywordLib,
