@@ -7,7 +7,7 @@ const getTotalKeywordDAO = async (reqDataObject) => {
     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
   }
   let totalKeywordBindValue = [ usn ];
-	let DBData = await conn.connection(keywordQuery.gettotalkeywordQuery, totalKeywordBindValue);
+	let DBData = await conn.connection(keywordQuery.getTotalkeywordQuery, totalKeywordBindValue);
   return DBData;
 }
 
