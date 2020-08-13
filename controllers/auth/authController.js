@@ -46,7 +46,7 @@ const signUpController = async (req, res, next) => {
 
 const getSignInController = async (req, res, next) => {
     res.render("login");
-} 
+}
 
 const signInController = async (req, res, next) => {
   let id = req.body.id;
@@ -54,7 +54,7 @@ const signInController = async (req, res, next) => {
 
   let signInResult = await signUpDAO.signInDAO(id);
   let userResult = await userDAO.getUserIdDAO(id);
-  
+
   let salt = signInResult[0][0].salt;
   let DBPassword = signInResult[0][0].password;
   let hashPassword = crypto.createHash("sha512").update(password + salt).digest("hex");
@@ -73,10 +73,12 @@ const signInController = async (req, res, next) => {
         req.session.usn = userResult[0][0].USN;
         //res.redirect("/index");
         // return res.status(200).send({statusCode: 202, message: `로그인 성공`});
-        res.render("index", {
-        title: "로그인 성공",
-        session : req.session
-    });
+        req.session.save(() => {
+          res.send({
+            title: "로그인 성공",
+            session : req.session
+          });
+        });
       }
       else {
         return res.status(500).json({ statusCode: 502, message: `Controller: 비밀번호 틀림` });
