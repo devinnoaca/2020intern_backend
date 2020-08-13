@@ -4,9 +4,9 @@ const matchingQuery = require('../../queries/matching/matchingQuery');
 const createMatchingDAO = async (reqDataObject) => {
   let mentorUsn = reqDataObject.mentorUsn;
   let menteeUsn = reqDataObject.menteeUsn;
-  let requestTime = reqDataObject.requestTime;
+  let reqTime = reqDataObject.time;
   let reqReason = reqDataObject.reqReason;
-  let responseTime = null;
+  let resTime = null;
   let resReason = "";
 
   // if ((create_data === "undefined") || (create_data === "")) {
@@ -14,8 +14,9 @@ const createMatchingDAO = async (reqDataObject) => {
 	// }
 
   let matchingCreateBindValue = [
-    mentorUsn, menteeUsn, requestTime, responseTime, reqReason, resReason
+    mentorUsn, menteeUsn, reqTime, resTime, reqReason, resReason
   ];
+  console.log(matchingCreateBindValue);
 
   let DBData = await conn.connection(matchingQuery.insertMatchingQuery, matchingCreateBindValue);
   return DBData;
@@ -46,12 +47,20 @@ const createMatchingKeywordDAO = async (reqDataObject) => {
   return DBData;
 }
 
-const updateMatchingDAO = async (bindValue) => {
-  if ((bindValue === "undefined") || (bindValue === "")) {
-    return res.status(200).json({ statusCode: 502, message: '데이터 없음' });
-  }
-  let data = await conn.connection(matchingQuery.updateMatchingQuery, bindValue);
-  return data;
+const updateMatchingDAO = async (reqDataObject) => {
+  let resMessage = reqDataObject.resMessage;
+  let state = reqDataObject.state;
+  let resTime = reqDataObject.time;
+  let matchingId = reqDataObject.matchingId;
+
+  // if ((bindValue === "undefined") || (bindValue === "")) {
+  //   return res.status(200).json({ statusCode: 502, message: '데이터 없음' });
+  // }
+  let updateMatchingBindValue = [
+    resMessage, state, resTime, matchingId
+  ];
+  let DBData = await conn.connection(matchingQuery.updateMatchingQuery, updateMatchingBindValue);
+  return DBData;
 }
 
 

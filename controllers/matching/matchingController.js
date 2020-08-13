@@ -22,7 +22,7 @@ const createMatchingController = async (req, res, next) => {
   }
   else {
     let reqDataObject = lib.createReqDataObject(req.params, req.body);
-    reqDataObject.requestTime = requestTime;
+    reqDataObject.time = requestTime;
 
     // let matchingCreateBindValue = [
     //   mentorUsn, menteeUsn, requestTime, responseTime,
@@ -54,6 +54,8 @@ const createMatchingController = async (req, res, next) => {
 }
 
 const updateMatchingController = async (req, res, next) => {
+  let date = new Date();
+  let resTime = dataLib.getFormatDate(date);
   let matchingId = parseInt(req.params.matchingId, 10);
   let resMessage = req.body.resMessage;
   let state = req.body.state;
@@ -67,17 +69,17 @@ const updateMatchingController = async (req, res, next) => {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
   else {
-    let date = new Date();
-    let resTime = dataLib.getFormatDate(date);
-    let modifyMatchingBindValue = [ resMessage, state, resTime, matchingId ];
+    let reqDataObject = lib.createReqDataObject(req.params, req.body);
+    reqDataObject.time = resTime;
 
+    let modifyMatchingBindValue = [ resMessage, state, resTime, matchingId ];
     let notificationCreateBindValue = [
       null, resTime, menteeUsn, mentorUsn, matchingId
     ];
 
     try {
-      let result = await matchingDAO.updateMatchingDAO(modifyMatchingBindValue);
-      let notificationResult = await notificationDAO.createUserNotificationDAO(notificationCreateBindValue);
+      let result = await matchingDAO.updateMatchingDAO(reqDataObject);
+      let notificationResult = await notificationDAO.createUserNotificationDAO(reqDataObject);
       return res.status(200).json(result)
     } catch(err) {
       return res.status(500).json(err);
