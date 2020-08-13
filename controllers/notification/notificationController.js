@@ -49,11 +49,10 @@ const createUserNotificationController = async (req, res, next) => {
 
 const getUserNotificationController = async (req, res, next) => {
   let usn = req.params.usn;
-  let userType = req.params.type;
-  if(paramsCheck.numberCheck([ usn, userType ]) === false) {
+  if(paramsCheck.numberCheck([ usn ]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
-  else if(paramsCheck.omissionCheck([ usn, userType ])){
+  else if(paramsCheck.omissionCheck([ usn ])){
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
   else {

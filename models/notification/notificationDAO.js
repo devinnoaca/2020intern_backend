@@ -29,15 +29,10 @@ const createUserNotificationDAO = async (reqDataObject) => {
 
 const getUserNotificationDAO = async (reqDataObject) => {
   let usn = reqDataObject.usn;
-  let userType = reqDataObject.type;
 
-  let whereClause = userType ? `mentor_USN = ? ` : `mentee_USN = ? `;
   let getUserNotificationBindValue = [ usn ];
-  let query = notificationQuery.getUserNotificationQuery
-            + whereClause
-            + notificationQuery.getUserNotificationQueryOrderBy;
-  let DBData = await conn.connection(query, getUserNotificationBindValue);
-  console.log(DBData);
+  let getUserNotificationQuery = notificationQuery.getUserNotificationQuery;
+  let DBData = await conn.connection(getUserNotificationQuery, getUserNotificationBindValue);
   return DBData;
 }
 

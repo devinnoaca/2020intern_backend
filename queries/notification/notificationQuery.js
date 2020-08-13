@@ -17,19 +17,16 @@ VALUES (?, ?, ?, ?, ?);`;
 
 exports.getUserNotificationQuery = `
 SELECT
-  User_notification.ID,
-  User_notification.matching_ID,
-  User_notification.time,
-  User_notification.is_checked,
-  Matching.state,
-  Matching.mentee_USN,
-  Matching.mentor_USN
+  noti_ID AS notiID,
+  matching_ID AS matchingID,
+  sender AS oppositeName,
+  noti_time AS time,
+  matching_state AS matchingState,
+  is_checked AS isChecked
 FROM
-  User_notification JOIN Matching
-  ON User_notification.matching_ID = Matching.ID
-WHERE Matching.
-`
-
-exports.getUserNotificationQueryOrderBy = `
-ORDER BY User_notification.time DESC
-`
+  get_user_notification
+WHERE
+  receiver_USN = ?
+ORDER BY
+  noti_time
+;`
