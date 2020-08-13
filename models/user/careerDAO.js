@@ -9,7 +9,8 @@ const getCareerDAO = async (usn) => {
   return data;
 }
 
-const handleCareerDAO = async (career) => {
+const handleCareerDAO = async (careerBindValue) => {
+  let career = careerBindValue[careerBindValue.length - 1];
   if(career === "undefined") {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
   }
@@ -18,61 +19,60 @@ const handleCareerDAO = async (career) => {
   }
 
   // 삽입, 수정, 삭제마다 질의문을 담는 스트링 변수와 바인드 값을 담는 배열 선언
-  let insertCareerQuery = careerQuery.createCareerQuery, insertCareerQueryBindValue = [];
+  let insertCareerQuery = careerQuery.createCareerQuery,
+      insertFlag = false;
 
-  let updateCareerQuery = careerQuery.updateCareerQuery;
-  let updateCareerQueryBindValueCase = [], updateCareerQueryBindValueWhere = [];
-  let updateCareerQueryEnd = careerQuery.updateCareerWhereQuery;
+  let updateCareerQuery = careerQuery.updateCareerQuery,
+      updateCareerQueryEnd = careerQuery.updateCareerWhereQuery,
+      updateFlag = false;
 
-  let deleteCareerQuery = careerQuery.deleteCareerQuery, deleteCareerQueryBindValue = [];
+  let deleteCareerQuery = careerQuery.deleteCareerQuery,
+      deleteFlag = false;
 
   // 다중 질의문을 위한 query 변수와 bindValue 배열 선언
-  let query = ``, bindValue = [];
+  let query = ``;
 
   for (let i = 0; i < career.length; i++) {
     if (career[i].content === "" || career[i].type === null) continue;
     // career 배열에 담긴 객체의 타입 별로 삽입, 수정, 삭제의 질의문과 바인드 값 추가
     switch (career[i].type) {
       case 0:
+        if (!insertFlag) insertFlag = true;
         insertCareerQuery += `(?, ?),`;
-        insertCareerQueryBindValue.push(career[i].content, career[i].user_USN);
         break;
       case 1:
+        if (!updateFlag) updateFlag = true;
         updateCareerQuery += careerQuery.updateCareerWhenQuery;
-        updateCareerQueryBindValueCase.push(career[i].ID, career[i].content);
         updateCareerQueryEnd += `?,`;
-        updateCareerQueryBindValueWhere.push(career[i].ID);
         break;
       case 2:
+        if (!deleteFlag) deleteFlag = true;
         deleteCareerQuery += `(?),`;
-        deleteCareerQueryBindValue.push(career[i].ID);
         break;
     }
-
-    // 반복문 마지막 실행 시 삽입, 수정, 삭제할 경력의 유무에 따라 조건문 실행
   }
-  if (insertCareerQueryBindValue.length) {
+  if (insertFlag) {
     insertCareerQuery = insertCareerQuery.slice(0, -1);
     insertCareerQuery += `;`;
     query += insertCareerQuery;
-    bindValue = bindValue.concat(insertCareerQueryBindValue);
   }
-  if (updateCareerQueryBindValueCase.length) {
+
+  if (updateFlag) {
     updateCareerQuery += updateCareerQueryEnd;
     updateCareerQuery = updateCareerQuery.slice(0, -1);
     updateCareerQuery += `);`;
-    updateCareerQueryBindValue = updateCareerQueryBindValueCase.concat(updateCareerQueryBindValueWhere);
     query += updateCareerQuery;
-    bindValue = bindValue.concat(updateCareerQueryBindValue);
   }
-  if (deleteCareerQueryBindValue.length) {
+
+  if (deleteFlag) {
     deleteCareerQuery = deleteCareerQuery.slice(0, -1);
     deleteCareerQuery += `);`;
     query += deleteCareerQuery;
-    bindValue = bindValue.concat(deleteCareerQueryBindValue);
   }
+  console.log(query);
   if (query.length === 0) return;
-  let data = await conn.connection(query, bindValue);
+
+  let data = await conn.connection(query, careerBindValue);
   return data;
 }
 
