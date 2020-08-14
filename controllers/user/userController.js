@@ -1,9 +1,11 @@
 const userDAO = require('../../models/user/userDAO');
 const paramsCheck = require('../../lib/paramsCheck');
 const lib = require('../lib/createReqDataObject');
+let jwtCheckLogic = require("../lib/jwtCheck");
 
 const getUserController = async (req, res, next) => {
-  let usn = parseInt(req.params.usn);
+  let decoded = jwtCheckLogic.jwtCheckLogic(req, res);
+  let usn = decoded.usn;
 
   if(paramsCheck.numberCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
@@ -13,6 +15,7 @@ const getUserController = async (req, res, next) => {
   }
   else {
     let reqDataObject = lib.createReqDataObject(req.params, req.body);
+    reqDataObject.usn = usn
     try {
       let users = await userDAO.getUserDAO(reqDataObject);
       return res.status(200).send(users[0][0]);
@@ -33,7 +36,7 @@ const updateUserController = async (req, res, next) => {
   if(paramsCheck.numberCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
-  else if(paramsCheck.omissionCheck([usn, email, name, image_url, description]) === false) {
+  else if(paramsCheck.omissionCheck([usn, email, name, imageURL, description]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
   else {

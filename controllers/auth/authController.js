@@ -47,27 +47,28 @@ const signUpController = async (req, res, next) => {
 
 const getSignInController = async (req, res, next) => {
     res.render("login");
-} 
+}
 
 const signInController = async (req, res, next) => {
   let id = req.body.id;
   let password = req.body.password;
 
-  let token = jwt.sign({
-    id: id,
-    password: password, // 토큰의 내용(payload)
-  },
-  secretObj.secret ,    // 비밀 키
-  {
-    expiresIn: '5m'    // 유효 시간은 5분
-  })
-
   let signInResult = await signUpDAO.signInDAO(id);
   let userResult = await userDAO.getUserIdDAO(id);
-  
+
   let salt = signInResult[0][0].salt;
   let DBPassword = signInResult[0][0].password;
   let hashPassword = crypto.createHash("sha512").update(password + salt).digest("hex");
+
+  let token = jwt.sign({
+    id: id,
+    password: hashPassword,   // 토큰의 내용(payload)
+    usn: userResult[0][0].USN,
+  },
+  secretObj.secret ,    // 비밀 키
+  {
+    expiresIn: '60m'    // 유효 시간은 5분
+  })
 
   if(paramsCheck.numberCheck([]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
@@ -80,12 +81,6 @@ const signInController = async (req, res, next) => {
     reqDataObject.password = hashPassword;
     try {
       if (reqDataObject.password === DBPassword) {
-        // let sessi = req.session;
-        // sessi.usn = userResult[0][0].USN;
-        //res.redirect("/index");
-        // return res.status(200).send({statusCode: 202, message: `로그인 성공`});
-        // req.session.save(() => {
-        // })
         res.cookie("token", token);
         res.json({
           token: token
@@ -101,10 +96,6 @@ const signInController = async (req, res, next) => {
 }
 
 const signOutController = async (req, res, next) => {
-  // console.log(req.session.id);
-  // req.session.destroy();
-  // res.clearCookie('sid');
-
   res.redirect("/auth/login")
 }
 

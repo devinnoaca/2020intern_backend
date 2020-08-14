@@ -2,7 +2,7 @@
 exports.gettotalkeywordQuery = `
 SELECT *
 FROM get_total_keyword
-WHERE utk_USN = ?;`;
+WHERE user_USN = ?;`;
 
 exports.insertTotalKeywordQuery = `
 INSERT INTO User_total_keyword (
@@ -21,7 +21,7 @@ WHERE (user_USN, keyword_ID) IN (`;
 exports.getRecommendKeywordQuery = `
 SELECT *
 FROM get_recommend_keyword
-WHERE rk_USN = ?;`;
+WHERE mentee_USN = ?;`;
 
 exports.insertRecommendKeywordQuery = `
 INSERT INTO Recommend_keyword (

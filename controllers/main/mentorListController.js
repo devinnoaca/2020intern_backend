@@ -35,7 +35,10 @@ const getMentorListPageController = async (req, res, next) => {
   }
   let reqDataObject = lib.createReqDataObject(req.params, req.body);
   try{
-    let mentorListPageResult = await mentorListDAO.getMentorListPageDAO(reqDataObject);
+    let result = await mentorListDAO.getMentorListPageDAO(reqDataObject);
+    let mentorListPageResult = {
+      "totalSearch": result[0].total_search
+    };
     return res.status(200).send(mentorListPageResult);
   } catch (err) {
     return res.status(500).json(err);
