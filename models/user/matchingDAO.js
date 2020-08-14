@@ -1,22 +1,19 @@
 const conn = require('../lib/conn');
+const paramsCheck = require('../../lib/paramsCheck');
 const matchingQuery = require('../../queries/user/matchingQuery');
 
 const getMentorMatchingListDAO = async (reqDataObject) => {
-  // let usn = userMatchingBindValue[0];
-  // let state = userMatchingBindValue[1];
   let usn = reqDataObject['usn'];
   let state = reqDataObject['state'];
-  if (Number.isNaN(usn) || (Number.isNaN(state))) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+
+  if (paramsCheck.numberCheck([usn, state]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
   }
 
-  if ((usn === "undefined") || (state === "undefined")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 데이터 형태' });
+  if (paramsCheck.omissionCheck([usn, state]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
   }
 
-  if ((usn === "")  || (state === "")) {
-    return res.status(200).json({ statusCode: 502, message: '값이 없음' });
-  }
   let userMatchingBindValue = [ usn, state ];
   let data = await conn.connection(matchingQuery.getMentorMatchingListQuery, userMatchingBindValue);
   return data;
@@ -25,19 +22,16 @@ const getMentorMatchingListDAO = async (reqDataObject) => {
 const getMenteeMatchingListDAO = async (reqDataObject) => {
   let usn = reqDataObject['usn'];
   let state = reqDataObject['state'];
-  if (Number.isNaN(usn) || (Number.isNaN(state))) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+
+  if (paramsCheck.numberCheck([usn, state]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
   }
 
-  if ((usn === "undefined") || (state === "undefined")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 데이터 형태' });
+  if (paramsCheck.omissionCheck([usn, state]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
   }
 
-  if ((usn === "")  || (state === "")) {
-    return res.status(200).json({ statusCode: 502, message: '값이 없음' });
-  }
   let userMatchingBindValue = [ usn, state ];
-
   let data = await conn.connection(matchingQuery.getMenteeMatchingListQuery, userMatchingBindValue);
   return data;
 }

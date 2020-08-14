@@ -1,15 +1,15 @@
-const pool = require('../../database/pool');
 const conn = require('../lib/conn');
+const paramsCheck = require('../../lib/paramsCheck');
 const notificationQuery = require('../../queries/notification/notificationQuery');
 
 
-const createNotificationDAO = async (create_data) => {
-  if ((create_data === "undefined") || (create_data === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	}
-  let data = await conn.connection(notificationQuery.insertNotificationQuery, create_data);
-  return data;
-}
+// const createNotificationDAO = async (create_data) => {
+//   if ((create_data === "undefined") || (create_data === "")) {
+//     return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+// 	}
+//   let data = await conn.connection(notificationQuery.insertNotificationQuery, create_data);
+//   return data;
+// }
 
 const createUserNotificationDAO = async (reqDataObject) => {
   let notiId = null;
@@ -17,9 +17,14 @@ const createUserNotificationDAO = async (reqDataObject) => {
   let senderUsn = reqDataObject.mentorUsn;
   let receiverUsn = reqDataObject.menteeUsn;
   let matchingId = reqDataObject.matchingId;
-  // if ((create_data === "undefined") || (create_data === "")) {
-  //   return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	// }
+
+	if (paramsCheck.numberCheck([senderUsn, receiverUsn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
+  }
+  if (paramsCheck.omissionCheck([requestTime, senderUsn, receiverUsn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+  }
+  
   let notificationCreateBindValue = [
     notiId, requestTime, senderUsn, receiverUsn, matchingId
   ];
@@ -30,6 +35,13 @@ const createUserNotificationDAO = async (reqDataObject) => {
 const getUserNotificationDAO = async (reqDataObject) => {
   let usn = reqDataObject.usn;
 
+	if (paramsCheck.numberCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
+  }
+  if (paramsCheck.omissionCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+  }
+
   let getUserNotificationBindValue = [ usn ];
   let getUserNotificationQuery = notificationQuery.getUserNotificationQuery;
   let DBData = await conn.connection(getUserNotificationQuery, getUserNotificationBindValue);
@@ -37,7 +49,7 @@ const getUserNotificationDAO = async (reqDataObject) => {
 }
 
 module.exports = {
-  createNotificationDAO,
+  //createNotificationDAO,
   createUserNotificationDAO,
   getUserNotificationDAO,
 }

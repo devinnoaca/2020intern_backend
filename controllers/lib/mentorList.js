@@ -22,6 +22,7 @@ const mentorListLogic = (careerResult, orderMentorNumResult) => {
 	for (j = 0; j < orderMentorNumResult[0].length; j++) {
     console.log(orderMentorNumResult[0][j].mentor_USN);
 		libResult[0].mentorList.push({
+      "searched" : orderMentorNumResult[0][j].searched,
 			"usn": orderMentorNumResult[0][j].mentor_USN,
 			"name": orderMentorNumResult[0][j].name,
 			"imageUrl": orderMentorNumResult[0][j].image_url,

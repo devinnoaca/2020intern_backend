@@ -1,11 +1,17 @@
 const conn = require('../lib/conn');
+const paramsCheck = require('../../lib/paramsCheck');
 const careerQuery = require('../../queries/user/careerQuery');
 
 const getCareerDAO = async (reqDataObject) => {
   let usn = reqDataObject.usn;
-  if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+  if (paramsCheck.numberCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
   }
+
+  if (paramsCheck.omissionCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+  }
+
   let getCareerBindValue = [ usn ];
 	let DBData = await conn.connection(careerQuery.getCareerQuery, getCareerBindValue);
   return DBData;
@@ -14,12 +20,14 @@ const getCareerDAO = async (reqDataObject) => {
 const handleCareerDAO = async (reqDataObject) => {
   let career = reqDataObject.career;
 
-  if(career === "undefined") {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
+  if (paramsCheck.numberCheck([]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
   }
-  if(career === "") {
-    return res.status(200).json({ statusCode: 500, message: '값이 없음' });
+
+  if (paramsCheck.omissionCheck([career]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
   }
+
 
   let insertCareerQuery = careerQuery.createCareerQuery,
       insertCareerQueryBindValue = [],

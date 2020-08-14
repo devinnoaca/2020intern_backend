@@ -4,7 +4,7 @@ const keywordLogic = (categoryResult, keywordResult) => {
 	let libResult = new Array();
 
 	for (i = 0; i < keywordResult[0].length; i++) {
-		console.log("start: " + start + " category: " + keywordResult[0][i].category_ID);
+		//console.log("start: " + start + " category: " + keywordResult[0][i].category_ID);
 		if (start === keywordResult[0][i].category_ID) {
 			keywordList[start].keyword.push({
 				"keywordId": keywordResult[0][i].keyword_ID,
@@ -21,7 +21,7 @@ const keywordLogic = (categoryResult, keywordResult) => {
 						"keywordName": keywordResult[0][i].keyword_name,
 						"categoryName": keywordResult[0][i].category_name
 					}]
-				};		
+				};
 			}
 			else {
 				start = start + 1;
@@ -34,8 +34,6 @@ const keywordLogic = (categoryResult, keywordResult) => {
 		}
 	}
 
-	console.log(keywordList);
-
 	libResult.push({
 		allCategory: [],
 	})
@@ -44,6 +42,7 @@ const keywordLogic = (categoryResult, keywordResult) => {
 	let keywordIndex = keywordList.length - 1;
 	for (j = categoryResult[0].length - 1; j >= 0; j--) {
 		if (categoryResult[0][j].ID !== keywordList[keywordIndex].category_ID) {
+      keywordIndex = categoryResult[0][j].ID - 1;
 			libResult[0].allCategory.push({
 				"categoryId": categoryResult[0][j].ID,
 				"categoryName": categoryResult[0][j].name,

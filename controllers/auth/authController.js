@@ -18,34 +18,32 @@ const signUpController = async (req, res, next) => {
   let salt = Math.round((new Date().valueOf() * Math.random())) + "";
   let hashPassword = crypto.createHash("sha512").update(password + salt).digest("hex");
 
-  if(paramsCheck.numberCheck([]) === false) {
+  if (paramsCheck.numberCheck([]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
-  else if(paramsCheck.omissionCheck([ name, email, password, imageURL, description, company ])){
+  if (paramsCheck.omissionCheck([name, email, password, imageURL, description, company]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
-  else {
-    let reqUserDataObject = lib.createReqDataObject(req.params, req.body);
-    let reqAuthDataObject = {
-      "id": id,
-      "password": hashPassword,
-      "salt": salt
-    };
-    reqUserDataObject.password = hashPassword;
-    try {
-      let signUpResult = await signUpDAO.signUpDAO(reqUserDataObject);
-      let authResult = await signUpDAO.authDAO(reqAuthDataObject);
-      console.log(signUpResult);
-      console.log(authResult);
-      return res.status(200).send({ signUpResult, authResult });
-    } catch (err) {
-      return res.status(500).send(err);
-    }
+  let reqUserDataObject = lib.createReqDataObject(req.params, req.body);
+  let reqAuthDataObject = {
+    "id": id,
+    "password": hashPassword,
+    "salt": salt
+  };
+  reqUserDataObject.password = hashPassword;
+  try {
+    let signUpResult = await signUpDAO.signUpDAO(reqUserDataObject);
+    let authResult = await signUpDAO.authDAO(reqAuthDataObject);
+    console.log(signUpResult);
+    console.log(authResult);
+    return res.status(200).send({ signUpResult, authResult });
+  } catch (err) {
+    return res.status(500).send(err);
   }
 }
 
 const getSignInController = async (req, res, next) => {
-    res.render("login");
+  res.render("login");
 }
 
 const signInController = async (req, res, next) => {
@@ -59,33 +57,31 @@ const signInController = async (req, res, next) => {
   let DBPassword = signInResult[0][0].password;
   let hashPassword = crypto.createHash("sha512").update(password + salt).digest("hex");
 
-  if(paramsCheck.numberCheck([]) === false) {
+  if (paramsCheck.numberCheck([]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
-  else if(paramsCheck.omissionCheck([ id, password ])){
+  if (paramsCheck.omissionCheck([id, password])) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
-  else {
-    let reqDataObject = lib.createReqDataObject(req.params, req.body);
-    reqDataObject.password = hashPassword;
-    try {
-      if (reqDataObject.password === DBPassword) {
-        req.session.usn = userResult[0][0].USN;
-        //res.redirect("/index");
-        // return res.status(200).send({statusCode: 202, message: `로그인 성공`});
-        req.session.save(() => {
-          res.send({
-            title: "로그인 성공",
-            usn : userResult[0][0].USN
-          });
+  let reqDataObject = lib.createReqDataObject(req.params, req.body);
+  reqDataObject.password = hashPassword;
+  try {
+    if (reqDataObject.password === DBPassword) {
+      req.session.usn = userResult[0][0].USN;
+      //res.redirect("/index");
+      // return res.status(200).send({statusCode: 202, message: `로그인 성공`});
+      req.session.save(() => {
+        res.send({
+          title: "로그인 성공",
+          session: req.session
         });
-      }
-      else {
-        return res.status(500).json({ statusCode: 502, message: `Controller: 비밀번호 틀림` });
-      }
-    } catch (err) {
-      return res.status(500).json({ statusCode: 502, message: `Model: 데이터값 없음` })
+      });
     }
+    else {
+      return res.status(500).json({ statusCode: 502, message: `Controller: 비밀번호 틀림` });
+    }
+  } catch (err) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 데이터값 없음` })
   }
 }
 

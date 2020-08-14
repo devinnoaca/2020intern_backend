@@ -9,47 +9,29 @@ const createMatchingController = async (req, res, next) => {
   let mentorUsn = parseInt(req.body.mentorUsn, 10);
   let menteeUsn = parseInt(req.body.menteeUsn, 10);
   let requestTime = dataLib.getFormatDate(date);
-  // let responseTime = null;
   let reqReason = req.body.reqReason;
-  // let resReason = "";
   let keywordlist = req.body.keywordList;
 
-  if(paramsCheck.numberCheck([mentorUsn, menteeUsn]) === false) {
+  if (paramsCheck.numberCheck([mentorUsn, menteeUsn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
-  else if(paramsCheck.omissionCheck([mentorUsn, menteeUsn, reqReason, keywordlist]) === false) {
+  if (paramsCheck.omissionCheck([mentorUsn, menteeUsn, reqReason, keywordlist]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
-  else {
+
+  try {
     let reqDataObject = lib.createReqDataObject(req.params, req.body);
     reqDataObject.time = requestTime;
-
-    // let matchingCreateBindValue = [
-    //   mentorUsn, menteeUsn, requestTime, responseTime,
-    //   reqReason, resReason
-    // ];
-
-    // let matchingKeywordCreateBindValue = [
-    //   keywordlist[0].keywordName, keywordlist[0].categoryName
-    // ];
-
-    // let notificationCreateBindValue = [
-    //   null, requestTime, mentorUsn, menteeUsn
-    // ]
-
-    try {
-      let matchingResult = await matchingDAO.createMatchingDAO(reqDataObject);
-      // matchingKeywordCreateBindValue.push(matchingResult[0].insertId);
-      // notificationCreateBindValue.push(matchingResult[0].insertId);
-      reqDataObject.insertId = matchingResult[0].insertId;
-      let matchingKeywordResult = await matchingDAO.createMatchingKeywordDAO(reqDataObject);
-      let notificationResult = await notificationDAO.createUserNotificationDAO(reqDataObject);
-      return res.status(200).send({
-        matchingResult, matchingKeywordResult, notificationResult
-      });
-    } catch (err) {
-      return res.status(500).json(err);
-    }
+    let matchingResult = await matchingDAO.createMatchingDAO(reqDataObject);
+    reqDataObject.insertId = matchingResult[0].insertId;
+    let matchingKeywordResult = await matchingDAO.createMatchingKeywordDAO(reqDataObject);
+    let notificationResult = await notificationDAO.createUserNotificationDAO(reqDataObject);
+    console.log(notificationResult)
+    return res.status(200).send({
+      matchingResult, matchingKeywordResult, notificationResult
+    });
+  } catch (err) {
+    return res.status(500).json(err);
   }
 }
 
@@ -62,28 +44,21 @@ const updateMatchingController = async (req, res, next) => {
   let mentorUsn = parseInt(req.body.mentorUsn, 10);
   let menteeUsn = parseInt(req.body.menteeUsn, 10);
 
-  if(paramsCheck.numberCheck([matchingId, mentorUsn, menteeUsn]) === false) {
+  if (paramsCheck.numberCheck([matchingId, mentorUsn, menteeUsn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
-  else if(paramsCheck.omissionCheck([matchingId, mentorUsn, menteeUsn, resMessage, state]) === false) {
+  if (paramsCheck.omissionCheck([matchingId, mentorUsn, menteeUsn, resMessage, state]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
-  else {
-    let reqDataObject = lib.createReqDataObject(req.params, req.body);
-    reqDataObject.time = resTime;
+  let reqDataObject = lib.createReqDataObject(req.params, req.body);
+  reqDataObject.time = resTime;
 
-    let modifyMatchingBindValue = [ resMessage, state, resTime, matchingId ];
-    let notificationCreateBindValue = [
-      null, resTime, menteeUsn, mentorUsn, matchingId
-    ];
-
-    try {
-      let result = await matchingDAO.updateMatchingDAO(reqDataObject);
-      let notificationResult = await notificationDAO.createUserNotificationDAO(reqDataObject);
-      return res.status(200).json(result)
-    } catch(err) {
-      return res.status(500).json(err);
-    }
+  try {
+    let result = await matchingDAO.updateMatchingDAO(reqDataObject);
+    let notificationResult = await notificationDAO.createUserNotificationDAO(reqDataObject);
+    return res.status(200).json(result)
+  } catch (err) {
+    return res.status(500).json(err);
   }
 }
 

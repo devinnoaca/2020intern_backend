@@ -1,30 +1,45 @@
 const conn = require('../lib/conn');
+const paramsCheck = require('../../lib/paramsCheck');
 const userQuery = require('../../queries/user/userQuery');
 
 const getUserDAO = async (reqDataObject) => {
   let usn = reqDataObject["usn"];
-  if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+  if (paramsCheck.numberCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
   }
+
+  if (paramsCheck.omissionCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+  }
+
   let userBindValue = [ usn ];
   let dbData = await conn.connection(userQuery.getUserQuery, userBindValue);
   return await dbData;
 }
 
 const getUserIdDAO = async (reqDataObject) => {
-
-  if ((reqDataObject === "undefined") || (reqDataObject === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+  if (paramsCheck.numberCheck([]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
   }
+
+  if (paramsCheck.omissionCheck([reqDataObject]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+  }
+
   let userBindValue = [ reqDataObject ];
   let dbData = await conn.connection(userQuery.getUserIdQuery, userBindValue);
   return await dbData;
 }
 
 const updateUserDAO = async (reqDataObject) => {
-  // if ((user === "undefined") || (user === "")) {
-  //   return res.status(200).json({ statusCode: 502, message: '데이터 없음' });
-  // }
+  if (paramsCheck.numberCheck([]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
+  }
+
+  if (paramsCheck.omissionCheck([reqDataObject]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+  }
+  
   let userBindValue = [reqDataObject.name, reqDataObject.email, reqDataObject.imageURL, reqDataObject.description, reqDataObject.company, reqDataObject.usn]
   let dbData = await conn.connection(userQuery.updateUserQuery, userBindValue);
   return dbData;

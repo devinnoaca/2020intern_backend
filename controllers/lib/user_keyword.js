@@ -25,22 +25,28 @@ const userKeywordLogic = (usn, totalResult, recommendResult) => {
 	return keywordResult;
 }
 
-const checkKeywordLogic = async (reqDataObject, insertKeywords, deleteKeywords) => {
+const checkKeywordLogic = async (reqDataObject, insertKeywords, deleteKeywords, state) => {
 	if (insertKeywords.length === 0) {
+		let deleteKeywordResult;
 		console.log("insertKeywords 없음");
-		let deleteKeywordResult = await keywordDAO.deleteTotalKeywordDAO(reqDataObject);
+		if (state === "total") deleteKeywordResult = await keywordDAO.deleteTotalKeywordDAO(reqDataObject);
+		else deleteKeywordResult = await keywordDAO.deleteRecommendKeywordDAO(reqDataObject);
 		return deleteKeywordResult
   }
 
   else if (deleteKeywords.length === 0) {
-		console.log("delete_data 없음")
-		let insertKeywordResult = await keywordDAO.insertTotalKeywordDAO(reqDataObject);
+		console.log("delete_data 없음");
+		let insertKeywordResult;
+		if (state === "total") insertKeywordResult = await keywordDAO.insertRecommendKeywordDAO(reqDataObject);
+		else insertKeywordResult = await keywordDAO.insertTotalKeywordDAO(reqDataObject);
 		return insertKeywordResult
   }
 
   else {
 		console.log("둘 다 길이가 1 이상");
-		let totalKeywordResult = await keywordDAO.updateTotalKeywordDAO(reqDataObject);
+		let totalKeywordResult;
+		if(state === "total") totalKeywordResult = await keywordDAO.updateTotalKeywordDAO(reqDataObject);
+		else totalKeywordResult = await keywordDAO.updateRecommendKeywordDAO(reqDataObject);
 		return totalKeywordResult;
   }
 }

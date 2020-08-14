@@ -74,7 +74,6 @@ const logger = winston.createLogger({
     // customFormat
   ),
   transports: [
-    new winston.transports.Console(),
     new winstonDaily({
       level: 'info',
       datePattern: 'YYYYMMDD',

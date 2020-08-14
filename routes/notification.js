@@ -4,7 +4,7 @@ const notificationController = require('../controllers/notification/notification
 
 router.get('/:usn', notificationController.getUserNotificationController);
 
-router.post('/', notificationController.createNotificationController);
+//router.post('/', notificationController.createNotificationController);
 router.post('/user', notificationController.createUserNotificationController);
 
 module.exports = router;

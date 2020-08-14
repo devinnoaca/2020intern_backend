@@ -1,26 +1,22 @@
 ### 키워드 정보 접근
 GET http://localhost:3001/main/keyword
 
-### 멘토 리스트 정보 접근 
-POST http://localhost:3001/main/list
+### 멘토 리스트 페이지 접근 
+POST http://localhost:3001/main/page
 Content-Type: application/json
 
 {
     "keyword": [
-    {
-        "keywordName": "XD", 
-        "categoryName": "디자인"   
-    },
-    {
-        "keywordName": "DOM", 
-        "categoryName": "디자인"   
-    }
-        ]
+        {
+            "keywordId": 5
+        }
+    ],
+    "pageNum": 1
 }
 
 
 ### 멘토 리스트 정보 접근 
-POST http://localhost:3001/main/listing
+POST http://localhost:3001/main/list
 Content-Type: application/json
 
 {

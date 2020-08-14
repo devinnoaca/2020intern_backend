@@ -7,14 +7,15 @@ const getMentorListController = async (req, res, next) => {
   let keyword = req.body.keyword;
   let pageNum = req.body.pageNum;
 
-  if(paramsCheck.numberCheck([]) === false) {
-    return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
-  }
-  else if(paramsCheck.omissionCheck([keyword, pageNum]) === false) {
-    return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
-  }
-  let reqDataObject = lib.createReqDataObject(req.params, req.body);
+  // if(paramsCheck.numberCheck([]) === false) {
+  //   return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
+  // }
+  // if(paramsCheck.omissionCheck([keyword, pageNum]) === false) {
+  //   return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
+  // }
+
   try {
+    let reqDataObject = lib.createReqDataObject(req.params, req.body);
     let careerResult = await mentorListDAO.getAllCareerDAO();
     let orderMentorNumResult = await mentorListDAO.getOrderedMentorListDAO(reqDataObject);
 
@@ -27,14 +28,16 @@ const getMentorListController = async (req, res, next) => {
 
 const getMentorListPageController = async (req, res, next) => {
   let keyword = req.body.keyword;
-  if(keyword === "undefined") {
-    return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
-  }
-  if(keyword === "") {
-    return res.status(200).json({ statusCode: 500, message: '값이 없음' });
-  }
-  let reqDataObject = lib.createReqDataObject(req.params, req.body);
+
+  // if(paramsCheck.numberCheck([]) === false) {
+  //   return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
+  // }
+  // if(paramsCheck.omissionCheck([keyword]) === false) {
+  //   return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
+  // }
+
   try{
+    let reqDataObject = lib.createReqDataObject(req.params, req.body);
     let result = await mentorListDAO.getMentorListPageDAO(reqDataObject);
     let mentorListPageResult = {
       "totalSearch": result[0].totalSearch
