@@ -59,7 +59,9 @@ const getUserNotificationController = async (req, res, next) => {
     let reqDataObject = lib.createReqDataObject(req.params, req.body);
     try {
       let result = await notificationDAO.getUserNotificationDAO(reqDataObject);
-      let userNotificationResult = result[0];
+      let userNotificationResult = {
+        "notification": result[0]
+      };
       return res.status(200).send(userNotificationResult);
     } catch (err) {
       return res.status(500).json(err);
