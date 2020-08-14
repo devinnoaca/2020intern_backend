@@ -5,6 +5,13 @@ FROM User
 WHERE USN = ?;
 `;
 
+exports.getUserIdQuery = `
+SELECT USN
+FROM User
+WHERE ID = ?;
+`;
+
+
 exports.updateUserQuery = `
 UPDATE User
 SET

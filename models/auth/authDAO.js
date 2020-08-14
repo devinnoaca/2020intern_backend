@@ -12,7 +12,6 @@ const signUpDAO = async (reqDataObject) => {
 }
 
 const authDAO = async (reqDataObject) => {
-  console.log(reqDataObject);
   let authBindValue = [];
   for (let i = 0; i < Object.keys(reqDataObject).length; i++) {
     authBindValue.push(reqDataObject[Object.keys(reqDataObject)[i]]);
@@ -27,7 +26,6 @@ const signInDAO = async (reqDataObject) => {
   //   signUpBindValue.push(reqDataObject[Object.keys(reqDataObject)[i]]);
   // }
   let signInBindValue = [ reqDataObject ];
-  console.log(signInBindValue)
   let dbData = await conn.connection(authQuery.signInQuery, signInBindValue);
   return await dbData;
 }

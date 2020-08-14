@@ -16,9 +16,9 @@ const getMentorListController = async (req, res, next) => {
   let reqDataObject = lib.createReqDataObject(req.params, req.body);
   try {
     let careerResult = await mentorListDAO.getAllCareerDAO();
-    let orderMentorNumReseult = await mentorListDAO.getOrderedMentorListDAO(reqDataObject);
+    let orderMentorNumResult = await mentorListDAO.getOrderedMentorListDAO(reqDataObject);
 
-    let allMentorListLib = mentorListLib.mentorListLogic(careerResult, orderMentorNumReseult);
+    let allMentorListLib = mentorListLib.mentorListLogic(careerResult, orderMentorNumResult);
     return res.status(200).send(allMentorListLib);
   } catch (err) {
     return res.status(500).json(err);
@@ -35,7 +35,10 @@ const getMentorListPageController = async (req, res, next) => {
   }
   let reqDataObject = lib.createReqDataObject(req.params, req.body);
   try{
-    let mentorListPageResult = await mentorListDAO.getMentorListPageDAO(reqDataObject);
+    let result = await mentorListDAO.getMentorListPageDAO(reqDataObject);
+    let mentorListPageResult = {
+      "totalSearch": result[0].total_search
+    };
     return res.status(200).send(mentorListPageResult);
   } catch (err) {
     return res.status(500).json(err);

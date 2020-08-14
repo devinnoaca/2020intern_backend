@@ -1,4 +1,5 @@
 const signUpDAO = require('../../models/auth/authDAO');
+const userDAO = require('../../models/user/userDAO');
 const paramsCheck = require('../../lib/paramsCheck');
 const lib = require('../lib/createReqDataObject');
 const crypto = require('crypto');
@@ -44,21 +45,15 @@ const signUpController = async (req, res, next) => {
 }
 
 const getSignInController = async (req, res, next) => {
-  let session = req.session;
-  console.log(session);
-  console.log({ "session" : session })
-  console.log(session.ID);
-  res.render("login", {
-      session : session
-  });
+    res.render("login");
 }
 
 const signInController = async (req, res, next) => {
   let id = req.body.id;
   let password = req.body.password;
-  console.log(id, password);
 
   let signInResult = await signUpDAO.signInDAO(id);
+  let userResult = await userDAO.getUserIdDAO(id);
 
   let salt = signInResult[0][0].salt;
   let DBPassword = signInResult[0][0].password;
@@ -73,17 +68,17 @@ const signInController = async (req, res, next) => {
   else {
     let reqDataObject = lib.createReqDataObject(req.params, req.body);
     reqDataObject.password = hashPassword;
-    //console.log(reqDataObject)
-    //console.log(DBPassword);
     try {
       if (reqDataObject.password === DBPassword) {
-        console.log(id);
-        req.session.ID = id;
+        req.session.usn = userResult[0][0].USN;
         //res.redirect("/index");
         // return res.status(200).send({statusCode: 202, message: `로그인 성공`});
-        res.render("login", {
-        session : req.session
-    });
+        req.session.save(() => {
+          res.send({
+            title: "로그인 성공",
+            session : req.session
+          });
+        });
       }
       else {
         return res.status(500).json({ statusCode: 502, message: `Controller: 비밀번호 틀림` });
@@ -95,6 +90,7 @@ const signInController = async (req, res, next) => {
 }
 
 const signOutController = async (req, res, next) => {
+  console.log(req.session.id);
   req.session.destroy();
   res.clearCookie('sid');
 
@@ -107,4 +103,3 @@ module.exports = {
   signOutController,
   getSignInController,
 }
-

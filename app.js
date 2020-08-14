@@ -6,8 +6,19 @@ const morgan = require('morgan');
 const {stream} = require('./logger');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session); 
 //const logger = require('./logger');
 //const morganFormat = process.env.NODE_ENV !== "production" ? "dev" : "combined"; // NOTE: morgan 출력 형태
+
+var options = {                                                 
+  host: '10.19.247.204',
+  port: 3306,
+  user: '42seoul',
+  password: 'kookmin',
+  database: 'innoacca',
+};
+
+var sessionStore = new MySQLStore(options);
 
 let envPath = '';
 process.env.NODE_ENV = ( process.env.NODE_ENV && ( process.env.NODE_ENV ).trim().toLowerCase() == 'production' ) ? 'production' : 'development';
@@ -42,6 +53,7 @@ app.use(session({
   secret: 'secret',
   resave: false,
   saveUninitialized: true,
+  store: sessionStore,
   cookie: {
     maxAge: 24000 * 60 * 60 // 쿠키 유효기간 24시간
   }
