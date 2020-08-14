@@ -1,0 +1,4 @@
+### 알림 생성(POST)
+
+GET http://localhost:3001/notification/2
+

@@ -1,0 +1,47 @@
+### 키워드 정보 접근
+GET http://localhost:3001/main/keyword
+
+### 멘토 리스트 페이지 접근 
+POST http://localhost:3001/main/page
+Content-Type: application/json
+
+{
+    "keyword": [
+        {
+            "keywordId": 5
+        }
+    ],
+    "pageNum": 1
+}
+
+
+### 멘토 리스트 정보 접근 
+POST http://localhost:3001/main/list
+Content-Type: application/json
+
+{
+  "keyword": [
+    {   
+      "keywordId": 2
+    },
+    {   
+      "keywordId": 1
+    },
+    {   
+      "keywordId": 4
+    },
+    {   
+      "keywordId": 7
+    },
+    {   
+      "keywordId": 9
+    },
+    {   
+      "keywordId": 10
+    },
+    {   
+      "keywordId": 17
+    }
+  ],
+  "pageNum" : 1
+}

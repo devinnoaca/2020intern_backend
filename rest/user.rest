@@ -1,0 +1,77 @@
+### 유저 정보 접근(GET), 수정(PUT)
+GET http://localhost:3001/user/inform/1
+
+###
+PUT http://localhost:3001/user/inform/1
+Content-Type: application/json
+
+{
+    "email": "jeongsik@kookmin.ac.kr",
+    "name": "이인평",
+    "image_url": "image3",
+    "description": "테스트",
+    "company": "국민대"  
+}
+
+### 유저 커리어 접근(GET)
+GET http://localhost:3001/user/career/3
+
+### 유저 커리어 생성, 수정, 삭제 (POST)
+### type 0: 생성, 1: 수정. 2: 삭제
+
+POST http://localhost:3001/user/career/2
+Content-Type: application/json
+
+{
+    "career": [
+        {
+            "ID": 2,
+            "content": "국민머학교 학생",
+            "user_USN": 2,
+            "type": 0
+        },
+        {
+            "ID": 5,
+            "content": "Naver : CTO",
+            "user_USN": 2,
+            "type": 0
+        }
+    ]
+}
+
+
+
+### 유저 키워드 접근(GET), 생성(POST), 삭제(DELETE)
+
+### 전체, 추천 모두
+GET http://localhost:3001/user/keyword/2
+
+
+### 전체 키워드 수정
+POST http://localhost:3001/user/keyword/total/10
+Content-Type: application/json
+
+{
+    "keyword": {
+        "insertKeywords": [],
+        "deleteKeywords": [17]
+    }
+}
+
+### 추천 키워드 수정
+POST http://localhost:3001/user/keyword/recommend/10
+Content-Type: application/json
+
+{
+    "keyword": {
+        "insertKeywords": [],
+        "deleteKeywords": [15]
+    }
+}
+
+
+### 멘토 매칭 정보 접근
+GET http://localhost:3001/user/0/matching/1/4
+
+### 멘티 매칭 정보 접근 
+GET http://localhost:3001/user/1/matching/2/2
