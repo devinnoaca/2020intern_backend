@@ -11,17 +11,28 @@ const getUserDAO = async (reqDataObject) => {
   return await dbData;
 }
 
-const updateUserDAO = async (user) => {
-  if ((user === "undefined") || (user === "")) {
-    return res.status(200).json({ statusCode: 502, message: '데이터 없음' });
-  }
+const getUserIdDAO = async (reqDataObject) => {
 
-  let dbData = await conn.connection(userQuery.updateUserQuery, user);
+  if ((reqDataObject === "undefined") || (reqDataObject === "")) {
+    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+  }
+  let userBindValue = [ reqDataObject ];
+  let dbData = await conn.connection(userQuery.getUserIdQuery, userBindValue);
+  return await dbData;
+}
+
+const updateUserDAO = async (reqDataObject) => {
+  // if ((user === "undefined") || (user === "")) {
+  //   return res.status(200).json({ statusCode: 502, message: '데이터 없음' });
+  // }
+  let userBindValue = [reqDataObject.name, reqDataObject.email, reqDataObject.imageURL, reqDataObject.description, reqDataObject.company, reqDataObject.usn]
+  let dbData = await conn.connection(userQuery.updateUserQuery, userBindValue);
   return dbData;
 }
 
 module.exports = {
   getUserDAO,
+  getUserIdDAO,
   updateUserDAO,
 }
 

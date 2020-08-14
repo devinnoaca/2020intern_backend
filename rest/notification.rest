@@ -1,13 +1,7 @@
 ### 알림 생성(POST)
 
-POST http://localhost:3001/notification
-Content-Type: application/json
+GET http://localhost:3001/notification/2
 
-{
-    "noti_type": 0,
-    "ischecked": 0,
-    "message": "알림 생성"
-}
 
 ### 유저 알림 생성(POST)
 

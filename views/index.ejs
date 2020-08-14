@@ -7,5 +7,9 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <h3><%= session.usn %>번 회원님 로그인에 성공하셨습니다 ~</h3>
+    <form action="/auth/logout" method="get">
+        <input type="submit" value="로그아웃">
+    </form>
   </body>
 </html>

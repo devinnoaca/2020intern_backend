@@ -1,3 +1,5 @@
+const keywordDAO = require('../../models/user/keywordDAO');
+
 const insertKeyword = (result) => {
 	let keywordList = new Array();
 
@@ -23,44 +25,31 @@ const userKeywordLogic = (usn, totalResult, recommendResult) => {
 	return keywordResult;
 }
 
-// const modifiedKeywordLogic = (keyword ,insertKeywords, deleteKeywords) => {
-// 	if (insertKeywords.length === 0) {
-// 		console.log("insertKeywords 없음");
-// 		let deleteKeywordBindValue = [usn, deleteKeywords];
-// 		try {
-// 			let deleteKeywordResult = await keywordDAO.deleteTotalKeywordDAO(deleteKeywordBindValue);
-// 			return res.status(200).send(deleteKeywordResult);
-// 			//return res.render('career', {usn: usn, career: [...careers]});
-// 		} catch (err) {
-// 			return res.status(501).json(err);
-// 		}
-// 	}
+const checkKeywordLogic = async (reqDataObject, insertKeywords, deleteKeywords, state) => {
+	if (insertKeywords.length === 0) {
+		let deleteKeywordResult;
+		console.log("insertKeywords 없음");
+		if (state === "total") deleteKeywordResult = await keywordDAO.deleteTotalKeywordDAO(reqDataObject);
+		else deleteKeywordResult = await keywordDAO.deleteRecommendKeywordDAO(reqDataObject);
+		return deleteKeywordResult
+  }
 
-// 	else if (deleteKeywords.length === 0) {
-// 		console.log("delete_data 없음")
-// 		let insertKeywordBindValue = [usn, insertKeywords];
-// 		try {
-// 			let insertKeywordResult = await keywordDAO.insertTotalKeywordDAO(insertKeywordBindValue);
-// 			return res.status(200).send(insertKeywordResult);
-// 			//return res.render('career', {usn: usn, career: [...careers]});
-// 		} catch (err) {
-// 			return res.status(501).json(err);
-// 		}
-// 	}
+  else if (deleteKeywords.length === 0) {
+		console.log("delete_data 없음");
+		let insertKeywordResult;
+		if (state === "total") insertKeywordResult = await keywordDAO.insertRecommendKeywordDAO(reqDataObject);
+		else insertKeywordResult = await keywordDAO.insertTotalKeywordDAO(reqDataObject);
+		return insertKeywordResult
+  }
 
-// 	else {
-// 		try {
-// 			console.log("둘 다 길이가 1 이상");
-// 			let totalKeywordBindValue = [usn, keyword];
-// 			let totalKeywordResult = await keywordDAO.updateTotalKeywordDAO(totalKeywordBindValue);
-// 			//console.log(_keyword);
-// 			return res.status(200).send(totalKeywordResult);
-// 			//return res.render('career', {usn: usn, career: [...careers]});
-// 		} catch (err) {
-// 			return res.status(501).json(err);
-// 		}
-// 	}
-// }
+  else {
+		console.log("둘 다 길이가 1 이상");
+		let totalKeywordResult;
+		if(state === "total") totalKeywordResult = await keywordDAO.updateTotalKeywordDAO(reqDataObject);
+		else totalKeywordResult = await keywordDAO.updateRecommendKeywordDAO(reqDataObject);
+		return totalKeywordResult;
+  }
+}
 
 
 
@@ -69,5 +58,6 @@ const userKeywordLogic = (usn, totalResult, recommendResult) => {
 
 module.exports = {
 	userKeywordLogic,
+	checkKeywordLogic
 	//modifiedKeywordLogic,
 }

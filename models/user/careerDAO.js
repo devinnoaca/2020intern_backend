@@ -13,14 +13,14 @@ const getCareerDAO = async (reqDataObject) => {
 
 const handleCareerDAO = async (reqDataObject) => {
   let career = reqDataObject.career;
-  // let career = careerBindValue[careerBindValue.length - 1];
+
   if(career === "undefined") {
     return res.status(200).json({ statusCode: 500, message: '잘못된 데이터 형태' });
   }
   if(career === "") {
     return res.status(200).json({ statusCode: 500, message: '값이 없음' });
   }
-  // 삽입, 수정, 삭제마다 질의문을 담는 스트링 변수와 바인드 값을 담는 배열 선언
+
   let insertCareerQuery = careerQuery.createCareerQuery,
       insertCareerQueryBindValue = [],
       insertFlag = false;
