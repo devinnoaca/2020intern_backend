@@ -76,7 +76,7 @@ const signInController = async (req, res, next) => {
         req.session.save(() => {
           res.send({
             title: "로그인 성공",
-            session : req.session
+            usn : userResult[0][0].USN
           });
         });
       }
