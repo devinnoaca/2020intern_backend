@@ -1,4 +1,5 @@
 const conn = require('../lib/conn');
+const paramsCheck = require('../../lib/paramsCheck');
 const matchingQuery = require('../../queries/matching/matchingQuery');
 
 const createMatchingDAO = async (reqDataObject) => {
@@ -9,14 +10,16 @@ const createMatchingDAO = async (reqDataObject) => {
   let resTime = null;
   let resReason = "";
 
-  // if ((create_data === "undefined") || (create_data === "")) {
-  //   return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	// }
+  if (paramsCheck.numberCheck([mentorUsn, menteeUsn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
+  }
+  if (paramsCheck.omissionCheck([mentorUsn, menteeUsn, reqTime, reqReason]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+  }
 
   let matchingCreateBindValue = [
     mentorUsn, menteeUsn, reqTime, resTime, reqReason, resReason
   ];
-  console.log(matchingCreateBindValue);
 
   let DBData = await conn.connection(matchingQuery.insertMatchingQuery, matchingCreateBindValue);
   return DBData;
@@ -27,6 +30,13 @@ const createMatchingKeywordDAO = async (reqDataObject) => {
   let categoryName = reqDataObject.keywordList[0].categoryName;
   let insertId = reqDataObject.insertId;
   let matchingKeywordCreateBindValue = [];
+
+  if (paramsCheck.numberCheck([insertId]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
+  }
+  if (paramsCheck.omissionCheck([keywordName, categoryName, insertId])) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+  }
 
   for (let i = 0; i < keywordName.length; i++) {
     matchingKeywordCreateBindValue.push(
@@ -53,9 +63,13 @@ const updateMatchingDAO = async (reqDataObject) => {
   let resTime = reqDataObject.time;
   let matchingId = reqDataObject.matchingId;
 
-  // if ((bindValue === "undefined") || (bindValue === "")) {
-  //   return res.status(200).json({ statusCode: 502, message: '데이터 없음' });
-  // }
+  if (paramsCheck.numberCheck([matchingId, state]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
+  }
+  if (paramsCheck.omissionCheck([resMessage, state, resTime, matchingId])) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+  }
+
   let updateMatchingBindValue = [
     resMessage, state, resTime, matchingId
   ];

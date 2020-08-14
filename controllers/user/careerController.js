@@ -8,7 +8,7 @@ const getUserCareerController = async (req, res, next) => {
   if (paramsCheck.numberCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
-  if (paramsCheck.omissionCheck([usn])) {
+  if (paramsCheck.omissionCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
 
@@ -33,7 +33,7 @@ const handleUserCareerController = async (req, res, next) => {
   if (paramsCheck.numberCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
-  if (paramsCheck.omissionCheck([usn, career])) {
+  if (paramsCheck.omissionCheck([usn, career]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
 

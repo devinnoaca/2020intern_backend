@@ -1,21 +1,32 @@
 const conn = require('../lib/conn');
+const paramsCheck = require('../../lib/paramsCheck');
+const userKeyword = require('../lib/userKeyword');
 const keywordQuery = require('../../queries/user/keywordQuery');
 
 const getTotalKeywordDAO = async (reqDataObject) => {
 	let usn = reqDataObject['usn'];
-	if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+  if (paramsCheck.numberCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
   }
-  let totalKeywordBindValue = [ usn ];
+  if (paramsCheck.omissionCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+	}
+	
+	let totalKeywordBindValue = [ usn ];
+	console.log(totalKeywordBindValue);
 	let DBData = await conn.connection(keywordQuery.gettotalkeywordQuery, totalKeywordBindValue);
   return DBData;
 }
 
 const getRecommendKeywordDAO = async (reqDataObject) => {
 	let usn = reqDataObject['usn'];
-	if (Number.isNaN(usn) || (usn === "undefined") || (usn === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+  if (paramsCheck.numberCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
   }
+  if (paramsCheck.omissionCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+	}
+
   let recommendKeywordBindValue = [ usn ];
 	let DBData = await conn.connection(keywordQuery.getRecommendKeywordQuery, recommendKeywordBindValue);
   return DBData;
@@ -32,9 +43,13 @@ const getCategoryDAO = async () => {
 }
 
 const getKeywordDAO = async (categoryID) => {
-	if (Number.isNaN(categoryID) || (categoryID === "undefined") || (categoryID === "")) {
-    return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
+  if (paramsCheck.numberCheck([categoryID]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
   }
+  if (paramsCheck.omissionCheck([categoryID])) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+	}
+
 	let data = await conn.connection(keywordQuery.getKeywordQuery, [categoryID]);
   return data;
 }
@@ -42,32 +57,21 @@ const getKeywordDAO = async (categoryID) => {
 const updateTotalKeywordDAO = async (reqDataObject) => {
   let usn = reqDataObject.usn;
   let insertKeywords = reqDataObject.keyword.insertKeywords;
-  let deleteKeywords = reqDataObject.keyword.deleteKeywords;
-	// if ((dateArray === "undefined") || (dateArray === "")) {
-  //   return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	// }
+	let deleteKeywords = reqDataObject.keyword.deleteKeywords;
+	
+	if (paramsCheck.numberCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
+  }
+  if (paramsCheck.omissionCheck([usn, insertKeywords, deleteKeywords])) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+	}
 
 	let insertQuery = keywordQuery.insertTotalKeywordQuery;
 	let deleteQuery = keywordQuery.deleteTotalKeywordQuery;
 
 	let totalKeywordBindValue = [];
-	for (let i = 0; i < insertKeywords.length; i++) {
-		if ( i == insertKeywords.length - 1) {
-			insertQuery += `(?, ?);`;
-		} else {
-			insertQuery += `(?, ?), `;
-		}
-		totalKeywordBindValue.push(usn, insertKeywords[i]);
-	}
-
-	for (let i=0; i < deleteKeywords.length; i++) {
-		if (i == deleteKeywords.length - 1) {
-			deleteQuery += `(?, ?));`;
-		} else {
-			deleteQuery += `(?, ?), `;
-		}
-		totalKeywordBindValue.push(usn, deleteKeywords[i]);
-	}
+	insertQuery = userKeyword.modifyKeyword(insertKeywords, insertQuery, usn, totalKeywordBindValue, "insert");
+	deleteQuery = userKeyword.modifyKeyword(deleteKeywords, deleteQuery, usn, totalKeywordBindValue, "delete");
 
 	let DBData = await conn.connection(insertQuery + deleteQuery, totalKeywordBindValue);
   return DBData;
@@ -76,41 +80,37 @@ const updateTotalKeywordDAO = async (reqDataObject) => {
 
 const insertTotalKeywordDAO = async (reqDataObject) => {
   let usn = reqDataObject.usn;
-  let insertKeywords = reqDataObject.keyword.insertKeywords;
-	// if ((dataArray === "undefined") || (dataArray === "")) {
-  //   return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	// }
+	let insertKeywords = reqDataObject.keyword.insertKeywords;
+	
+	if (paramsCheck.numberCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
+  }
+  if (paramsCheck.omissionCheck([usn, insertKeywords])) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+	}
+
 	let insertTotalKeywordBindValue = [];
 	let insertQuery = keywordQuery.insertTotalKeywordQuery;
-	for (let i = 0; i < insertKeywords.length; i++) {
-		if (i == insertKeywords.length - 1) {
-			insertQuery += `(?, ?);`;
-		} else {
-			insertQuery += `(?, ?), `;
-		}
-		insertTotalKeywordBindValue.push(usn, insertKeywords[i]);
-	}
+
+	insertQuery = userKeyword.modifyKeyword(insertKeywords, insertQuery, usn, insertTotalKeywordBindValue, "insert");
 	let DBData = await conn.connection(insertQuery, insertTotalKeywordBindValue);
   return DBData;
 }
 
 const deleteTotalKeywordDAO = async (reqDataObject) => {
   let usn = reqDataObject.usn;
-  let deleteKeywords = reqDataObject.keyword.deleteKeywords;
-	// if ((dataArray === "undefined") || (dataArray === "")) {
-  //   return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	// }
-	let deleteTotalKeywordBindValue = [];
-	let deleteQuery = keywordQuery.deleteTotalKeywordQuery;
-	for (let i = 0; i < deleteKeywords.length; i++) {
-		if (i == deleteKeywords.length - 1) {
-			deleteQuery += `(?, ?));`;
-		} else {
-			deleteQuery += `(?, ?), `;
-		}
-		deleteTotalKeywordBindValue.push(usn, deleteKeywords[i]);
+	let deleteKeywords = reqDataObject.keyword.deleteKeywords;
+	
+	if (paramsCheck.numberCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
+  }
+  if (paramsCheck.omissionCheck([usn, deleteKeywords])) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
 	}
 
+	let deleteTotalKeywordBindValue = [];
+	let deleteQuery = keywordQuery.deleteTotalKeywordQuery;
+	deleteQuery = userKeyword.modifyKeyword(deleteKeywords, deleteQuery, usn, deleteTotalKeywordBindValue, "delete");
 	let DBData = await conn.connection(deleteQuery, deleteTotalKeywordBindValue);
   return DBData;
 }
@@ -119,31 +119,20 @@ const updateRecommendKeywordDAO = async (reqDataObject) => {
   let usn = reqDataObject.usn;
   let insertKeywords = reqDataObject.keyword.insertKeywords;
   let deleteKeywords = reqDataObject.keyword.deleteKeywords;
-	// if ((dataArray === "undefined") || (dataArray === "")) {
-  //   return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	// }
+
+	if (paramsCheck.numberCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
+  }
+  if (paramsCheck.omissionCheck([usn, insertKeywords, deleteKeywords])) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+	}
 
 	let insertQuery = keywordQuery.insertRecommendKeywordQuery;
 	let deleteQuery = keywordQuery.deleteRecommendKeywordQuery;
 
 	let recommendKeywordBindValue = [];
-	for (let i = 0; i < insertKeywords.length; i++) {
-		if (i == insertKeywords.length - 1) {
-			insertQuery += `(?, ?);`;
-		} else {
-			insertQuery += `(?, ?), `;
-		}
-		recommendKeywordBindValue.push(usn, insertKeywords[i]);
-	}
-
-	for (let i = 0; i < deleteKeywords.length; i++) {
-		if (i == deleteKeywords.length - 1) {
-			deleteQuery += `(?, ?));`;
-		} else {
-			deleteQuery += `(?, ?), `;
-		}
-		recommendKeywordBindValue.push(usn, deleteKeywords[i]);
-	}
+	insertQuery = userKeyword.modifyKeyword(insertKeywords, insertQuery, usn, recommendKeywordBindValue, "insert");
+	deleteQuery = userKeyword.modifyKeyword(deleteKeywords, deleteQuery, usn, recommendKeywordBindValue, "delete");
 	let DBData = await conn.connection(insertQuery + deleteQuery, recommendKeywordBindValue);
   return DBData;
 }
@@ -151,19 +140,17 @@ const updateRecommendKeywordDAO = async (reqDataObject) => {
 const insertRecommendKeywordDAO = async (reqDataObject) => {
   let usn = reqDataObject.usn;
   let insertKeywords = reqDataObject.keyword.insertKeywords;
-	// if ((dataArray === "undefined") || (dataArray === "")) {
-  //   return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	// }
+
+	if (paramsCheck.numberCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
+  }
+  if (paramsCheck.omissionCheck([usn, insertKeywords])) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
+	}
+
 	let insertRecommendKeywordBindValue = [];
 	let insertQuery = keywordQuery.insertRecommendKeywordQuery;
-	for (let i = 0; i < insertKeywords.length; i++) {
-		if (i == insertKeywords.length - 1) {
-			insertQuery += `(?, ?);`;
-		} else {
-			insertQuery += `(?, ?), `;
-		}
-		insertRecommendKeywordBindValue.push(usn, insertKeywords[i]);
-	}
+	insertQuery = userKeyword.modifyKeyword(insertKeywords, insertQuery, usn, insertRecommendKeywordBindValue, "insert");
 	let DBData = await conn.connection(insertQuery, insertRecommendKeywordBindValue);
   return DBData;
 }
@@ -171,20 +158,16 @@ const insertRecommendKeywordDAO = async (reqDataObject) => {
 const deleteRecommendKeywordDAO = async (reqDataObject) => {
   let usn = reqDataObject.usn;
   let deleteKeywords = reqDataObject.keyword.deleteKeywords;
-	// if ((dataArray === "undefined") || (dataArray === "")) {
-  //   return res.status(200).json({ statusCode: 502, message: '잘못된 매개변수 타입' });
-	// }
-	let deleteRecommendKeywordBindValue = [];
-	let deleteQuery = keywordQuery.deleteRecommendKeywordQuery;
-	for (let i = 0; i < deleteKeywords.length; i++) {
-		if (i == deleteKeywords.length - 1) {
-			deleteQuery += `(?, ?));`;
-		} else {
-			deleteQuery += `(?, ?), `;
-		}
-		deleteRecommendKeywordBindValue.push(usn, deleteKeywords[i]);
+	if (paramsCheck.numberCheck([usn]) === false) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
+  }
+  if (paramsCheck.omissionCheck([usn, deleteKeywords])) {
+    return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
 	}
 
+	let deleteRecommendKeywordBindValue = [];
+	let deleteQuery = keywordQuery.deleteRecommendKeywordQuery;
+	deleteQuery = userKeyword.modifyKeyword(deleteKeywords, deleteQuery, usn, deleteRecommendKeywordBindValue, "delete");
 	let DBData = await conn.connection(deleteQuery, deleteRecommendKeywordBindValue);
   return DBData;
 }

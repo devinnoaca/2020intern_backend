@@ -1,5 +1,5 @@
 ### 유저 정보 접근(GET), 수정(PUT)
-GET http://localhost:3001/user/inform/2
+GET http://localhost:3001/user/inform/1
 
 ###
 PUT http://localhost:3001/user/inform/1
@@ -14,7 +14,7 @@ Content-Type: application/json
 }
 
 ### 유저 커리어 접근(GET)
-GET http://localhost:3001/user/career/2
+GET http://localhost:3001/user/career/3
 
 ### 유저 커리어 생성, 수정, 삭제 (POST)
 ### type 0: 생성, 1: 수정. 2: 삭제
@@ -53,8 +53,8 @@ Content-Type: application/json
 
 {
     "keyword": {
-        "insertKeywords": [20],
-        "deleteKeywords": [31]
+        "insertKeywords": [],
+        "deleteKeywords": [17]
     }
 }
 
@@ -64,8 +64,8 @@ Content-Type: application/json
 
 {
     "keyword": {
-        "insertKeywords": [13],
-        "deleteKeywords": [12]
+        "insertKeywords": [],
+        "deleteKeywords": [15]
     }
 }
 

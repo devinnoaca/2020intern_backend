@@ -9,7 +9,7 @@ const getUserController = async (req, res, next) => {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
 
-  if (paramsCheck.omissionCheck([usn])) {
+  if (paramsCheck.omissionCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
 

@@ -49,7 +49,7 @@ const getUserNotificationController = async (req, res, next) => {
   if (paramsCheck.numberCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
-  else if (paramsCheck.omissionCheck([usn])) {
+  else if (paramsCheck.omissionCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
   else {

@@ -9,12 +9,13 @@ const getKeywordController = async (req, res, next) => {
   if (paramsCheck.numberCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
-  if (paramsCheck.omissionCheck([usn])) {
+  if (paramsCheck.omissionCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
-  let reqDataObject = lib.createReqDataObject(req.params, req.body);
   try {
+    let reqDataObject = lib.createReqDataObject(req.params, req.body);
     let totalResult = await keywordDAO.getTotalKeywordDAO(reqDataObject);
+    console.log(totalResult);
     let recommendResult = await keywordDAO.getRecommendKeywordDAO(reqDataObject);
     let keywordResult = userKeyword.userKeywordLogic(usn, totalResult, recommendResult);
     return res.status(200).send(keywordResult);
@@ -33,7 +34,7 @@ const updateTotalKeywordController = async (req, res, next) => {
   if (paramsCheck.numberCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
-  if (paramsCheck.omissionCheck([usn, keyword])) {
+  if (paramsCheck.omissionCheck([usn, keyword]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
 
@@ -56,7 +57,7 @@ const updateRecommendKeywordController = async (req, res, next) => {
   if (paramsCheck.numberCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
   }
-  if (paramsCheck.omissionCheck([usn, keyword])) {
+  if (paramsCheck.omissionCheck([usn, keyword]) === false) {
     return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
   }
 

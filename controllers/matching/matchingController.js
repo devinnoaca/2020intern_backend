@@ -26,6 +26,7 @@ const createMatchingController = async (req, res, next) => {
     reqDataObject.insertId = matchingResult[0].insertId;
     let matchingKeywordResult = await matchingDAO.createMatchingKeywordDAO(reqDataObject);
     let notificationResult = await notificationDAO.createUserNotificationDAO(reqDataObject);
+    console.log(notificationResult)
     return res.status(200).send({
       matchingResult, matchingKeywordResult, notificationResult
     });

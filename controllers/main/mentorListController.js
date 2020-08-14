@@ -7,12 +7,12 @@ const getMentorListController = async (req, res, next) => {
   let keyword = req.body.keyword;
   let pageNum = req.body.pageNum;
 
-  if(paramsCheck.numberCheck([]) === false) {
-    return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
-  }
-  if(paramsCheck.omissionCheck([keyword, pageNum]) === false) {
-    return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
-  }
+  // if(paramsCheck.numberCheck([]) === false) {
+  //   return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
+  // }
+  // if(paramsCheck.omissionCheck([keyword, pageNum]) === false) {
+  //   return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
+  // }
 
   try {
     let reqDataObject = lib.createReqDataObject(req.params, req.body);
@@ -29,19 +29,21 @@ const getMentorListController = async (req, res, next) => {
 const getMentorListPageController = async (req, res, next) => {
   let keyword = req.body.keyword;
 
-  if(paramsCheck.numberCheck([]) === false) {
-    return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
-  }
-  if(paramsCheck.omissionCheck([keyword]) === false) {
-    return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
-  }
+  // if(paramsCheck.numberCheck([]) === false) {
+  //   return res.status(500).json({ statusCode: 500, message: `Cotroller: 정수가 아닌 파라미터` })
+  // }
+  // if(paramsCheck.omissionCheck([keyword]) === false) {
+  //   return res.status(500).json({ statusCode: 500, message: `Cotroller: 파라미터 누락` })
+  // }
 
   try{
     let reqDataObject = lib.createReqDataObject(req.params, req.body);
     let result = await mentorListDAO.getMentorListPageDAO(reqDataObject);
+    console.log(result[0]);
     let mentorListPageResult = {
-      "totalSearch": result[0].total_search
+      "totalSearch": result[0].totalSearch
     };
+    console.log(mentorListPageResult);
     return res.status(200).send(mentorListPageResult);
   } catch (err) {
     return res.status(500).json(err);
