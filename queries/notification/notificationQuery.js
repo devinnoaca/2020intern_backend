@@ -27,6 +27,8 @@ FROM
   get_user_notification
 WHERE
   receiver_USN = ?
+  AND
+  sender IS NOT NULL
 ORDER BY
   noti_time
 ;`
