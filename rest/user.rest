@@ -1,8 +1,8 @@
 ### 유저 정보 접근(GET), 수정(PUT)
-GET http://localhost:3000/user/inform/1
+GET http://localhost:3001/user/inform/1
 
 ###
-PUT http://localhost:3000/user/inform/1
+PUT http://localhost:3001/user/inform/1
 Content-Type: application/json
 
 {
@@ -14,7 +14,7 @@ Content-Type: application/json
 }
 
 ### 유저 커리어 접근(GET)
-GET http://localhost:3000/user/career/1
+GET http://localhost:3001/user/career/1
 
 ### 유저 커리어 생성, 수정, 삭제 (POST)
 ### type 0: 생성, 1: 수정. 2: 삭제
@@ -44,11 +44,11 @@ Content-Type: application/json
 ### 유저 키워드 접근(GET), 생성(POST), 삭제(DELETE)
 
 ### 전체, 추천 모두
-GET http://localhost:3000/user/keyword/1
+GET http://localhost:3001/user/keyword/2
 
 
 ### 전체 키워드 수정
-POST http://localhost:3000/user/keyword/total/10
+POST http://localhost:3001/user/keyword/total/10
 Content-Type: application/json
 
 {
@@ -71,7 +71,7 @@ Content-Type: application/json
 
 
 ### 멘토 매칭 정보 접근
-GET http://localhost:3000/user/0/matching/1/4
+GET http://localhost:3001/user/0/matching/1/4
 
 ### 멘티 매칭 정보 접근 
-GET http://localhost:3000/user/1/matching/2/1
+GET http://localhost:3001/user/1/matching/3/2
