@@ -11,9 +11,8 @@ const getTotalKeywordDAO = async (reqDataObject) => {
   if (paramsCheck.omissionCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
 	}
-	
+
 	let totalKeywordBindValue = [ usn ];
-	console.log(totalKeywordBindValue);
 	let DBData = await conn.connection(keywordQuery.gettotalkeywordQuery, totalKeywordBindValue);
   return DBData;
 }
@@ -58,7 +57,7 @@ const updateTotalKeywordDAO = async (reqDataObject) => {
   let usn = reqDataObject.usn;
   let insertKeywords = reqDataObject.keyword.insertKeywords;
 	let deleteKeywords = reqDataObject.keyword.deleteKeywords;
-	
+
 	if (paramsCheck.numberCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
   }
@@ -81,7 +80,7 @@ const updateTotalKeywordDAO = async (reqDataObject) => {
 const insertTotalKeywordDAO = async (reqDataObject) => {
   let usn = reqDataObject.usn;
 	let insertKeywords = reqDataObject.keyword.insertKeywords;
-	
+
 	if (paramsCheck.numberCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
   }
@@ -100,7 +99,7 @@ const insertTotalKeywordDAO = async (reqDataObject) => {
 const deleteTotalKeywordDAO = async (reqDataObject) => {
   let usn = reqDataObject.usn;
 	let deleteKeywords = reqDataObject.keyword.deleteKeywords;
-	
+
 	if (paramsCheck.numberCheck([usn]) === false) {
     return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
   }

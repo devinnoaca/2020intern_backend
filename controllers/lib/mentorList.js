@@ -1,6 +1,5 @@
 
 const mentorListLogic = (careerResult, orderMentorNumResult) => {
-  console.log(careerResult[0]);
 	let libResult = new Array();
   let careerResultObject = {};
   let length = careerResult[0].length;
@@ -20,7 +19,6 @@ const mentorListLogic = (careerResult, orderMentorNumResult) => {
 		mentorList: []
   })
 	for (j = 0; j < orderMentorNumResult[0].length; j++) {
-    console.log(orderMentorNumResult[0][j].mentor_USN);
 		libResult[0].mentorList.push({
       "searched" : orderMentorNumResult[0][j].searched,
 			"usn": orderMentorNumResult[0][j].mentor_USN,
