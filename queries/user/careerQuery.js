@@ -1,5 +1,8 @@
 exports.getCareerQuery = `
-SELECT *
+SELECT
+  ID,
+  content,
+  user_USN
 FROM Career
 WHERE user_USN = ?;`
 

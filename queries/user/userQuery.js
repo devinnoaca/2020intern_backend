@@ -1,6 +1,17 @@
 // USER QUERY
 exports.getUserQuery = `
-SELECT *
+SELECT
+  USN,
+  ID,
+  name,
+  email,
+  password,
+  image_url,
+  description,
+  company,
+  permission,
+  noti_count,
+  type
 FROM User
 WHERE USN = ?;
 `;
