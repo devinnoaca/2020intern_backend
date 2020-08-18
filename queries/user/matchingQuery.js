@@ -27,7 +27,7 @@ SELECT
   matching_ID,
   request_message,
   response_message,
-  mentor_USN,
+  mentee_USN,
   matching_state,
   is_checked,
   matching_request_time,
