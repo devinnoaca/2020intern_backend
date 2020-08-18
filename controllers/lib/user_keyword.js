@@ -58,6 +58,5 @@ const checkKeywordLogic = async (reqDataObject, insertKeywords, deleteKeywords, 
 
 module.exports = {
 	userKeywordLogic,
-	checkKeywordLogic
-	//modifiedKeywordLogic,
+	checkKeywordLogic,
 }
