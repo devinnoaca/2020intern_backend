@@ -1,23 +1,24 @@
-<h1 align="center">Welcome to 2020intern-backend 👋</h1>
+<h1>2020intern-backend 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.0.0-blue.svg?cacheSeconds=2592000" />
 </p>
 
-## Install
+## 모듈 설치
 
 ```sh
 npm install
 ```
 
-## Usage
+## 실행
 
 ```sh
-npm run start
+npm start
 ```
 
-## Show your support
+## 설명
 
-Give a ⭐️ if this project helped you!
+MVC 모델 구조
 
 ***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+_This README was generated with ❤️ by 이노베이션 아카데미 서비스팀
+(https://github.com/open-inno/2020intern_backend)_
