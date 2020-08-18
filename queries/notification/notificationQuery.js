@@ -17,6 +17,7 @@ VALUES (?, ?, ?, ?, ?);`;
 
 exports.getUserNotificationQuery = `
 SELECT
+  user_noti_ID AS userNotiID,
   noti_ID AS notiID,
   matching_ID AS matchingID,
   sender AS oppositeName,
@@ -28,6 +29,4 @@ FROM
 WHERE
   receiver_USN = ? 
   AND sender is not null
-ORDER BY
-  noti_time
 ;`
