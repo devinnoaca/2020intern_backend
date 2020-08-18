@@ -58,7 +58,6 @@ app.use(session({
     maxAge: 24000 * 60 * 60 // 쿠키 유효기간 24시간
   }
 }));
-app.use(express.static(path.join(__dirname, 'public')));
 //app.use(morgan(morganFormat, { stream: logger.httpLogStream })); // NOTE: http request 로그 남기기
 app.use(morgan('combined', {stream}));
 
@@ -68,6 +67,7 @@ const matchingRouter = require('./routes/matching');
 const notificationRouter = require('./routes/notification');
 const authRouter = require('./routes/auth');
 
+app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use('/user', usersRouter);
 app.use('/main', mainRouter);
 app.use('/matching', matchingRouter);
