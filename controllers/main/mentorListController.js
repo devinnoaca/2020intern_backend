@@ -20,6 +20,7 @@ const getMentorListController = async (req, res, next) => {
     let orderMentorNumResult = await mentorListDAO.getOrderedMentorListDAO(reqDataObject);
 
     let allMentorListLib = mentorListLib.mentorListLogic(careerResult, orderMentorNumResult);
+    console.log(allMentorListLib);
     return res.status(200).send(allMentorListLib);
   } catch (err) {
     return res.status(500).json(err);

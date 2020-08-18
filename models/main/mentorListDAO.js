@@ -31,6 +31,7 @@ const getMentorListPageDAO = async (reqDataObject) => {
 const getOrderedMentorListDAO = async (reqDataObject) => {
   let keyword = reqDataObject.keyword;
   let pageNum = reqDataObject.pageNum;
+  console.log(pageNum);
   let starting = (pageNum - 1) * 6;  // 페이지마다 상위부터 6개씩 고름
 
   // if (paramsCheck.numberCheck([pageNum]) === false) {
@@ -48,6 +49,7 @@ const getOrderedMentorListDAO = async (reqDataObject) => {
       if (i != keyword.length - 1){query += `,`;}
   }
   query += `) GROUP BY name, company, mentor_USN HAVING searched >= 1 ORDER BY searched DESC LIMIT ${starting}, 6;`;
+
   let DBData = await conn.connection(query, []);
   return DBData;
 }
