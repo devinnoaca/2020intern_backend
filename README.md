@@ -1,6 +1,6 @@
 <h1>이노베이션 아카데미 2020intern-backend 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.0.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-0.0.2-blue.svg?cacheSeconds=2592000" />
 </p>
 
 ## Environment
@@ -13,13 +13,14 @@ macOS Catalina -version: 10.15.1
 <h3> 2. Server </h3>
  
 ```sh
-Node.js - Express -version: 
+Node.js -version: 12.18.3
+Express -version: 4.16.1
 ```
 
 <h3> 3. Database </h3>
  
 ```sh
-MySQL -version:
+MySQL -version: 8.0.21
 ```
 
 <br>
