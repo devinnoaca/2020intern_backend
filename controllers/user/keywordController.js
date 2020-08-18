@@ -39,6 +39,7 @@ const updateTotalKeywordController = async (req, res, next) => {
 
   try {
     let reqDataObject = lib.createReqDataObject(req.params, req.body);
+    // state: 토탈, 리코멘드
     let resultData = await userKeyword.checkKeywordLogic(reqDataObject, insertKeywords, deleteKeywords, state);
     return res.status(200).send(resultData);
   } catch (err) {

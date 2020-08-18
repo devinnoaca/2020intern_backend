@@ -37,8 +37,8 @@ const checkKeywordLogic = async (reqDataObject, insertKeywords, deleteKeywords, 
   else if (deleteKeywords.length === 0) {
 		console.log("delete_data 없음");
 		let insertKeywordResult;
-		if (state === "total") insertKeywordResult = await keywordDAO.insertRecommendKeywordDAO(reqDataObject);
-		else insertKeywordResult = await keywordDAO.insertTotalKeywordDAO(reqDataObject);
+		if (state === "total") insertKeywordResult = await keywordDAO.insertTotalKeywordDAO(reqDataObject);
+		else insertKeywordResult = await keywordDAO.insertRecommendKeywordDAO(reqDataObject);
 		return insertKeywordResult
   }
 

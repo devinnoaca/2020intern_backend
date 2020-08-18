@@ -137,6 +137,7 @@ const updateRecommendKeywordDAO = async (reqDataObject) => {
 }
 
 const insertRecommendKeywordDAO = async (reqDataObject) => {
+	console.log("###");
   let usn = reqDataObject.usn;
   let insertKeywords = reqDataObject.keyword.insertKeywords;
 
