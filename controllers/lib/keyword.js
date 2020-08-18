@@ -34,8 +34,6 @@ const keywordLogic = (categoryResult, keywordResult) => {
 		}
 	}
 
-	console.log(keywordList);
-
 	libResult.push({
 		allCategory: [],
 	})
