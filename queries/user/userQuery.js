@@ -39,8 +39,8 @@ INSERT
 INTO User(
   ID,
   password,
-  email,
   name,
+  email,
   image_url,
   description,
   company

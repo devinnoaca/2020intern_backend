@@ -1,0 +1,13 @@
+### 회원 가입(POST)
+POST http://localhost:3001/matching
+Content-Type: application/json
+
+{
+    "mentorUsn": 10,
+    "menteeUsn": 4,
+    "reqReason": "요청합니다.",
+    "keywordList": [{
+        "keywordName": ["CSS", "HTML"],
+        "categoryName": ["디자인", "디자인"]
+    }]
+}

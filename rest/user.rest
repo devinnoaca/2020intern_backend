@@ -13,6 +13,8 @@ Content-Type: application/json
     "company": "국민대"  
 }
 
+POST http://localhost:3001/user/inform/
+
 ### 유저 커리어 접근(GET)
 GET http://localhost:3001/user/career/3
 
