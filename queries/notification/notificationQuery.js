@@ -31,4 +31,5 @@ WHERE
   sender IS NOT NULL
 ORDER BY
   noti_time
+  DESC
 ;`
