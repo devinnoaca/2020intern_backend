@@ -28,19 +28,19 @@ const createMatchingDAO = async (reqDataObject) => {
 const createMatchingKeywordDAO = async (reqDataObject) => {
   let keywordName = reqDataObject.keywordList[0].keywordName;
   let categoryName = reqDataObject.keywordList[0].categoryName;
-  let insertId = reqDataObject.insertId;
+  let matchingId = reqDataObject.matchingId;
   let matchingKeywordCreateBindValue = [];
 
-  if (paramsCheck.numberCheck([insertId]) === false) {
+  if (paramsCheck.numberCheck([matchingId]) === false) {
     return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
   }
-  if (paramsCheck.omissionCheck([keywordName, categoryName, insertId])) {
+  if (paramsCheck.omissionCheck([keywordName, categoryName, matchingId])) {
     return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
   }
 
   for (let i = 0; i < keywordName.length; i++) {
     matchingKeywordCreateBindValue.push(
-      keywordName[i], categoryName[i], insertId,
+      keywordName[i], categoryName[i], matchingId,
     );
   }
 
