@@ -31,7 +31,6 @@ const getMentorListPageDAO = async (reqDataObject) => {
 const getOrderedMentorListDAO = async (reqDataObject) => {
   let keyword = reqDataObject.keyword;
   let pageNum = reqDataObject.pageNum;
-  console.log(pageNum);
   let starting = (pageNum - 1) * 6;  // 페이지마다 상위부터 6개씩 고름
 
   // if (paramsCheck.numberCheck([pageNum]) === false) {
