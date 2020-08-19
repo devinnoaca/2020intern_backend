@@ -1,5 +1,5 @@
 ### 회원 가입(POST)
-POST http://localhost:3001/matching
+POST http://localhost:3001/auth
 Content-Type: application/json
 
 {
