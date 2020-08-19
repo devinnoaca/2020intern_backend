@@ -12,10 +12,7 @@ const getKeywordListController = async (req, res, next) => {
   try {
     let categoryResult = await keywordListDAO.getCategoryDAO();
     let keywordResult = await keywordListDAO.getKeywordDAO();
-    let allKeywordLib = keywordLogicLib.keywordLogic(categoryResult, keywordResult);
-    let allKeywordResult = {
-      "allCategory": allKeywordLib,
-    }
+    let allKeywordResult = keywordLogicLib.keywordLogic(categoryResult, keywordResult);
     return res.status(200).send(allKeywordResult);
     //return res.render('career', {usn: usn, career: [...careers]});
   } catch (err) {

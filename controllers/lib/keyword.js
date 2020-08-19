@@ -58,8 +58,11 @@ const keywordLogic = (categoryResult, keywordResult) => {
 		}
 	}
 
-	//const reversed = libResult[0].allCategory.reverse();
-	return libResult[0].allCategory.reverse();
+	const reversed = libResult[0].allCategory.reverse();
+  const allKeywordResult = {
+    "allCategory": reversed,
+  }
+	return allKeywordResult;
 }
 
 module.exports = {
