@@ -2,18 +2,17 @@
 GET http://localhost:3001/user/inform/1
 
 ###
-PUT http://localhost:3001/user/inform/1
+PUT http://localhost:3001/user/inform/3
 Content-Type: application/json
 
 {
     "email": "jeongsik@kookmin.ac.kr",
-    "name": "이인평",
+    "name": "김정식",
     "image_url": "image3",
     "description": "테스트",
     "company": "국민대"  
 }
 
-POST http://localhost:3001/user/inform/
 
 ### 유저 커리어 접근(GET)
 GET http://localhost:3001/user/career/3
