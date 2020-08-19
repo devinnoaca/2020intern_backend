@@ -33,17 +33,3 @@ SET
   company = ?
 WHERE USN = ?;
 `;
-
-exports.createUserQuery = `
-INSERT
-INTO User(
-  ID,
-  password,
-  name,
-  email,
-  image_url,
-  description,
-  company
-)
-VALUES (?, ?, ?, ?, ?, ?, ?);
-`

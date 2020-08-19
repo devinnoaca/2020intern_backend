@@ -14,4 +14,16 @@ INTO Authorization(
   salt
 ) VALUES(?, ?, ?);
 `
-
+exports.createUserQuery = `
+INSERT
+INTO User(
+  ID,
+  password,
+  name,
+  email,
+  image_url,
+  description,
+  company
+)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+`

@@ -1,13 +1,13 @@
 ### 회원 가입(POST)
-POST http://localhost:3001/matching
+POST http://localhost:3001/auth
 Content-Type: application/json
 
 {
-    "mentorUsn": 10,
-    "menteeUsn": 4,
-    "reqReason": "요청합니다.",
-    "keywordList": [{
-        "keywordName": ["CSS", "HTML"],
-        "categoryName": ["디자인", "디자인"]
-    }]
+    "id": "test_id3",
+    "password": "1234",
+    "name": "테스터",
+    "email": "test@naver.com",
+    "imageURL": "Image",
+    "description": "안녕하세요.",
+    "company": "국민대"
 }

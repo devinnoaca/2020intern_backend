@@ -7,7 +7,7 @@ const signUpDAO = async (reqDataObject) => {
   for (let i = 0; i < Object.keys(reqDataObject).length; i++) {
     signUpBindValue.push(reqDataObject[Object.keys(reqDataObject)[i]]);
   }
-  let dbData = await conn.connection(userQuery.createUserQuery, signUpBindValue);
+  let dbData = await conn.connection(authQuery.createUserQuery, signUpBindValue);
   return await dbData;
 }
 
