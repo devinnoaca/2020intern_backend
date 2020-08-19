@@ -16,11 +16,11 @@ const createUserNotificationDAO = async (reqDataObject) => {
   let requestTime = reqDataObject.time;
   let senderUsn = "", receiverUsn = "";
   if (reqDataObject.state === undefined) {
-    senderUsn = reqDataObject.mentorUsn;
-    receiverUsn = reqDataObject.menteeUsn;
-  } else {
     senderUsn = reqDataObject.menteeUsn;
     receiverUsn = reqDataObject.mentorUsn;
+  } else {
+    senderUsn = reqDataObject.mentorUsn;
+    receiverUsn = reqDataObject.menteeUsn;
   }
   let matchingId = reqDataObject.matchingId;
 
