@@ -42,6 +42,10 @@ npm start
 <br>
 
 
+## 개발 인원 및 기간
+- 개발 기간 : 2020/06/29 ~ 2020/08/14
+- 개발 인원 : 프론트엔드 2명, 백엔드(서버) 3명, 운영 : 3명
+- [프론트엔드 github) [https://github.com/open-inno/2020intern_front]
 
 ## Description
 
