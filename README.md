@@ -46,7 +46,8 @@ npm start
 ## Description
 
 <h2> 1. 구조 </h2>
-```
+
+```bash
 │  .DS_Store
 │  .env.development
 │  .gitignore
@@ -169,6 +170,7 @@ npm start
         user.ejs
         
 ```
+
 <h2> 2. </h2>
 <br>
 <br>
