@@ -1,0 +1,141 @@
+openapi: 3.0.0
+info:
+  title: Matching Service
+  description: Innovation Academy
+  version: 1.0.0
+servers:
+  - description: Innovation Academy Matching Service
+    url: http://localhost:3001/
+tags:
+  - name: user
+paths:
+  '/user/inform/{usn}':
+    get:
+      tags:
+        - user
+      summary: Get user's information
+      parameters:
+        - name: usn
+          in: path
+          description: User serial number
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A User Object
+          content:
+            application/json:
+              schema:
+                type: object
+    put:
+      tags:
+        - user
+      summary: Update user's information
+      parameters:
+        - name: usn
+          in: path
+          description: User serial number
+          require: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - name
+                - image_url
+                - description
+                - company
+              properties:
+                email:
+                  description: Updated user's email
+                  type: string
+                name:
+                  description: Updated user's name
+                  type: string
+                image_url:
+                  description: Updated user's image url
+                  type: string
+                description:
+                  description: Updated user's description
+                  type: string
+                company:
+                  description: Updated user's company
+                  type: string
+  '/user/career/{usn}':
+    get:
+      tags:
+        - user
+      summary: Get user's career
+      parameters:
+        - name: usn
+          in: path
+          description: User serial number
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A User Object
+          content:
+            application/json:
+              schema:
+                type: object
+    post:
+      tags:
+        - user
+      summary: Update user's career
+      parameters:
+        - name: usn
+          in: path
+          description: User serial number
+          require: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - name
+                - image_url
+                - description
+                - company
+              properties:
+                email:
+                  description: Updated user's email
+                  type: string
+                name:
+                  description: Updated user's name
+                  type: string
+                image_url:
+                  description: Updated user's image url
+                  type: string
+                description:
+                  description: Updated user's description
+                  type: string
+                company:
+                  description: Updated user's company
+                  type: string
+
+
