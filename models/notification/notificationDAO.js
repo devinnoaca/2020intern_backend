@@ -13,7 +13,7 @@ const notificationQuery = require('../../queries/notification/notificationQuery'
 
 const createUserNotificationDAO = async (reqDataObject) => {
   let notiId = null;
-  let requestTime = reqDataObject.time;
+  let time = reqDataObject.time;
   let senderUsn = "", receiverUsn = "";
   if (reqDataObject.state === undefined) {
     senderUsn = reqDataObject.menteeUsn;
@@ -28,12 +28,12 @@ const createUserNotificationDAO = async (reqDataObject) => {
 	if (paramsCheck.numberCheck([senderUsn, receiverUsn]) === false) {
     return res.status(500).json({ statusCode: 502, message: `Model: 정수가 아닌 파라미터` })
   }
-  if (paramsCheck.omissionCheck([requestTime, senderUsn, receiverUsn]) === false) {
+  if (paramsCheck.omissionCheck([time, senderUsn, receiverUsn]) === false) {
     return res.status(500).json({ statusCode: 502, message: `Model: 파라미터 누락` })
   }
 
   let notificationCreateBindValue = [
-    notiId, requestTime, senderUsn, receiverUsn, matchingId
+    notiId, time, senderUsn, receiverUsn, matchingId
   ];
   let DBData = await conn.connection(notificationQuery.insertUserNotificationQuery, notificationCreateBindValue);
   return DBData;
