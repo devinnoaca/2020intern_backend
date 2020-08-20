@@ -41,9 +41,137 @@ npm start
 ```
 <br>
 
+
+
 ## Description
 
 <h2> 1. 구조 </h2>
+'''
+폴더 PATH의 목록입니다.
+볼륨 일련 번호는 2445-6DBC입니다.
+C:.
+│  .DS_Store
+│  .env.development
+│  .gitignore
+│  app.js
+│  logger.js
+│  package-lock.json
+│  package.json
+│  README.md
+│  
+├─bin
+│      www
+│      
+├─controllers
+│  ├─auth
+│  │      authController.js
+│  │      
+│  ├─lib
+│  │      createReqDataObject.js
+│  │      date.js
+│  │      keyword.js
+│  │      matchingList.js
+│  │      mentorList.js
+│  │      user_keyword.js
+│  │      
+│  ├─main
+│  │      keywordController.js
+│  │      mentorListController.js
+│  │      
+│  ├─matching
+│  │      matchingController.js
+│  │      
+│  ├─notification
+│  │      notificationController.js
+│  │      
+│  └─user
+│          careerController.js
+│          keywordController.js
+│          matchingController.js
+│          userController.js
+│          
+├─database
+│      pool.js
+│      
+├─lib
+│      paramsCheck.js
+│      
+├─models
+│  ├─auth
+│  │      authDAO.js
+│  │      
+│  ├─lib
+│  │      conn.js
+│  │      userKeyword.js
+│  │      
+│  ├─main
+│  │      keywordListDAO.js
+│  │      mentorListDAO.js
+│  │      
+│  ├─matching
+│  │      matchingDAO.js
+│  │      
+│  ├─notification
+│  │      notificationDAO.js
+│  │      
+│  └─user
+│          careerDAO.js
+│          keywordDAO.js
+│          matchingDAO.js
+│          userDAO.js
+│          
+├─public
+│  │  swagger.yaml
+│  │  
+│  ├─docs
+│  │      
+│  ├─images
+│  │      
+│  └─stylesheets
+│          
+├─queries
+│  ├─auth
+│  │      authQuery.js
+│  │      
+│  ├─main
+│  │      keywordListQuery.js
+│  │      mentorListQuery.js
+│  │      
+│  ├─matching
+│  │      matchingQuery.js
+│  │      
+│  ├─notification
+│  │      notificationQuery.js
+│  │      
+│  └─user
+│          careerQuery.js
+│          keywordQuery.js
+│          matchingQuery.js
+│          userQuery.js
+│          
+├─rest
+│      auth.rest
+│      main.rest
+│      matching.rest
+│      notification.rest
+│      user.rest
+│      
+├─routes
+│      auth.js
+│      main.js
+│      matching.js
+│      notification.js
+│      user.js
+│      
+└─views
+        career.ejs
+        keyword.ejs
+        login.ejs
+        recommend_keyword.ejs
+        total_keyword.ejs
+        user.ejs
+        
+'''
 <h2> 2. </h2>
 <br>
 <br>
