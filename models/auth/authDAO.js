@@ -30,9 +30,18 @@ const signInDAO = async (reqDataObject) => {
   return await dbData;
 }
 
+const updateUserPassword = async (reqDataObject) => {
+  let updateUserPasswordBindValue =  reqDataObject;
+  let query = userQuery.getUserQuery;
+  query += authQuery.updateUserPasswordQuery;
+  let dbData = await conn.connection(authQuery.updateUserPasswordQuery, updateUserPasswordBindValue);
+  return await dbData;
+}
+
 
 module.exports = {
   signUpDAO,
   signInDAO,
   authDAO,
+  updateUserPassword,
 }

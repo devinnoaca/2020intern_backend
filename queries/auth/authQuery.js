@@ -27,3 +27,10 @@ INTO User(
 )
 VALUES (?, ?, ?, ?, ?, ?, ?);
 `
+
+exports.updateUserPasswordQuery = `
+UPDATE User
+SET
+  password = ?
+WHERE id = ?;
+`;
