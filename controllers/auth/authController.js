@@ -53,7 +53,7 @@ const signInController = async (req, res, next) => {
   let signInResult = await signUpDAO.signInDAO(id);
   let userResult = await userDAO.getUserIdDAO(id);
 
-  if (signInResult[0][0] === undefined) {
+  if ((signInResult[0][0] === undefined) && (userResult[0][0].type !== 2)) {
     let salt = Math.round((new Date().valueOf() * Math.random())) + "";
     let hashPassword = crypto.createHash("sha512").update(password + salt).digest("hex");
     let reqAuthDataObject = {
