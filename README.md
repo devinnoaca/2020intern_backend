@@ -46,10 +46,7 @@ npm start
 ## Description
 
 <h2> 1. 구조 </h2>
-'''
-폴더 PATH의 목록입니다.
-볼륨 일련 번호는 2445-6DBC입니다.
-C:.
+```
 │  .DS_Store
 │  .env.development
 │  .gitignore
@@ -171,7 +168,7 @@ C:.
         total_keyword.ejs
         user.ejs
         
-'''
+```
 <h2> 2. </h2>
 <br>
 <br>
