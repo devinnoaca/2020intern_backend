@@ -47,6 +47,7 @@ npm start
 - 개발 인원 : 프론트엔드 2명, 백엔드(서버) 3명, 운영 : 3명
 - [프론트엔드 github) [https://github.com/open-inno/2020intern_front]
 
+<br>
 
 ## 사용 기술
 - Java script, Node.js
