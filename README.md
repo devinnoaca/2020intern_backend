@@ -56,30 +56,15 @@ npm start
 
 
 ## 구현 기능
+- 유저 생성, 권한 설정
+- (유저/전체) 정보 생성, 수정, 삭제
+  - 정보
+  - 커리어
+  - 키워드
+- 멘토 검색 및 결과 정렬
+- 매칭 생성
 ### 공통 라이브러리
 - parameter 체크
-### Controller
-#### Auth
-- 권한 Controller
-#### lib
-- 요청 생성 시간 기록
-- 시간 계산
-- 키워드
-- 매칭 리스트
-- 멘토 리스트
-- 유저의 키워드
-#### main
-- 키워드 Controller
-- 멘토 리스트 Controller
-#### matching
-- 매칭 Controller
-#### notification
-- 알림 Controller
-#### user
-- 경력 Controller
-- 키워드 Controller
-- 매칭 Controller
-- 유저 Controller
 
 
 
