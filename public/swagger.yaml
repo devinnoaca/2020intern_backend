@@ -35,7 +35,36 @@ paths:
                   USN:
                     type: integer
                   ID:
-                    type: 
+                    type: string 
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  password:
+                    type: string
+                  image_url:
+                    type: string
+                  description:
+                    type: string
+                  company:
+                    type: string
+                  permission:
+                    type: integer
+                  noti_count:
+                    type: integer
+                  type:
+                    type: integer
+        '500':
+          description: Parameter problems
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  message:
+                    type: string
     put:
       tags:
         - user
