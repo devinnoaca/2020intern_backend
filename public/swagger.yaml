@@ -5,7 +5,7 @@ info:
   version: 1.0.0
 servers:
   - description: Innovation Academy Matching Service
-    url: http://localhost:3001/
+    url: http://10.19.247.175:3001/
 tags:
   - name: user
 paths:
