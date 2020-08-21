@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
+const cors = require('cors');
 const {stream} = require('./logger');
 const bodyParser = require('body-parser');
 const session = require('express-session');
@@ -67,6 +68,7 @@ const matchingRouter = require('./routes/matching');
 const notificationRouter = require('./routes/notification');
 const authRouter = require('./routes/auth');
 
+app.use(cors());
 app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use('/user', usersRouter);
 app.use('/main', mainRouter);
