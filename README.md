@@ -47,6 +47,15 @@ npm start
 - 개발 인원 : 프론트엔드 2명, 백엔드(서버) 3명, 운영 : 3명
 - [프론트엔드 github) [https://github.com/open-inno/2020intern_front]
 
+
+# 사용 기술
+- Java script, Node.js
+- MySQL2 (2.1.0)
+- nodemon (2.0.4), express (4.16.1)
+- winston (3.3.3), crypto (1.0.1)
+
+
+
 ## Description
 
 <h2> 1. 구조 </h2>
@@ -177,7 +186,7 @@ npm start
 
 <h2> 2. 소개</h2>
 
-### 프로젝트의 설명
+### 프로젝트의 목적
 이노베이션 아카데미의 학생들과 멘토단 사이의 매칭을 위한 멘토링 사이트.
 
 ### 사이트 사용 방법 
