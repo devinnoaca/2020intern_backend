@@ -48,13 +48,45 @@ npm start
 - [프론트엔드 github) [https://github.com/open-inno/2020intern_front]
 
 
-# 사용 기술 및 구현 기능
 ## 사용 기술
 - Java script, Node.js
 - MySQL2 (2.1.0)
 - nodemon (2.0.4), express (4.16.1)
 - winston (3.3.3), crypto (1.0.1)
 
+
+## 구현 기능
+### 공통 라이브러리
+- parameter 체크
+### Controller
+#### Auth
+- 권한 Controller
+#### lib
+- 요청 생성 시간 기록
+- 시간 계산
+- 키워드
+- 매칭 리스트
+- 멘토 리스트
+- 유저의 키워드
+#### main
+- 키워드 Controller
+- 멘토 리스트 Controller
+#### matching
+- 매칭 Controller
+#### notification
+- 알림 Controller
+#### user
+- 경력 Controller
+- 키워드 Controller
+- 매칭 Controller
+- 유저 Controller
+
+
+
+## API Swagger
+```sh
+npm run api
+```
 
 
 ## Description
