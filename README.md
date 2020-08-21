@@ -3,16 +3,6 @@
   <img alt="Version" src="https://img.shields.io/badge/version-0.0.2-blue.svg?cacheSeconds=2592000" />
 </p>
 
-# django
-> 파이썬 웹 프레임워크
-* MTV 패턴
-
-## 기초 내용
-### 설치
-```bash
-$ pip install django==2.1.15
-```
-* 수업에서는 `2.1.15` 를 기준으로 진행 예정입니다.
 
 ## Environment
 <h3> &nbsp; &nbsp; &nbsp; 1. OS </h3>
@@ -52,7 +42,6 @@ npm start
 <br>
 
 ## Description
-
 
 <h2> 1. 구조 </h2>
 <h2> 2. </h2>
