@@ -48,7 +48,8 @@ npm start
 - [프론트엔드 github) [https://github.com/open-inno/2020intern_front]
 
 
-# 사용 기술
+# 사용 기술 및 구현 기능
+## 사용 기술
 - Java script, Node.js
 - MySQL2 (2.1.0)
 - nodemon (2.0.4), express (4.16.1)
