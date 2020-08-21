@@ -8,6 +8,9 @@ servers:
     url: http://10.19.247.182:3001/
 tags:
   - name: user
+  - name: main
+  - name: matching
+  - name: auth
 paths:
   '/user/inform/{usn}':
     get:
@@ -28,6 +31,11 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  USN:
+                    type: integer
+                  ID:
+                    type: 
     put:
       tags:
         - user
@@ -137,5 +145,362 @@ paths:
                 company:
                   description: Updated user's company
                   type: string
-
+  '/user/{userType}/matching/{state}/{usn}':
+    get:
+      tags:
+        - user
+      summary: Get user's matching information
+      parameters:
+        - name: userType
+          in: path
+          description: User type
+          required: true
+          schema:
+            type: integer
+        - name: state
+          in: path
+          description: Matching's state
+          required: true
+          schema:
+            type: integer
+        - name: usn
+          in: path
+          description: User serial number
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Matching Object which has state in URL
+          content:
+            application/json:
+              schema:
+                type: object
+  '/user/keyword/{usn}':
+    get:
+      tags:
+        - user
+      summary: Get user's total keywords and recommend keywords 
+      parameters:
+        - name: usn
+          in: path
+          description: User serial number
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: All keyword object
+          content:
+            application/json:
+              schema:
+                type: object
+  '/user/keyword/total/{usn}':
+    post:
+      tags:
+        - user
+      summary: Update user's total keyword
+      parameter:
+        - name: usn
+          in: path
+          description: User serial number
+          required: true
+          schema:
+            type: ingeter
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - keyword
+              properties:
+                keyword:
+                  description: user's insert keywords and delete keywords
+                  type: object
+                  properties:
+                    insertKeywords:
+                      description: user's insert keywords
+                      type: array
+                      items:
+                        type: integer
+                    deleteKeywords:
+                      description: user's delete keywords
+                      type: array
+                      items:
+                        type: integer
+  '/user/keyword/recommend/{usn}':
+    post:
+      tags:
+        - user
+      summary: Update user's recommend keyword
+      parameter:
+        - name: usn
+          in: path
+          description: User serial number
+          required: true
+          schema:
+            type: ingeter
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - keyword
+              properties:
+                keyword:
+                  description: user's insert keywords and delete keywords
+                  type: object
+                  properties:
+                    insert_keywords:
+                      description: user's insert keywords
+                      type: array
+                      items:
+                        type: integer
+                    delete_keywords:
+                      description: user's delete keywords
+                      type: array
+                      items:
+                        type: integer
+  '/main/list':
+    post:
+      tags:
+        - main
+      summary: Get mentor list searched with user's recommend keywords
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - keyword
+                - pageNum
+              properties:
+                keyword:
+                  description: array which has keyword's id
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      keywordId:
+                        description: keyword's id
+                        type: integer
+                pageNum:
+                  description: number of pages
+                  type: integer
+  '/main/keyword':
+    get:
+      tags:
+        - main
+      summary: Get all keywords
+      responses:
+        "200":
+          description: Object containing all keywords classified by category 
+          content:
+            application/json:
+              schema:
+                type: object
+  '/main/page':
+    post:
+      tags:
+        - main
+      summary: Get mentor list page
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - keyword
+              properties:
+                keyword:
+                  description: array which has keyword's id
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      keywordId:
+                        description: keyword's id
+                        type: integer
+  '/matching':
+    post:
+      tags:
+        - matching
+      summary: Request matching
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - mentorUsn
+                - menteeUsn
+                - reqReason
+              properties:
+                mentorUsn:
+                  description: mentor's serial number
+                  type: integer
+                menteeUsn:
+                  description: mentee's serial number
+                  type: integer
+                reqReason:
+                  description: matching request reason
+                  type: string
+                keywordList:
+                  description: array in which an object containing categories and keywords is an element
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      keywordName:
+                        description: keyword's name
+                        type: string
+                      categoryName:
+                        description: category's name
+                        type: string
+  '/matching/{matching_id}':
+    put:
+      tags:
+        - matching
+      summary: Update matching
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - resMessage
+                - state
+                - menteeUsn
+                - mentorUsn
+              properties:
+                resMessage:
+                  description: response message
+                  type: string
+                state:
+                  description: updated matching state
+                  type: integer
+                menteeUsn:
+                  description: mentee's serial number
+                  type: integer
+                mentorUsn:
+                  description: mentor's serial number
+                  type: integer
+  '/auth':
+    post:
+      tags:
+        - auth
+      summary: Sign up process
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - password
+                - email
+                - name
+                - imageURL
+                - description
+                - company
+              properties:
+                id:
+                  description: user's id
+                  type: string
+                password:
+                  description: user's password
+                  type: string
+                email:
+                  description: user's email
+                  type: string
+                name:
+                  description: user's name
+                  type: string
+                imageURL:
+                  description: user's image url
+                  type: string
+                description:
+                  description: user's description
+                  type: string
+                company:
+                  description: user's company
+                  type: string
+  '/auth/login':
+    post:
+      tags:
+        - auth
+      summary: Sign in process
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - password
+              properties:
+                id:
+                  description: user's id
+                  type: string
+                password:
+                  description: user's password
+                  type: string
 
