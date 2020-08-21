@@ -47,14 +47,38 @@ npm start
 - 개발 인원 : 프론트엔드 2명, 백엔드(서버) 3명, 운영 : 3명
 - [프론트엔드 github) [https://github.com/open-inno/2020intern_front]
 
+<br>
 
-# 사용 기술 및 구현 기능
 ## 사용 기술
 - Java script, Node.js
 - MySQL2 (2.1.0)
 - nodemon (2.0.4), express (4.16.1)
 - winston (3.3.3), crypto (1.0.1)
 
+<br>
+
+## 구현 기능
+- 회원가입
+- 로그인, 로그아웃
+- 유저 생성, 권한 설정
+- (유저/전체) 정보 생성, 수정, 삭제
+  - 정보
+  - 커리어
+  - 키워드
+- 멘토 검색 및 결과 정렬
+- 매칭 생성, 조회
+
+<br>
+
+## 공통 라이브러리
+- parameter 체크
+
+<br>
+
+## API Swagger
+```sh
+npm run api
+```
 
 
 ## Description
