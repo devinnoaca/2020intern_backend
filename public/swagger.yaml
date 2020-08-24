@@ -59,12 +59,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  statusCode:
-                    type: integer
-                  message:
-                    type: string
+                $ref: '#/components/schemas/error'
     put:
       tags:
         - user
@@ -82,7 +77,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/successfulOperation'
+        '500':
+          description: Parameter problems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
       requestBody:
         content:
           application/json:
@@ -129,6 +130,16 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  career:
+                    $ref: '#/components/schemas/careers'
+        '500':
+          description: Parameter problems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+
     post:
       tags:
         - user
@@ -146,7 +157,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/successfulOperation'
+        '500':
+          description: Parameter problems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
       requestBody:
         content:
           application/json:
@@ -205,6 +222,17 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  matchingList:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/matching' 
+        '500':
+          description: Parameter problems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
   '/user/keyword/{usn}':
     get:
       tags:
@@ -224,6 +252,23 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  usn:
+                    type: integer
+                  allKeyword:
+                    type: array
+                    items:
+                      $ref: '#components/schemas/keyword'
+                  recommendKeyword:
+                    type: array
+                    items:
+                      $ref: '#components/schemas/keyword'
+        '500':
+          description: Parameter problems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
   '/user/keyword/total/{usn}':
     post:
       tags:
@@ -242,7 +287,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/successfulOperation'
+        '500':
+          description: Parameter problems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
       requestBody:
         content:
           application/json:
@@ -283,7 +334,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/successfulOperation'
+        '500':
+          description: Parameter problems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
       requestBody:
         content:
           application/json:
@@ -317,7 +374,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/successfulOperation'
+        '500':
+          description: Parameter problems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
       requestBody:
         content:
           application/json:
@@ -351,6 +414,26 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  allCategory:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        categoryId:
+                          type: integer
+                        categoryName:
+                          type: string
+                        keywordList:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/keyword'
+        '500':
+          description: Parameter problems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
   '/main/page':
     post:
       tags:
@@ -363,6 +446,15 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  totalSearch:
+                    type: integer
+        '500':
+          description: Parameter problems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
       requestBody:
         content:
           application/json:
@@ -391,7 +483,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/successfulOperation'
+        '500':
+          description: Parameter problems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
       requestBody:
         content:
           application/json:
@@ -434,7 +532,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/successfulOperation'
+        '500':
+          description: Parameter problems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
       requestBody:
         content:
           application/json:
@@ -469,7 +573,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/successfulOperation'
+        '500':
+          description: Parameter problems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
       requestBody:
         content:
           application/json:
@@ -517,6 +627,32 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  title:
+                    type: string
+                  session:
+                    type: object
+                    properties:
+                      cookies:
+                        type: object
+                        properties:
+                          originalMaxAge:
+                            type: integer
+                          expires:
+                            type: string
+                            format: date-time
+                          httpOnly:
+                            type: boolean
+                          path:
+                            type: string
+                      usn:
+                        type: integer
+        '500':
+          description: Parameter problems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
       requestBody:
         content:
           application/json:
@@ -532,4 +668,94 @@ paths:
                 password:
                   description: user's password
                   type: string
-
+components:
+  schemas:
+    successfulOperation:
+      type: array
+      nullable: true
+      items: 
+        type: object
+        properties:
+          fieldCount:
+            type: integer
+          affectedRows:
+            type: integer
+          insertId:
+            type: integer
+          info:
+            type: string
+          serverStatus:
+            type: integer
+          warningStatus:
+            type: integer
+          changedRows:
+            type: integer
+    careers:
+      type: array
+      nullable: true
+      items:
+        type: object
+        properties:
+          ID:
+            type: integer
+          content:
+            type: string
+          user_USN:
+            type: integer
+          type:
+            description: type for create(0), update(1), delete(2)
+            type: integer
+    error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+    matching:
+      type: object
+      properties:
+        matchingId:
+          type: integer
+        oppositeUsn:
+          type: integer
+        usn:
+          type: integer
+        oppositeName:
+          type: string
+        timeReq:
+          type: string
+          format: date-time
+        timeRes:
+          type: string
+          format: date-time
+          nullable: true
+        state:
+          type: integer
+        reqReason:
+          type: string
+        resReason:
+          type: string
+        isChecked:
+          type: integer
+        keywordList:
+          type: array
+          nullable: true
+          items: 
+            type: object
+            properties:
+              matchingId:
+                type: integer
+              keywordName:
+                type: string
+              categoryName:
+                type: string
+    keyword:
+      type: object
+      properties:
+        keywordId:
+          type: integer
+        keywordName:
+          type: string
+        categoryName:
+          type: string
